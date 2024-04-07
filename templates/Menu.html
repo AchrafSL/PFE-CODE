@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu template</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Menu.css') }}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <!-- <link type="text/css" rel="stylesheet" href="C:\Users\achra\OneDrive\Desktop\PFE\PFE-CODE\static\Menu.css">
+    --><script language="javascript" src="static\Menu.js"></script>
+
+</head>
+<body bgcolor="white" background="#" text = "black" Vlink = "purple" Link = "blue">
+    <!-- Menu template -->
+    <!-- Partie Fix -->
+    <div class="Menu" >
+       <!-- <img src ="C:\Users\achra\OneDrive\Desktop\PFE\PFE-CODE\static\logo.jpg" 
+        width = 44px height = 44px border = 2 alt = "alternative text"
+           align = "left" class="logo">
+       --> 
+       <img src="{{ url_for('static', filename='logo.jpg') }}" 
+       width="44px" height="43px" border="2" alt="alternative text"
+       align="left" class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
+       
+        <a href="{{ url_for('Offers') }}" >Offers</a> 
+        <a href="{{ url_for('ContactUS') }}">Contact-US</a> 
+        <a href="{{ url_for('FeedBacks') }}">FeedBacks</a> 
+        <a href="{{ url_for('AboutUS') }}">About-US</a> 
+
+        <span class="login">   
+          <a href="{{ url_for('Cart') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</a>         
+        <!-- Il faut faire des recherche sur font awesome 
+        because of it we can add icon easily -->        
+            <a href="{{ url_for('Login') }}">Login</a>
+        </span>
+
+    </div> 
+
+<!-- Partie qui change -->
+<br>
+{% block body %}
+<!-- imported from other html files -->
+{% endblock %}
+
+</body>
+</html>

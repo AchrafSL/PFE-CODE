@@ -1,0 +1,132 @@
+.wrapper * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.wrapper{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:31px;
+    left: 0px;
+
+}
+
+.header{
+    background-image:url('background1.png');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    position:relative;
+    padding:178px; 
+    color: white; 
+}
+.header h1{
+    width:50%;
+    font-size: 50px;
+    font-weight: 700;
+    font-family: sans-serif;
+}
+.header h3{
+    color: #FFF4A3;
+    font-weight: 700;
+    margin-top: 30px !important;
+    font-size: 23px;
+
+}
+.header a{
+    display:inline-block;
+    margin-top: 30px !important;
+
+    text-decoration: underline;
+}
+
+
+.section1{
+    background-color:#0066FF;
+    padding: 200px; 
+    color:white;
+
+
+}
+.section2{
+    background-color:rgb(0, 17, 202);
+    padding: 200px; 
+    color:white;
+
+}
+.section3{
+    background-color:rgba(0, 136, 255, 0.74);
+    padding: 200px; 
+    color:white;
+
+
+}
+.section4{
+    background-color:rgb(0, 142, 251);
+    padding: 200px; 
+    color:white;
+
+
+
+}
+.section5{
+    background-color:rgb(0, 174, 254);
+    padding: 200px; 
+    color:white;
+
+
+
+
+}
+.section6{
+    background-color:rgb(52, 55, 215);
+    padding: 200px; 
+    color:white;
+
+
+
+}
+ul{
+    list-style-type:disc;
+        /* (none/disc/square/circle/decimal) */
+    list-style-position:inside;
+}   
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+.wave .shape-fill {
+    fill:black;
+    
+}
+
+
+.wave .shape-fill6 {
+    fill: rgb(0, 174, 254);
+}
+
+.img1header{
+    position: absolute;
+    top: 79px;
+    left: 1px;
+    display:block;
+
+}

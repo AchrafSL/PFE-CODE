@@ -1,0 +1,29 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Apply styles to the header */
+.header {
+    background-image: url('header.jpg'); /* Set the background image */
+    background-size: cover; /* Adjust background size to cover the entire header */
+    background-position: center; /* Center the background image */
+    padding: 100px 0; /* Add padding to the top and bottom of the header */
+    text-align: center; /* Center align text within the header */
+    color: white; /* Set text color to white */
+}
+
+/* Style the h1 inside the header */
+.header h1 {
+    font-size: 36px; /* Set font size */
+    font-weight: bold; /* Set font weight to bold */
+}
+
+/* Additional styles for the content area */
+.content {
+    padding: 20px; /* Add some padding to the content area */
+    font-family: Arial, sans-serif; /* Set a fallback font family */
+    line-height: 1.6; /* Set the line height */
+}

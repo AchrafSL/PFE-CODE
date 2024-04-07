@@ -1,0 +1,27 @@
+.Menu {
+    background-color: #000000;
+    margin:-8px;
+  }
+  
+.Menu a {
+    display: inline-block; /* in line-block pour que les elements respect le padding  */
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 18px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+.login {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* on utilise un pseudo-class (:hover) a la classe de plusieurs appel a la fonction cree en utilisant JS 
+c'est facile comme ca */
+
+.Menu a:hover{
+  background-color:gray;
+}
+
