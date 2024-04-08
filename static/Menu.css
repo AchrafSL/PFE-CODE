@@ -1,3 +1,4 @@
+/* Top nav CSS */
 .Menu {
     background-color: #000000;
     margin:-8px;
@@ -13,7 +14,7 @@
   }
 
 .login {
-    position: absolute;
+   position: absolute;
     top: 0;
     right: 0;
 }
@@ -24,4 +25,8 @@ c'est facile comme ca */
 .Menu a:hover{
   background-color:gray;
 }
+
+/* End of Top nav CSS */
+
+
 

@@ -1,4 +1,4 @@
-create a footer
+create a footer  : flex is the solution for the problem of position at the bottom;
 top nav : done
 login:
 the rest :
