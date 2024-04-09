@@ -1,3 +1,14 @@
+.MenuWrapper * {
+  margin: 0;
+  padding: 0;
+}
+
+/* Body CSS */
+body{
+  overflow-x:hidden;
+}
+/* End of Body CSS */
+
 /* Top nav CSS */
 .Menu {
     background-color: #000000;
@@ -28,5 +39,187 @@ c'est facile comme ca */
 
 /* End of Top nav CSS */
 
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave svg {
+  position: relative;
+  display: block;
+  width: calc(190% + 1.3px);
+  height: 138px;
+}
+
+.wave .shape-fill {
+  fill:black;
+  
+}
+
+.wave .shape-fill6 {
+  fill:rgb(0, 174, 254);  
+}
+/* End of svg css */
+
+
+
+/* Footer CSS */
+
+.Footer {
+  text-align: center;
+  margin-left:-8px;
+  margin-bottom:-8px;
+}
+
+.FooterContent {
+  position:absolute;
+  background-color: #343a40;
+  color: white;
+  padding: 100px;
+  padding-bottom: 20px;
+  width: 100%;
+  z-index:-1;
+  text-align:left; /* Align the text content within the footer to the left */
+}
+
+/* Footer-Left */
+
+.FooterContent .footer-left{
+  display:inline-block;
+  width:30%;
+  margin-left:-40px;
+}
+.FooterContent h3 { 
+ /* position:relative;
+  right: -26%; */
+  color:white;
+  font-family: "Sofia", sans-serif;
+}
+.FooterContent h3 span{
+  color:yellowgreen;
+} 
+.FooterContent .footer-left-links{
+  color:white;
+  margin: 20px 0px 12px;
+}
+
+.FooterContent .footer-left-links a{
+  color:white;
+  display:inline-block;
+  line-height: 2;
+  font-family: "Audiowide", sans-serif;
+  font-size:13px;
+  text-decoration: none; /* pour ne pas avoire le text souligne  */
+}
+.FooterContent .footer-left-links a:hover{
+  color:lightblue;
+}
+
+
+.FooterContent .footer-left-CopyRight{
+  color:rgb(149, 148, 148);
+  margin:0;
+}
+
+/* Footer-Left END */
+
+/* Footer-Center */
+.FooterContent .footer-center{
+  display:inline-block;
+  width:30%;
+  margin-left:30px;
+  margin-right:-30px;
+}
+
+.FooterContent .footer-center i{
+  background-color:#3c4854;
+  border-radius:50%; /* to make the background like a Circle */
+  color:white;
+  font-size:21px; /* the size of the icon */
+  width:38px; /* width of the background */
+  height:38px; /* height of the background */
+  text-align:center; /* position of the icon in background  */
+  line-height:42px; /* adjust the position from the top (spacing between the top of the background and the  icon */
+  margin:10px 0px; 
+
+}
+
+.FooterContent .footer-center p{
+  display:inline-block;
+  margin-left:10px;
+  font-family: "Audiowide", sans-serif;
+  vertical-align:middle; /* align the text with the icon */
+
+}
+.FooterContent .footer-center .footer-center-map{
+  margin-top:20px;
+}
+
+
+.FooterContent .footer-center p span{
+  display:block;
+  line-height:2;
+  font-family: "Sofia", sans-serif;
+}
+
+.FooterContent .footer-center p a{
+  color:yellowgreen;
+  text-decoration:none;
+}
+.FooterContent .footer-center p a:hover{
+  color:lightblue;
+}
+
+
+/* Footer-Center END*/
+
+/* Footer-Right */
+
+.FooterContent .footer-right{
+  display:inline-block;
+  width:30%;
+}
+
+.FooterContent .footer-right-about{
+  color:rgb(149, 148, 148);
+  line-height:1.7;
+  margin-bottom:10px;
+}
+.FooterContent .footer-right-about span{
+  display:block;
+  color:white;
+  margin-bottom:10px;
+  font-family: "Audiowide", sans-serif;
+}
+
+.FooterContent .footer-right-media{
+  margin-top: 20px;
+}
+.FooterContent .footer-right-media a{ 
+  display:inline-block;
+  background-color:#3c4854;
+  border-radius:3px; /* to make the background like a Circle */
+  color:white;
+  font-size:21px; /* the size of the icon */
+  width:38px; /* width of the background */
+  height:38px; /* height of the background */
+  text-align:center; /* position of the icon in background  */
+  line-height:42px; /* adjust the position from the top (spacing between the top of the background and the  icon */
+  margin-right:3px;
+  margin-bottom:5px;
+}
+
+.FooterContent .footer-right-media a:hover{
+  background-color:lightblue;
+} 
+
+
+/* Footer-Right END */
+
+/* End of Footer CSS */
 
 
