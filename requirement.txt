@@ -1,4 +1,16 @@
-create a footer  : flex is the solution for the problem of position at the bottom;
+create a footer  : Done
 top nav : done
+
 login:
-the rest :
+signUp:
+{
+    What happen when u login or signUp
+}
++ logOut option 
+
+Create accounts : customer,Employer , Admin  Dans la base de donner 
+
+la page offres : changes automatiquement quant les offres change dans la bd;
+the rest : les autres pages sont facile
+
+Make the website reponsive 

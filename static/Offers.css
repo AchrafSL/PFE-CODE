@@ -16,14 +16,15 @@ Inline-Block : mix with Inline and Block
         
 */
 
-.HomeWrapper * {
+.OffersWrapper * {
     margin: 0;
     padding: 0;
 }
-.HomeWrapper{
+
+.OffersWrapper{
     display: absolute;
     margin:-8px;
-    margin-top:-27px
+    margin-top:-27px;
 }
 
 /* Header CSS */
