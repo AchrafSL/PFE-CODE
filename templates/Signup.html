@@ -5,84 +5,51 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Signup.css') }}">
     <script language="javascript" src="static\Signup.js"></script> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <br>
-    <!-- Header -->
-    <div class="header" align="center" >
-        <div align="top">
-            <h1>Signup</h1>
-            <h3 >Your Digital Destination for Endless Entertainment and Productivity</h3>
-            <br>
-             <a href="{{ url_for('Offers') }}">Offers are here !! </a>
+
+    <!-- Signup-Section1 --> <!-- Display:inline-block for elements in this div but display:block
+    for the Signup-section1 and other sections --> 
+    <div class="Signup-Section1">
+        <div class="Signup-Section1-left">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" 
+            width="70px" height="70px" border="0" alt="alternative text"
+            class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
             
+            <h1>Sign Up and Choose Your Plan Now on Damso <span>Stream</span></h1>
+            <h3>And Gain the Following Features:</h3>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Purchase the offer that you want.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Add the offers you want to the cart and send your choices when you're ready.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Track the status of your chosen offers.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Get exclusive updates and special promotions.</h5>
+            
+
+            
+        </div>
+
+        <div class="Signup-Section1-right">
+            <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
+            <h1>Sign Up</h1>
+            <h5>Already have an account?  <a class="Link2" href="{{ url_for('Login') }}">Log In</a></h5>
+            <form ACTION ="URL De traitement" TARGET="" name = "SignupForm" class="SignupForm">
+                <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="SignupInput">   
+                <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="SignupInput">  
+                <input type="text" autocomplet="off" autofocus placeholder="First Name" name="firstname" class="SignupInput">  
+                <input type="text" autocomplet="off" autofocus placeholder="Last Name" name="lastname" class="SignupInput">  
+                <input type="submit" value="Sign Up" class="Signup-input">  
+
+            </form>
         </div>
     </div>
 
-    <!-- Wave -->
-    <div class="wave">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-        </svg>
-    </div>
-
-    <!-- Section -->
-    <div align="center" class="section1"  >
-        <h2>Discover the World of Entertainment:</h2>
-        <ul align="center">
-            <li>Netflix: Dive into a vast library of movies, TV shows, and documentaries.</li>
-            <li>Prime Video: Explore exclusive originals, blockbuster movies, and popular TV series.</li>
-            <li>Disney+: Experience the magic of Disney, Pixar, Marvel, Star Wars, and National Geographic.</li>
-            <li>Hulu: Stream hit TV shows, movies, and Hulu Originals.</li>
-            <li>HBO Max: Enjoy groundbreaking series, exclusive movies, and HBO classics.</li>
-        </ul>
-    </div>
-
-
-
-    <!-- Section -->
-    <div align="center" class="section2"  >
-        <h2>Boost Your Productivity with Premium Tools:</h2>
-        <ul>
-            <li>Microsoft Office 365: Access Word, Excel, PowerPoint, and more for seamless productivity.</li>
-            <li>Adobe Creative Cloud: Unleash your creativity with Photoshop, Illustrator, Premiere Pro, and other powerful tools.</li>
-            <li>Google Workspace: Collaborate effortlessly with Docs, Sheets, Slides, and Drive.</li>
-        </ul>
-    </div>
-
-
-    <!-- Section -->
-    <div align="center" class="section3"  >
-        <h2>Why Choose DAMSO Stream?</h2>
-        <ul>
-            <li>Convenience: Access all your favorite services in one place.</li>
-            <li>Variety: Explore a diverse selection of entertainment and productivity tools.</li>
-            <li>Quality: Enjoy high-definition streaming and premium software solutions.</li>
-            <li>Affordability: Get the best value with flexible subscription options.</li>
-        </ul>
-    </div>
-
-
-    <!-- Section -->
-    <div align="center" class="section4"  >
-        <h2>Start Your Ultimate Streaming Experience Today!</h2>
-        <button>Sign Up</button>
-    </div>
-
-
-    <!-- Section -->
-    <div align="center" class="section5"  >
-        <h2>Customer Testimonials:</h2>
-        <p> <U> <B> SOON !!!!</B></U>  </p>
-    </div>
 
     <!-- Wave -->
     <div class="wave">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill6"></path>
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
         </svg>
     </div> 
 
-
-</div> <!-- End of Div HomeWrapper-->
+</div> <!-- End of Div SignupWrapper-->
 {% endblock %}

@@ -5,24 +5,48 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Login.css') }}">
     <script language="javascript" src="static\Login.js"></script> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <br>
-    
-    <!-- Header -->
-    <div class="header" align="center" >
-        <div align="top">
-            <h1>LOGIN</h1>
-            <h3 >Your Digital Destination for Endless Entertainment and Productivity</h3>
-            <br>
-             <a href="{{ url_for('Offers') }}">Offers are here !! </a>
+
+    <!-- Login-Section1 --> <!-- Display:inline-block for elements in this div but display:block
+    for the Login-section1 and other sections --> 
+    <div class="Login-Section1">
+        <div class="Login-Section1-left">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" 
+            width="70px" height="70px" border="0" alt="alternative text"
+            class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
+            
+            <h1>Log In and Choose Your Plan Now on Damso <span>Stream</span></h1>
+            <h3>And Gain the Following Features:</h3>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Purchase the offer that you want.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Add the offers you want to the cart and send your choices when you're ready.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Track the status of your chosen offers.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Get exclusive updates and special promotions.</h5>
+            
+
             
         </div>
+
+        <div class="Login-Section1-right">
+            <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
+            <h1>Log In</h1>
+            <h5>Don't have an account? <a class="Link2" href="{{ url_for('Signup') }}">Sign up</a></h5>
+            <form ACTION ="URL De traitement" TARGET="" name = "LoginForm" class="LoginForm">
+                <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="LoginInput">   
+                <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="LoginInput">  
+                <input type="submit" value="Forgot Passowrd?" class="passwordForgot-input">  
+                <input type="submit" value="Login" class="Login-input">  
+
+            </form>
+        </div>
     </div>
+
 
     <!-- Wave -->
     <div class="wave">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill6"></path>
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
         </svg>
     </div> 
 

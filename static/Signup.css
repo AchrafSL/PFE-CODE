@@ -16,6 +16,9 @@ Inline-Block : mix with Inline and Block
         
 */
 
+/* I Found some problems in Inline-block so i used flex when i add some content in the div 
+every thing get messy*/
+
 .SignupWrapper * {
     margin: 0;
     padding: 0;
@@ -27,82 +30,158 @@ Inline-Block : mix with Inline and Block
     margin-top:-27px;
 }
 
-/* Header CSS */
-.header{
-    margin-top: auto;
-    background-image:url('background1.png');
+/* Signup-Section1 */
+.Signup-Section1{
+	display:flex;
+    justify-content: space-between;
+    background-image:url('Network-Image.jpg');
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;
+    height:60%;
     padding:178px; 
     color: white; 
+    width:100%;
 }
+/* Signup-Section1 END */
 
-.header h1{
+/* Signup-Section1-left */
+.Signup-Section1-left{
+    width:32.5%;
+    margin-left:-80px;
+    margin-top:18px;
+
+}
+.Signup-Section1-left h1{
+    margin-top:30px;
     width:50%;
-    font-size: 50px;
-    font-weight: 700;
-    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "Audiowide", sans-serif;
+
 }
 
-.header h3{
+.Signup-Section1-left img{
+    border-radius: 50%;
+
+}
+.Signup-Section1-left h3{
+    margin-top:20px;
     color: #FFF4A3;
-    font-weight: 700;
-    margin-top: 30px !important;
-    font-size: 23px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+.Signup-Section1-left span{
+    color:yellowgreen;
 
 }
 
-.header a{
-    display:inline-block;
-    margin-top: 30px !important;
-    text-decoration: underline;
-    font-family:'Source Sans Pro', sans-serif;  
-}
-/* End of header CSS */
+.Signup-Section1-left h5{
+    margin-top:20px;
+    font-family: Verdana, sans-serif;
 
-/* Sections CSS */ 
-.section1{
-    background-color:#0066FF;
-    padding: 200px; 
+}
+
+/* Signup-Section1-left END */
+
+
+
+/* Signup-Section1-right */
+.Signup-Section1-right{
+    position:relative;
+    width:451px;
+    height:520px;
+    border-radius:14px;
+    background-color: white;
+    margin-right:220px;
+    margin-top:-120px;  
+    color:black;
+}
+
+.Signup-Section1-right h1{
+    text-align:left;
+    margin-top:50px;
+    margin-left:50px;
+    font-family: 'Montserrat', sans-serif;
+    color:black;
+}
+
+.Signup-Section1-right .Link1{
+    position:absolute;
+    top:20px;
+    right:20px;
+    text-decoration: none;
+    color:black;
+}
+
+.Signup-Section1-right h5{
+    font-family: 'Montserrat', sans-serif;
+    text-align:right;
+    margin-top:45px;
+    margin-right:50px;
+
+}
+
+.Signup-Section1-right .Link2{
+    text-decoration: none;
+    color:yellowgreen;
+}
+.Signup-Section1-right .SignupForm{
+    margin-top:10%;
+}
+
+.Signup-Section1-right .SignupInput{
+    position:relative;
+    display:block;
+    width:80%;
+    left:8%;
+    right:20%;
+    margin-top:20px;
+    margin-bottom:10px;
+    padding:10px;
+    border-radius: 25px;
+
+}
+
+
+.Signup-Section1-right .Signup-input{
+    position:relative;
+    display:block;
+    width:85%;
+    left:8%;
+    right:20%;
+    margin-top:30px;
+    margin-bottom:10px;
+    padding:10px;
+    border-radius: 4px;
+    background-color: #04AA6D;
     color:white;
 }
 
-.section2{
-    background-color:rgb(0, 17, 202);
-    padding: 200px; 
-    color:white;
-}
 
-.section3{
-    background-color:rgba(0, 136, 255, 0.74);
-    padding: 200px; 
-    color:white;
-}
 
-.section4{
-    background-color:rgb(0, 142, 251);
-    padding: 200px; 
-    color:white;
-}
+/* Signup-Section1-right END */
 
-.section5{
-    background-color:rgb(0, 174, 254);
-    padding: 200px; 
-    color:white;
-}
-/* End of sections CSS*/
 
-ul{
-    list-style-type:disc;
-        /* (none/disc/square/circle/decimal) */
-    list-style-position:inside;
-}   
 
-a{
-    text-decoration:none;
-    color:white;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Wave svg from https://www.shapedivider.app/ */
 .wave {
@@ -124,9 +203,6 @@ a{
     
 }
 
-.wave .shape-fill6 {
-    fill:rgb(0, 174, 254);  
-}
 /* End of svg css */
 
 

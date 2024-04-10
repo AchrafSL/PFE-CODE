@@ -1,7 +1,13 @@
 create a footer  : Done
 top nav : done
 
-login: 
+login:{
+
+/* I Found some problems in Inline-block so i used flex when i add some content in the div 
+every thing get messy*/
+
+}
+ 
 signUp:
 {
     What happen when u login or signUp
