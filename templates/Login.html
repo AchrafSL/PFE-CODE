@@ -32,12 +32,11 @@
             <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
             <h1>Log In</h1>
             <h5>Don't have an account? <a class="Link2" href="{{ url_for('Signup') }}">Sign up</a></h5>
-            <form ACTION ="URL De traitement" TARGET="" name = "LoginForm" class="LoginForm">
+            <form ACTION ="/Login-input" TARGET="" name = "LoginForm" class="LoginForm" method="POST">
                 <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="LoginInput">   
                 <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="LoginInput">  
-                <input type="submit" value="Forgot Passowrd?" class="passwordForgot-input">  
+                <input type="submit" value="Forgot Passowrd?" class="passwordForgot-input" onclick="passwordForgotActionChange()">  
                 <input type="submit" value="Login" class="Login-input">  
-
             </form>
         </div>
     </div>
