@@ -65,34 +65,6 @@ c'est facile comme ca */
 
 /* End of Top nav CSS */
 
-
-/* Wave svg from https://www.shapedivider.app/ */
-.wave {
-  position: absolute;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.wave svg {
-  position: relative;
-  display: block;
-  width: calc(190% + 1.3px);
-  height: 138px;
-}
-
-.wave .shape-fill {
-  fill:black;
-  
-}
-
-.wave .shape-fill6 {
-  fill:rgb(0, 174, 254);  
-}
-/* End of svg css */
-
-
-
 /* Footer CSS */
 
 .Footer {
