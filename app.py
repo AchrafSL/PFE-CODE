@@ -33,10 +33,17 @@ def AboutUS():
 def Cart():
     return render_template("Cart.html")
 
+# Signup
+@app.route('/Signup', methods=["GET"])
+def Signup():
+    return render_template("Signup.html")
+
 # Login
 @app.route('/Login', methods=["GET"])
 def Login():
     return render_template("Login.html")
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -13,6 +13,7 @@ body{
 .Menu {
     background-color: #000000;
     margin:-8px;
+    font-family: 'Montserrat';
   }
   
 .Menu a {
@@ -24,17 +25,42 @@ body{
     font-size: 17px;
   }
 
-.login {
+.Right-Menu {
    position: absolute;
-    top: 0;
-    right: 0;
+   top: 0;
+   right: 0;
 }
+
+.Right-Menu .Signup{
+  position:relative;
+  background-color:#04AA6D!important;
+  border-radius:25px;
+  font-size: 16px;
+  line-height: 0.65;
+  z-index:5;
+  margin-right:-40px;
+}
+
+.Right-Menu .Login{
+  position:relative;
+  background-color:rgb(217, 238, 225);
+  color:black;
+  border-radius:25px;
+  font-size: 16px;
+  line-height: 0.65;
+  z-index:4;
+  padding-left:45px;
+  margin-right:10px;
+
+}
+
+
 
 /* on utilise un pseudo-class (:hover) a la classe de plusieurs appel a la fonction cree en utilisant JS 
 c'est facile comme ca */
 
 .Menu a:hover{
-  background-color:gray;
+  background-color: #059862 !important  ;
 }
 
 /* End of Top nav CSS */

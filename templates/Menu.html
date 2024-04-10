@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
    <!-- <link type="text/css" rel="stylesheet" href="C:\Users\achra\OneDrive\Desktop\PFE\PFE-CODE\static\Menu.css">
     --><script language="javascript" src="static\Menu.js"></script>
-    <!-- "Audiowide" + "Sofia" from Google Fonts -->
+    <!-- "Audiowide" + "Sofia" + "Montserrat" from Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
 
 
 
@@ -36,11 +38,12 @@
         <a href="{{ url_for('FeedBacks') }}">FeedBacks</a> 
         <a href="{{ url_for('AboutUS') }}">About-US</a> 
 
-        <span class="login">   
-          <a href="{{ url_for('Cart') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</a>         
+        <span class="Right-Menu">   
+            <a href="{{ url_for('Cart') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</a>         
         <!-- Il faut faire des recherche sur font awesome 
-        because of it we can add icon easily -->        
-            <a href="{{ url_for('Login') }}">Login</a>
+        because of it we can add icon easily -->  
+            <a class="Signup" href="{{ url_for('Signup') }}">Sign Up</a>
+            <a class="Login" href="{{ url_for('Login') }}">Log in</a>
         </span>
 
     </div> 

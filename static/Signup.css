@@ -1,0 +1,133 @@
+/* 
+Display:
+
+Block :   Example(div)
+        take full width if there is no width
+        add line break;
+        Respect padding , margin , width, height
+
+Inline :  Example(span)
+        Do not add line break;
+        Do not respect width,height
+        respect padding and margin but only in left + right ;
+
+Inline-Block : mix with Inline and Block
+        Respect padding , margin , width, height;
+        
+*/
+
+.SignupWrapper * {
+    margin: 0;
+    padding: 0;
+}
+
+.SignupWrapper{
+    display: absolute;
+    margin:-8px;
+    margin-top:-27px;
+}
+
+/* Header CSS */
+.header{
+    margin-top: auto;
+    background-image:url('background1.png');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    padding:178px; 
+    color: white; 
+}
+
+.header h1{
+    width:50%;
+    font-size: 50px;
+    font-weight: 700;
+    font-family: sans-serif;
+}
+
+.header h3{
+    color: #FFF4A3;
+    font-weight: 700;
+    margin-top: 30px !important;
+    font-size: 23px;
+
+}
+
+.header a{
+    display:inline-block;
+    margin-top: 30px !important;
+    text-decoration: underline;
+    font-family:'Source Sans Pro', sans-serif;  
+}
+/* End of header CSS */
+
+/* Sections CSS */ 
+.section1{
+    background-color:#0066FF;
+    padding: 200px; 
+    color:white;
+}
+
+.section2{
+    background-color:rgb(0, 17, 202);
+    padding: 200px; 
+    color:white;
+}
+
+.section3{
+    background-color:rgba(0, 136, 255, 0.74);
+    padding: 200px; 
+    color:white;
+}
+
+.section4{
+    background-color:rgb(0, 142, 251);
+    padding: 200px; 
+    color:white;
+}
+
+.section5{
+    background-color:rgb(0, 174, 254);
+    padding: 200px; 
+    color:white;
+}
+/* End of sections CSS*/
+
+ul{
+    list-style-type:disc;
+        /* (none/disc/square/circle/decimal) */
+    list-style-position:inside;
+}   
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+.wave .shape-fill {
+    fill:black;
+    
+}
+
+.wave .shape-fill6 {
+    fill:rgb(0, 174, 254);  
+}
+/* End of svg css */
+
+
+
