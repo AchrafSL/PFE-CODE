@@ -6,7 +6,14 @@ login:{
 /* I Found some problems in Inline-block so i used flex when i add some content in the div 
 every thing get messy*/
 
+Need to work on sessions (to do not login everytime)
+
+Input doesnt change border color solution:
+    outline:none;
 }
+
+
+
  
 signUp:
 {

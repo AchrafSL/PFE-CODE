@@ -38,10 +38,19 @@ def Cart():
 def Signup():
     return render_template("Signup.html")
 
+# Here i need to treat all posibilites and ForgotPwd case also: 
+# if it's hard just make a ForgotPwd page
 # Login
 @app.route('/Login', methods=["GET"])
 def Login():
-    return render_template("Login.html")
+    return render_template("Login.html",x = 0) 
+# x = 0 for the default 
+
+# x = 1 for ForgotPWD
+
+@app.route('/passwordForgot', methods=["POST"])
+def passwordForgot():
+    return render_template("Login.html",x = 1)
 
 
 

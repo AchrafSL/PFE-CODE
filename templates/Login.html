@@ -30,14 +30,29 @@
 
         <div class="Login-Section1-right">
             <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
+            {% if x == 0 %}
             <h1>Log In</h1>
             <h5>Don't have an account? <a class="Link2" href="{{ url_for('Signup') }}">Sign up</a></h5>
             <form ACTION ="/Login-input" TARGET="" name = "LoginForm" class="LoginForm" method="POST">
                 <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="LoginInput">   
                 <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="LoginInput">  
-                <input type="submit" value="Forgot Passowrd?" class="passwordForgot-input" onclick="passwordForgotActionChange()">  
+                <input type="submit" value="Forgot Password?" class="passwordForgot-input" onclick="passwordForgotActionChange()">  
                 <input type="submit" value="Login" class="Login-input">  
             </form>
+            {% else %}
+            <h1> Reset your password </h1>
+            <br>
+            <h6> If the account exist, we will email you instructions to reset the password </h6>
+            <br><hr align="center"><br>
+            <h2 style="margin-top:40px;margin-left:38px;">Email</h2>
+            <form action="/ResetPassword" name = "ResetPassword" class="ResetPasswordForm" method="POST">
+                <input type="text" placeholder="e-mail" autofocus autocomplete="off" class="ResetPasswordEmail"> 
+                <input type="button" value="Return to login" class="ReturnToLogin" onclick="ReturnToLoginActionChange()">
+                <input type="button" value="Reset Password" class="ResetPassword">
+            </form>
+
+
+            {% endif %}
         </div>
     </div>
 
