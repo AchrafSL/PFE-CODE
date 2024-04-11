@@ -165,6 +165,16 @@ every thing get messy*/
 }
 
 
+#errorMsg{
+    background-color: white;
+    display:none;
+    color:red;
+    margin-left:40px;
+    margin-top:20px;
+    margin-bottom:-18px;
+    font-family: 'Montserrat', sans-serif;
+}
+
 /* Signup-Section1-right END */
 
 

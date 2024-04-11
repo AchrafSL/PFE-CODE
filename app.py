@@ -1,4 +1,4 @@
-from flask import Flask, render_template,redirect
+from flask import Flask, render_template,redirect,request
 import mysql.connector
 
 app = Flask(__name__)
@@ -27,25 +27,7 @@ mycursor = myconnection.cursor()
 # mycursor.fetchall() return the rows as lists [(row1),...,(rowN)] and rows may have lot of columns
 # mycursor.fetchone() return only the first row 
 
-#Examples : --------------------------------------------------------------------------
-
-
-
-mycursor.execute("DELETE FROM CLIENT WHERE FirstName = 'pipo' ")
-myconnection.commit()
-
-
-
-
-
-
-
-
-
-
-
-
-
+# ------------------------------------------------------------------------------------
 
 
 
@@ -86,6 +68,18 @@ def Cart():
 @app.route('/Signup', methods=["GET"])
 def Signup():
     return render_template("Signup.html")
+
+@app.route('/SignUpInput',  methods=["POST"])
+def SignUpInput():
+    #Treate the data comming from the form :
+    email = request.form.get("email")
+    password = request.form.get("password")
+    firstname = request.form.get("firstname")
+    lastname = request.form.get("lastname")
+
+    return redirect("/Signup")
+
+
 
 # Login ----------------------------------------------------------------------------------
 

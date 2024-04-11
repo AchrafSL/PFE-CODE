@@ -32,11 +32,19 @@
             <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
             <h1>Sign Up</h1>
             <h5>Already have an account?  <a class="Link2" href="{{ url_for('Login') }}">Log In</a></h5>
-            <form ACTION ="/SignUpInput" method="POST" name = "SignupForm" class="SignupForm">
-                <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="SignupInput">   
+            <!-- 
+            The 'return' statement in the onsubmit="return validateForm()" attribute of a form tag controls
+            whether the form submission should proceed based on the result of the validation function. 
+            If the validation function returns false, the submission is canceled; 
+            if it returns true, the submission proceeds. 
+            This allows you to enforce validation rules before submitting the form to the server.
+            -->
+            <form ACTION ="/SignUpInput" method="POST" name = "SignupForm" class="SignupForm" onsubmit ="return validateForm()">
+                <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="SignupInput" >   
                 <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="SignupInput">  
                 <input type="text" autocomplet="off" autofocus placeholder="First Name" name="firstname" class="SignupInput">  
                 <input type="text" autocomplet="off" autofocus placeholder="Last Name" name="lastname" class="SignupInput">  
+                <h6 id="errorMsg"> Please fill in all fields </h6>
                 <input type="submit" value="Sign Up" class="Signup-input">  
 
             </form>
