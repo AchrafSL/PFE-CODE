@@ -2,6 +2,9 @@ create a footer  : Done
 top nav : done
 
 login:{
+    visual part is done 
+    need to verify if the account is in the data base or not; # Task2
+
 
 /* I Found some problems in Inline-block so i used flex when i add some content in the div 
 every thing get messy*/
@@ -17,6 +20,20 @@ Input doesnt change border color solution:
  
 signUp:
 {
+    visual part done ;
+
+    #TASK1 :
+    now i need to store the login in the Data base;  
+    handel the route /SignUpInput in app.py and 
+    Ofc i need to handel all the messy usr input;
+    for example:
+    not a proper email
+    not a proper password { all conditions of a password depends of how much security u want }
+    and fill all the info we need 
+    etc ....
+
+-------------------------------------------------------------------
+
     What happen when u login or signUp
 }
 + logOut option 

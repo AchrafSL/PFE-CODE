@@ -29,7 +29,7 @@ Inline-Block : mix with Inline and Block
 /* Header CSS */
 .header{
     margin-top: auto;
-    background-image:url('background1.png');
+    background-image:url('Network-Image.jpg');
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;

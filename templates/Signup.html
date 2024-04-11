@@ -32,7 +32,7 @@
             <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
             <h1>Sign Up</h1>
             <h5>Already have an account?  <a class="Link2" href="{{ url_for('Login') }}">Log In</a></h5>
-            <form ACTION ="URL De traitement" TARGET="" name = "SignupForm" class="SignupForm">
+            <form ACTION ="/SignUpInput" method="POST" name = "SignupForm" class="SignupForm">
                 <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="SignupInput">   
                 <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="SignupInput">  
                 <input type="text" autocomplet="off" autofocus placeholder="First Name" name="firstname" class="SignupInput">  
