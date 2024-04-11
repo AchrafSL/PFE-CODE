@@ -1,0 +1,132 @@
+    #Example-1 : insert one piece of data
+sql = "INSERT INTO Client (FirstName, LastName, Email,Password) VALUES (%s, %s, %s, %s)"
+data = ('Achraf','Salimi','thenewAchraf2020@gmail.com','Achraf@01')
+mycursor.execute(sql,data)
+
+mycursor.rowcount # will give u 1 because we stored 1 piece of data
+mycursor.lastrowid # return the id of the var(with AUTO_INCREMENT) for the last row else return 0 
+
+# here the insert need to be commited with :
+myconnection.commit()  # Save
+
+----------------------------------------------------------------------------------------------------
+
+    #Example-2 : insert a list of data
+sql = "INSERT INTO Client (FirstName, LastName, Email,Password) VALUES (%s, %s, %s, %s)"
+data = [ 
+   ('Achraf','Salimi','thenewAchraf2020@gmail.com','Achraf@01'), 
+  ('Hicham','Salimi','thenewHicham2020@gmail.com','Hicham@01' ),
+ ('pipo','Salimi','thenewpipo2020@gmail.com','pipo@01' )
+]
+mycursor.executemany(sql,data)
+
+mycursor.rowcount # will give u 3 because we stored 1 pieces of data
+mycursor.lastrowid # return the id of the var(with AUTO_INCREMENT) for the last row else return 0 
+
+myconnection.commit()
+
+------------------------------------------------------------------------------------------------
+
+    #Example-3 : Select data from the table
+
+# mycursor.execute("SELECT * from CLIENT")
+
+mycursor.execute("SELECT FirstNamefrom CLIENT")
+
+myresults = mycursor.fetchall() 
+
+for row in myresults:   # In py we can print lists 
+    print(row)
+
+------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------
+
+    #Example-4 : Select data from the table
+
+
+mycursor.execute("SELECT * from CLIENT WHERE FirstNam = 'Achraf' ")
+
+
+myresults = mycursor.fetchall() 
+
+print(myresults[i])  # i is the number of the row form 0 to n 
+------------------------------------------------------------------------------------------------
+
+    #Example-5 : Select data from the table
+
+
+sql = "SELECT * from CLIENT WHERE FirstName like %s ORDER BY idCli DESC LIMIT 1"
+data = ('%Ach%',)      # it should be tuple : (add ',' );
+mycursor.execute(sql,data)
+
+# u can filter data with 'WHERE (condition)'
+# and ORDER BY
+#condition can be ( FirstName like '%Ach%' ) that mean every First name that contain ...Ach...
+# so % mean any String can be ;
+# OFFSET WHERE TO START - 1
+# OFFSET 2 so it does start from position 3
+# for example :
+# sql = "SELECT * from CLIENT ORDER BY idCli ASC LIMIT 3 offset 2"
+# mycursor.execute(sql)
+
+myresults = mycursor.fetchall() 
+
+for row in myresults:
+    print(row)
+
+
+-------------------------------------------------------------------------------------------------------
+
+    #Example-5 : Update data
+
+ALTER : update the stucture of the table (columns) 
+
+"ALTER TABLE CLIENT ADD COLUMN language varchar(30) not null"
+
+"ALTER TABLE CLIENT MODIFY FirstName varchar(10) not null"
+or 
+"ALTER TABLE CLIENT CHANGE FirstName FirstName varchar(200) not null"
+
+after that myconnection.commit()
+____________________________________________________
+
+UPDATE : update the values of the table (ROWS)
+
+"UPDATE CLIENT SET
+ Email = 'ljadid@example.com',
+ Password = 'bdeltha gha db' 
+ WHERE FirstName = 'pipo' and LastName = 'Salimi'; "
+
+ whithout the 'WHERE' all rows will be updated
+
+
+ ------------------------------------------------------------------------------------------------
+
+    #Example-6: Delete data 
+
+
+DROP : Delete Table or Schema
+
+    "DROP TABLE IF EXISTS CLIENT"   # 'IF EXISTS' to avoid errors
+
+    "DROP SCHEMA ..."
+_____________________________________________________________
+
+DELETE : Delete the values of the table (ROWS)
+
+    "DELETE FROM CLIENT WHERE FirstName = 'pipo' "
+
+ whithout the 'WHERE' all rows will be deleted 
+
+-------------------------------------------------------------------------------------------------
+
+"SHOW DATABASES"
+/* i dont these 2 work in py */
+"CREATE SCHEMA ...."
+"USE SCHEMA .... "

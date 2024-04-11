@@ -21,9 +21,17 @@ Input doesnt change border color solution:
 signUp:
 {
     visual part done ;
-
+-------------------------------------------------------------------------------------------------
     #TASK1 :
-    now i need to store the login in the Data base;  
+    now i need to store the info in the Data base;
+    {
+        MySQL Connector Python library to connect MySQL and Python;{ pip install mysql-connector-python}
+        https://www.youtube.com/playlist?list=PLtGOJcWqvbqdlIavCvpToEyFDXaoE21P4
+        (everything about MySql and talk also about the error that apear when u install smth)
+
+        
+
+    } 
     handel the route /SignUpInput in app.py and 
     Ofc i need to handel all the messy usr input;
     for example:

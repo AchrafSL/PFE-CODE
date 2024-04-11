@@ -1,8 +1,56 @@
 from flask import Flask, render_template,redirect
+import mysql.connector
 
 app = Flask(__name__)
 
-#Home
+#SetUp the connection between Python and MySql :
+# the cursor object to perform db operations:
+myconnection = mysql.connector.connect(
+    host = "127.0.0.1",     # localhost or 127.0.0.1 ;
+    user = "root" ,     #mysql usr name;
+    passwd = "Salimi@01" ,      #mysql passwd;
+    database="DamsoStreamDB"        # Name of the database you want to connect to
+)
+mycursor = myconnection.cursor()  
+
+# TO PREVENT SQL INJECTION WHEN THE QUERY VALUES ARE PROVIDED BY THE USER :
+# the methode given by mysql.connector to escape the values is %s in sql = ' ........ %s'
+# and the values are in data = ....
+
+# COMMANDS : ------------------------------------------------------------------------
+
+# mycursor.execute("Query in SQL") results of this cmd stored in mycursor
+# mycursor.execute(sql,data) | sql is a string that contain the sql query 
+# mycursor.executemany(sql,data) | if data is a list we use this cmd
+# mycursor.rowcount  | mycursor.lastrowid 
+# myconnection.commit() if you edit in the data base you need to save changes ;
+# mycursor.fetchall() return the rows as lists [(row1),...,(rowN)] and rows may have lot of columns
+# mycursor.fetchone() return only the first row 
+
+#Examples : --------------------------------------------------------------------------
+
+
+
+mycursor.execute("DELETE FROM CLIENT WHERE FirstName = 'pipo' ")
+myconnection.commit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Home --------------------------------------------------------------------------------------
 @app.route('/home', methods=["GET"])
 @app.route('/', methods=["GET"])
 def home():
@@ -28,31 +76,33 @@ def FeedBacks():
 def AboutUS():
     return render_template("AboutUs.html")
 
-# Cart
+
+# Cart  ----------------------------------------------------------------------------------
 @app.route('/Cart', methods=["GET"])
 def Cart():
     return render_template("Cart.html")
 
-# Signup
+# Signup ---------------------------------------------------------------------------------
 @app.route('/Signup', methods=["GET"])
 def Signup():
     return render_template("Signup.html")
 
+# Login ----------------------------------------------------------------------------------
+
+
 # Here i need to treat all posibilites and ForgotPwd case also: 
-# if it's hard just make a ForgotPwd page
-# Login
+
+# x = 0 for the default  -----------------------------------------------------------------
 @app.route('/Login', methods=["GET"])
 def Login():
     return render_template("Login.html",x = 0) 
-# x = 0 for the default 
 
-# x = 1 for ForgotPWD
-
+# x = 1 for ForgotPWD --------------------------------------------------------------------
 @app.route('/passwordForgot', methods=["POST"])
 def passwordForgot():
     return render_template("Login.html",x = 1)
 
-
+# ----------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
     app.run(debug=True)
