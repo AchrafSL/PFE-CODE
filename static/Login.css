@@ -176,6 +176,16 @@ every thing get messy*/
     outline: none; /* Solution of border not changing color */
 }
 
+#errorMsg{
+    background-color: white;
+    display:none;
+    color:red;
+    margin-left:40px;
+    margin-top:20px;
+    margin-bottom: 2px;
+    font-family: 'Montserrat', sans-serif;
+}
+
 
 /* ResetPassword */
 .Login-Section1-right h6{

@@ -81,6 +81,9 @@ def CheckEmail():
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
 
+        #Note : jsonify ensure that the message is sent in a format that JavaScript can understand. 
+        # It converts the Python dictionary into a JSON object
+
         if len(results) > 0:        # <=> if results:
             if results[0][0] == email:
                 # User already exists
@@ -106,7 +109,7 @@ def SignUpInput():
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
 
-
+    #No need to check the data because it's already checked by the route /CheckEmail
     sql = "INSERT INTO Client (FirstName, LastName, Email, Password) VALUES (%s, %s, %s, %s)"
     data = (firstname, lastname, email, password)
     mycursor.execute(sql, data)
@@ -129,6 +132,57 @@ def Login():
 @app.route('/passwordForgot', methods=["POST"])
 def passwordForgot():
     return render_template("Login.html",x = 1)
+
+#Treat data comming from the login form :
+    # Check if the user exist in data base else send a msg "Sorry,
+    # looks like that’s the wrong email or password."
+
+#Check the login : just like the route /CheckEmail
+@app.route('/CheckLogin', methods=["POST"])
+def CheckLogin():
+    if request.method == "POST":
+        email = request.json['email']
+        passwd = request.json['passwd']
+        sql = "SELECT Email,Password FROM CLIENT WHERE email = %s"
+        data = (email,)
+        mycursor.execute(sql, data)
+        results = mycursor.fetchall()
+
+
+        if len(results) > 0:        # <=> if results:
+            if results[0][0] == email and results[0][1] == passwd:
+                # User already exists
+                return jsonify({"usr_exist": "true"})
+            else:
+                # User doesn't exist
+                return jsonify({"usr_exist": "false"})
+        else:
+            return jsonify({"usr_exist": "false"})
+
+    else:
+        # Handle invalid requests
+        return jsonify({"error": "Invalid request method"})
+
+
+
+
+
+@app.route('/LoginInput',  methods=["POST"])
+def LoginInput():
+    #No need to Check the data because it's already checked by the route /CheckLogin
+    return redirect('/home')
+
+    
+
+
+
+
+
+
+
+
+
+
 
 # ----------------------------------------------------------------------------------------
 

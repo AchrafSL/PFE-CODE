@@ -6,7 +6,8 @@
     <script language="javascript" src="static\Login.js"></script> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <!-- JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <br>
 
     <!-- Login-Section1 --> <!-- Display:inline-block for elements in this div but display:block
@@ -33,10 +34,11 @@
             {% if x == 0 %}
             <h1>Log In</h1>
             <h5>Don't have an account? <a class="Link2" href="{{ url_for('Signup') }}">Sign up</a></h5>
-            <form ACTION ="/Login-input" TARGET="" name = "LoginForm" class="LoginForm" method="POST">
+            <form ACTION ="/LoginInput" name = "LoginForm" class="LoginForm" method="POST" onsubmit ="return validateForm()">
                 <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="LoginInput">   
                 <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="LoginInput">  
-                <input type="submit" value="Forgot Password?" class="passwordForgot-input" onclick="passwordForgotActionChange()">  
+                <h6 id="errorMsg"> Sorry,looks like that's the wrong email or password.</h6>
+                <input type="submit" value="Forgot Password?" class="passwordForgot-input" onclick="passwordForgotActionChange()">
                 <input type="submit" value="Login" class="Login-input">  
             </form>
             {% else %}

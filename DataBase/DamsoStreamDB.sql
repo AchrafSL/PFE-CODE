@@ -4,11 +4,12 @@ use DamsoStreamDB;
 -- Operations : (insert, delete, update);
 
 create table Client(
-idCli integer not null,	
+idCli integer NOT NULL,	
 Email char(60),
 Password char(60) ,
 FirstName char(32) ,
 LastName char(32) ,
+status char(30) DEFAULT 'unverified' ,
 primary key (idCli)
 );
 
