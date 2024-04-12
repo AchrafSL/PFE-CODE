@@ -1,4 +1,4 @@
-var text = "yes eye by" ;
-var result = text.replace(/.y/gi,'@');
+var text = "AchrafSalimi" ;
+var result = text.replace(/(?=[A-Za-z]+)/g,'@');
 
 console.log(result);

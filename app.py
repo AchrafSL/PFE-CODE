@@ -1,5 +1,6 @@
-from flask import Flask, render_template,redirect,request
+from flask import Flask, render_template,redirect,request,jsonify
 import mysql.connector
+
 
 app = Flask(__name__)
 
@@ -69,15 +70,31 @@ def Cart():
 def Signup():
     return render_template("Signup.html")
 
+
 @app.route('/SignUpInput',  methods=["POST"])
 def SignUpInput():
-    #Treate the data comming from the form :
+    #Need to check if the user already have an account (can't use the same gmail)
     email = request.form.get("email")
     password = request.form.get("password")
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
 
-    return redirect("/Signup")
+    sql = "SELECT Email FROM CLIENT WHERE email = %s"
+    data = (email,)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchone()
+    #everything till here is good no errors :
+        #Treate the data comming from the form :
+    if (results is None ): 
+        sql1 = "INSERT INTO Client (FirstName, LastName, Email,Password) VALUES (%s,%s,%s,%s)"
+        data1 = (firstname,lastname,email,password)
+        mycursor.execute(sql1,data1)
+        myconnection.commit()  # Save
+        return redirect("/Signup")   
+    else:
+        return redirect('/Signup')
+
+
 
 
 

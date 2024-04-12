@@ -5,7 +5,7 @@ use DamsoStreamDB;
 
 create table Client(
 idCli integer not null,	
-Email char(60) ,
+Email char(60),
 Password char(60) ,
 FirstName char(32) ,
 LastName char(32) ,
@@ -14,6 +14,8 @@ primary key (idCli)
 
 -- Primary Key Set automaticaly 
 ALTER TABLE Client MODIFY idCli integer AUTO_INCREMENT; 
+ALTER TABLE Client MODIFY Email char(60); 
+
 
 -- Examples :
 -- Insert values into the CLIENT table
