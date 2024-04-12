@@ -176,13 +176,13 @@ function validateForm() {
     .then((response) => {
         if (response.data.usr_exist == "true")
         {
-            alert("user exist");
+            // user exist :
             document.getElementById("errorMsg").innerHTML = "Looks like you already have a user. Did you try logging in?";
             document.getElementById("errorMsg").style.display = "block";
         }
         else
         {
-            alert("user doesnt exist");
+            // user doesnt exist :
             document.forms["SignupForm"].submit();
         }
 

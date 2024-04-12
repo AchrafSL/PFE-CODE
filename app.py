@@ -70,7 +70,7 @@ def Cart():
 def Signup():
     return render_template("Signup.html")
 
-#Email-Exist-Error-Handler
+#Email-Exist-Error-Handler(Send a msg to the client without reloading the page)
 @app.route('/CheckEmail', methods=["POST"])
 def CheckEmail():
     if request.method == "POST":
@@ -92,26 +92,18 @@ def CheckEmail():
 
 @app.route('/SignUpInput',  methods=["POST"])
 def SignUpInput():
-    #Need to check if the user already have an account (can't use the same gmail)
+    #Insert data because it's already checked using '/CheckEmail' route and Singup.js
     email = request.form.get("email")
     password = request.form.get("password")
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
 
-    sql = "SELECT Email FROM CLIENT WHERE email = %s"
-    data = (email,)
-    mycursor.execute(sql,data)
-    results = mycursor.fetchone()
-    #everything till here is good no errors :
-        #Treate the data comming from the form :
-    if (results is None ): 
-        sql1 = "INSERT INTO Client (FirstName, LastName, Email,Password) VALUES (%s,%s,%s,%s)"
-        data1 = (firstname,lastname,email,password)
-        mycursor.execute(sql1,data1)
-        myconnection.commit()  # Save
-        return redirect("/Signup")   
-    else:
-        return redirect('/Signup')
+    sql1 = "INSERT INTO Client (FirstName, LastName, Email,Password) VALUES (%s,%s,%s,%s)"
+    data1 = (firstname,lastname,email,password)
+    mycursor.execute(sql1,data1)
+    myconnection.commit()  # Save
+    return redirect("/Signup")   
+
 
 
 
