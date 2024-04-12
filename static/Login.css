@@ -248,6 +248,73 @@ every thing get messy*/
 
 /* Reset Password END */
 
+/* VerifyPWD CSS */
+
+.VerifyPWD .msg0{
+    color:black;
+    margin-left:30px;
+    margin-top:100px;
+    text-align: center;
+    font-size:15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.VerifyPWD .msg1{
+    margin-top:40px;
+    color:black;
+    margin-left:50px;
+    background-color: rgb(174, 239, 174);
+    padding-left:10px;
+    padding-top:20px;
+    padding-bottom: 20px;
+    width:77%;
+    margin-right:80px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:13px;
+
+}
+
+.VerifyPWD .msg2{
+    margin-top:20px;
+}
+
+/* Everything till here is good*/
+.VerifyPWD .ReturnToLoginSENDLINK{
+    position:relative;
+    display:inline-block;
+    width:40%;
+    left:8%;
+    right:20%;
+    margin-top:20px;
+    margin-bottom:10px;
+    padding:10px;
+    background-color: white;
+    color:black;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.VerifyPWD .ResendLink{
+    position:relative;
+    display:inline-block;
+    width:40%;
+    left:8%;
+    right:20%;
+    margin-top:20px;
+    margin-bottom:10px;
+    padding:10px;
+    background-color: #04AA6D;
+    color:white;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+
+
+
+}
+
+/* VerifyPWD CSS END */
+
 /* Login-Section1-right END */
 
 

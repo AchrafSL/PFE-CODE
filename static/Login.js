@@ -3,10 +3,10 @@ function passwordForgotActionChange(){
     form.action = "/passwordForgot";
     form.submit();
 }
-function ReturnToLoginActionChange(){
-    var form = document.forms["ResetPassword"];
+function ReturnToLoginActionChange(Variable1){
+    var form = document.forms[Variable1];
     form.action = "/Login";
-    form.method = "GET";
+    form.method = "POST";
     form.submit();
 }
 

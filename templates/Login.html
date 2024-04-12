@@ -42,6 +42,7 @@
                 <input type="submit" value="Login" class="Login-input">  
             </form>
             {% else %}
+            {% if x == 1 %}
             <h1> Reset your password </h1>
             <br>
             <h6> If the account exist, we will email you instructions to reset the password </h6>
@@ -49,10 +50,26 @@
             <h2 style="margin-top:40px;margin-left:38px;">Email</h2>
             <form action="/ResetPassword" name = "ResetPassword" class="ResetPasswordForm" method="POST">
                 <input type="text" placeholder="e-mail" autofocus autocomplete="off" class="ResetPasswordEmail"> 
-                <input type="button" value="Return to login" class="ReturnToLogin" onclick="ReturnToLoginActionChange()">
+                <input type="button" value="Return to login" class="ReturnToLogin" onclick="ReturnToLoginActionChange('ResetPassword')">
                 <input type="button" value="Reset Password" class="ResetPassword">
             </form>
-
+            {% else %}
+                <div class="VerifyPWD">
+                    <h6 class="msg0"> Please verify your email</h6>
+                    <div class="msg1">
+                        <p ><i class="fa-solid fa-circle-check" style="color: #07c304;"></i>
+                        We've sent an email to</p> 
+                        <p ><b> {{email}}</b> with instructions.</p>
+                    </div>
+                        
+                    <h6 class="msg2">If the email doesn't show up soon, check your spam folder. 
+                        We sent it from <b>DamsoStream.Login@gmail.com</b>.    </h6>
+                    <form action="/sendLink" name = "sendLink" method="POST">
+                        <input type="button" value="Return to login" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLink')">
+                        <input type="button" value="Resend Link" class="ResendLink">
+                    </form>
+                </div>
+            {% endif %}
 
             {% endif %}
         </div>

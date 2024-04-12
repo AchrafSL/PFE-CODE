@@ -1,8 +1,48 @@
 from flask import Flask, render_template,redirect,request,jsonify
 import mysql.connector
+from flask_mail import Mail, Message
+# Mail ,Flask are the actual libraries
 
+# Gmail lets you send up to 500 emails per day using The Gmail SMTP server
 
 app = Flask(__name__)
+
+# Configure Flask-Mail
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'damsostream.login@gmail.com'
+app.config['MAIL_PASSWORD'] = 'DamsoStream@01'
+app.config['MAIL_DEFAULT_SENDER'] = 'damsostream.login@gmail.com'
+mail = Mail(app)
+
+''' Considerations
+When using the Gmail SMTP server:
+The sending limit is 2,000 messages per day. Learn more about email sending limits.
+Spam filters might reject or filter suspicious messages.
+The fully qualified domain name of the SMTP service is smtp.gmail.com.
+Configuration options include:
+Port 25, 465, or 587
+SSL and TLS protocols  ||| TLS is more secure than SSL so that means it more slower than ssl
+Dynamic IP addresses
+
+Setup steps :
+On the device or in the app, for server address, enter smtp.gmail.com.
+For Port, enter one of the following numbers:
+For SSL, enter 465.
+For TLS, enter 587.
+For authentication, enter your complete Google Workspace email address
+ (for example: your.name@solarmora.com) and password. 
+ Make sure to sign in to the account before you use it with the device or app.
+'''
+
+
+
+
+
+
+
 
 #SetUp the connection between Python and MySql :
 # the cursor object to perform db operations:
@@ -101,6 +141,7 @@ def CheckEmail():
         
 #EndOf-Email-Exist-Error-Handler
 
+#Insert data comming from the form :
 @app.route('/SignUpInput',  methods=["POST"])
 def SignUpInput():
     # Extract form data
@@ -114,7 +155,22 @@ def SignUpInput():
     data = (firstname, lastname, email, password)
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
-    return redirect("/Signup")
+    return redirect(f'/Verify?email={email}')
+
+
+
+#Verify the email : (so we can Eliminate invalid or spam emails from our list)
+# /Verify rout below is for this job
+@app.route('/Verify',methods=["GET"])
+def Verify():
+    email = request.args.get('email')
+    return render_template("Login.html",email = email) 
+#First we need to send the usr an email with the verification link
+# For that we need to use Flask-Mail library for sending emails from our Flask application
+
+
+
+
 
 
 
@@ -124,7 +180,7 @@ def SignUpInput():
 # Here i need to treat all posibilites and ForgotPwd case also: 
 
 # x = 0 for the default  -----------------------------------------------------------------
-@app.route('/Login', methods=["GET"])
+@app.route('/Login', methods=["GET","POST"])
 def Login():
     return render_template("Login.html",x = 0) 
 
@@ -132,6 +188,12 @@ def Login():
 @app.route('/passwordForgot', methods=["POST"])
 def passwordForgot():
     return render_template("Login.html",x = 1)
+
+# x = 2 for Verify ----------------------------------------------------------------------
+
+
+
+
 
 #Treat data comming from the login form :
     # Check if the user exist in data base else send a msg "Sorry,
