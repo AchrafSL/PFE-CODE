@@ -79,30 +79,50 @@ def CheckEmail():
         sql = "SELECT Email FROM CLIENT WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
-        results = mycursor.fetchone()
+        results = mycursor.fetchall()
 
-        if results is not None and results[0] == email:
-            # User already exists
-            return jsonify({"usr_exist": "true"})
+        if results:
+            if results[0][0] == email:
+                # User already exists
+                return jsonify({"usr_exist": "true"})
+            else:
+                # User doesn't exist
+                return jsonify({"usr_exist": "false"})
         else:
-            # User doesn't exist
+            # No rows returned by the query, user doesn't exist
             return jsonify({"usr_exist": "false"})
+
+    else:
+        # Handle invalid requests
+        return jsonify({"error": "Invalid request method"}), 400
+
         
 #EndOf-Email-Exist-Error-Handler
 
 @app.route('/SignUpInput',  methods=["POST"])
 def SignUpInput():
-    #Insert data because it's already checked using '/CheckEmail' route and Singup.js
+    # Extract form data
     email = request.form.get("email")
     password = request.form.get("password")
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
 
-    sql1 = "INSERT INTO Client (FirstName, LastName, Email,Password) VALUES (%s,%s,%s,%s)"
-    data1 = (firstname,lastname,email,password)
-    mycursor.execute(sql1,data1)
-    myconnection.commit()  # Save
-    return redirect("/Signup")   
+    # Check if the email already exists in the database
+    sql = "SELECT Email FROM CLIENT WHERE email = %s"
+    data = (email,)
+    mycursor.execute(sql, data)
+    results = mycursor.fetchall()  
+    print(results)
+    
+    # Treat the data coming from the form
+    if results is None:  # Email doesn't exist
+        sql = "INSERT INTO Client (FirstName, LastName, Email, Password) VALUES (%s, %s, %s, %s)"
+        data = (firstname, lastname, email, password)
+        mycursor.execute(sql, data)
+        myconnection.commit()  # Save
+        return redirect("/Signup")
+    else:
+        return redirect('/Signup')
 
 
 

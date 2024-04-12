@@ -170,25 +170,22 @@ function validateForm() {
     // Check if the email exist or not : 
     // Here i used axios library to handel Email - Exist Error i didn't find any Other solution
     // other than that because it will not refrech the page using this method 
-    axios.post('/CheckEmail' ,{
+    axios.post('/CheckEmail', {
         email: document.forms["SignupForm"]["email"].value
     })
     .then((response) => {
-        if (response.data.usr_exist == "true")
-        {
-            // user exist :
+        if (response.data.usr_exist == "true") {
+            alert("User exists");
             document.getElementById("errorMsg").innerHTML = "Looks like you already have a user. Did you try logging in?";
             document.getElementById("errorMsg").style.display = "block";
-        }
-        else
-        {
-            // user doesnt exist :
+        } else {
+            alert("User doesn't exist");
             document.forms["SignupForm"].submit();
         }
-
-    },(error) => {
-        console.log(error);
     })
+    .catch((error) => {
+        console.log(error);
+    });
 
     } 
 
