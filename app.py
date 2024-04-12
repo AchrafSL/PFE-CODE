@@ -81,7 +81,7 @@ def CheckEmail():
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
 
-        if results:
+        if len(results) > 0:        # <=> if results:
             if results[0][0] == email:
                 # User already exists
                 return jsonify({"usr_exist": "true"})
@@ -89,12 +89,11 @@ def CheckEmail():
                 # User doesn't exist
                 return jsonify({"usr_exist": "false"})
         else:
-            # No rows returned by the query, user doesn't exist
             return jsonify({"usr_exist": "false"})
 
     else:
         # Handle invalid requests
-        return jsonify({"error": "Invalid request method"}), 400
+        return jsonify({"error": "Invalid request method"})
 
         
 #EndOf-Email-Exist-Error-Handler
@@ -107,25 +106,12 @@ def SignUpInput():
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
 
-    # Check if the email already exists in the database
-    sql = "SELECT Email FROM CLIENT WHERE email = %s"
-    data = (email,)
+
+    sql = "INSERT INTO Client (FirstName, LastName, Email, Password) VALUES (%s, %s, %s, %s)"
+    data = (firstname, lastname, email, password)
     mycursor.execute(sql, data)
-    results = mycursor.fetchall()  
-    print(results)
-    
-    # Treat the data coming from the form
-    if results is None:  # Email doesn't exist
-        sql = "INSERT INTO Client (FirstName, LastName, Email, Password) VALUES (%s, %s, %s, %s)"
-        data = (firstname, lastname, email, password)
-        mycursor.execute(sql, data)
-        myconnection.commit()  # Save
-        return redirect("/Signup")
-    else:
-        return redirect('/Signup')
-
-
-
+    myconnection.commit()  # Save
+    return redirect("/Signup")
 
 
 
