@@ -70,6 +70,25 @@ def Cart():
 def Signup():
     return render_template("Signup.html")
 
+#Email-Exist-Error-Handler
+@app.route('/CheckEmail', methods=["POST"])
+def CheckEmail():
+    if request.method == "POST":
+        # Need to check if the user already has an account (can't use the same email)
+        email = request.json['email']
+        sql = "SELECT Email FROM CLIENT WHERE email = %s"
+        data = (email,)
+        mycursor.execute(sql, data)
+        results = mycursor.fetchone()
+
+        if results is not None and results[0] == email:
+            # User already exists
+            return jsonify({"usr_exist": "true"})
+        else:
+            # User doesn't exist
+            return jsonify({"usr_exist": "false"})
+        
+#EndOf-Email-Exist-Error-Handler
 
 @app.route('/SignUpInput',  methods=["POST"])
 def SignUpInput():

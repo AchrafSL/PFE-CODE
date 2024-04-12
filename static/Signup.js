@@ -163,12 +163,13 @@ function validateForm() {
         document.getElementById("errorMsg").style.display = "block";
         return false;
     }
-
-   /*  else
+    else
     {
        
    
     // Check if the email exist or not : 
+    // Here i used axios library to handel Email - Exist Error i didn't find any Other solution
+    // other than that because it will not refrech the page using this method 
     axios.post('/CheckEmail' ,{
         email: document.forms["SignupForm"]["email"].value
     })
@@ -189,7 +190,7 @@ function validateForm() {
         console.log(error);
     })
 
-    } */
+    } 
 
-    return true;
+    return false;
 }
