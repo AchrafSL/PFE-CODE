@@ -223,7 +223,7 @@ def verify_email():
         print(status,"-")
 
         #if it's not verified | verify and go the done page
-        if status != 'varified':
+        if status != 'verified':
             # Change the client status in the db :
             sql = "UPDATE Client SET status = 'verified' WHERE Email = %s"
             data = (email,)
