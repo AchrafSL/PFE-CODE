@@ -1,5 +1,10 @@
 create a footer  : Done
 top nav : done
+    
+# Hash the resulting number using SHA-256 should import hashlib but
+ i dont want this and i need to talk about with the professor in the function :
+ def generate_verification_token(email, firstname, lastname, idCli)
+
 
 login:{
     visual part is done 

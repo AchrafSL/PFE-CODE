@@ -9,11 +9,11 @@ app = Flask(__name__)
 
 # Configure Flask-Mail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'damsostream.login@gmail.com'
-app.config['MAIL_PASSWORD'] = 'DamsoStream@01'
+app.config['MAIL_PASSWORD'] = 'oxdeudalmxpohfpt'
 app.config['MAIL_DEFAULT_SENDER'] = 'damsostream.login@gmail.com'
 mail = Mail(app)
 
@@ -155,18 +155,70 @@ def SignUpInput():
     data = (firstname, lastname, email, password)
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
+
+    #Not my idea
+    token = generate_verification_token(email, firstname,lastname, password)
+    send_verification_email(email, token)
+
     return redirect(f'/Verify?email={email}')
 
 
 
-#Verify the email : (so we can Eliminate invalid or spam emails from our list)
-# /Verify rout below is for this job
+#Verify the email : (so we can Eliminate invalid or spam emails from our list) -------------------
+
 @app.route('/Verify',methods=["GET"])
 def Verify():
     email = request.args.get('email')
     return render_template("Login.html",email = email) 
+
+
+def generate_verification_token(email, firstname, lastname, password):
+    # Convert email to a number ord('A') -> code ascii (65)
+    email_num = sum([ord(char) for char in email])
+    # Convert password,firstname and lastname to numbers | create a list of ascii codes of the string
+     # and sum the codes
+    firstname_num = sum([ord(char) for char in firstname])
+    lastname_num = sum([ord(char) for char in lastname])
+    password_num = sum([ord(char) for char in password])
+    token_num = email_num + firstname_num + lastname_num + password_num
+    return token_num
+
+#not my idea
 #First we need to send the usr an email with the verification link
 # For that we need to use Flask-Mail library for sending emails from our Flask application
+def send_verification_email(email, token):
+    msg = Message('Verify Your Email',sender='damsostream.login@gmail.com', recipients=[email])
+    verification_link = f'http://127.0.0.1:5000/verify_email?token={token}&email={email}'
+    msg.body = f'Please click the following link to verify your email: {verification_link}'
+    mail.send(msg)
+
+# Route for verifying-email
+@app.route('/verify_email', methods=['GET'])
+def verify_email():
+    token = int(request.args.get('token')) 
+
+    email = request.args.get('email')
+    #search for the usr  and generate the token and compare it with the token :
+    sql = "SELECT Password,FirstName,LastName FROM CLIENT WHERE email = %s"
+    data = (email,)
+    mycursor.execute(sql, data)
+    results = mycursor.fetchall()
+    Password = results[0][0]
+    FirstName = results[0][1]
+    LastName = results[0][2]
+    print("Verify_email :",email,"-",Password,"-",FirstName,"-",LastName)
+
+
+    # Verify the token by comparing it with the generated token for the email
+    new_token = generate_verification_token(email, FirstName, LastName, Password)
+    if token == new_token:
+        #Change the client status in the db :
+
+        return 'Email verified successfully'
+    else:
+        return 'Invalid token'
+
+
 
 
 
