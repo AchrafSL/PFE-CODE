@@ -171,6 +171,10 @@ def Verify():
     email = request.args.get('email')
     return render_template("Login.html",email = email) 
 
+#I didnt find a simple algorithm so i made a simple one myself:
+# I think i can generalise this token generator for also forgotPWD 
+# the method is to add Operation arguments and it will be added to the sum like
+# EmailVerification have a code for example(55) and forgotPWD (66) and will be added 
 
 def generate_verification_token(email, firstname, lastname, password):
     # Convert email to a number ord('A') -> code ascii (65)
@@ -183,7 +187,6 @@ def generate_verification_token(email, firstname, lastname, password):
     token_num = email_num + firstname_num + lastname_num + password_num
     return token_num
 
-#not my idea
 #First we need to send the usr an email with the verification link
 # For that we need to use Flask-Mail library for sending emails from our Flask application
 def send_verification_email(email, token):
@@ -196,7 +199,6 @@ def send_verification_email(email, token):
 @app.route('/verify_email', methods=['GET'])
 def verify_email():
     token = int(request.args.get('token')) 
-
     email = request.args.get('email')
     #search for the usr  and generate the token and compare it with the token :
     sql = "SELECT Password,FirstName,LastName FROM CLIENT WHERE email = %s"
@@ -206,10 +208,9 @@ def verify_email():
     Password = results[0][0]
     FirstName = results[0][1]
     LastName = results[0][2]
-    print("Verify_email :",email,"-",Password,"-",FirstName,"-",LastName)
-
 
     # Verify the token by comparing it with the generated token for the email
+    # because i dont want to save the token it will just take space
     new_token = generate_verification_token(email, FirstName, LastName, Password)
     if token == new_token:
         #Change the client status in the db :
