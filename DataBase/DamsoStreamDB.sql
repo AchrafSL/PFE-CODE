@@ -26,7 +26,7 @@ INSERT INTO Client (FirstName, LastName, Email,Password) VALUES
 
 -- Delete values from the CLIENT table 
 DELETE FROM client WHERE (`idCli` = '8');
-DELETE FROM client WHERE (`idCli` = '10');
+DELETE FROM client WHERE (`idCli` = '12');
 
 -- Update values of the CLIENT table
 UPDATE Client SET 

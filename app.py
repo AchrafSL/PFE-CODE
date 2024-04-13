@@ -218,11 +218,12 @@ def verify_email():
         sql = "SELECT status from Client WHERE Email = %s"
         data = (email,)
         mycursor.execute(sql, data)
-        status = mycursor[0][0]
+        results = mycursor.fetchall()
+        status = results[0][0]
+        print(status,"-")
 
         #if it's not verified | verify and go the done page
-        if status == 'varified':
-
+        if status != 'varified':
             # Change the client status in the db :
             sql = "UPDATE Client SET status = 'verified' WHERE Email = %s"
             data = (email,)
