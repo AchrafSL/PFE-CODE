@@ -16,10 +16,10 @@
     <div class="Signup-Section1">
         <div class="Signup-Section1-left">
             <img src="{{ url_for('static', filename='logo.jpg') }}" 
-            width="70px" height="70px" border="0" alt="alternative text"
+            width="70px" height="70px" border="0" alt="LogoImg"
             class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
             
-            <h1>Sign Up and Choose Your Plan Now on Damso <span>Stream</span></h1>
+            <h1>{% if verif == 1 or verif == 0 %} Log In {% else %} Sign Up {% endif %}and Choose Your Plan Now on Damso <span>Stream</span></h1>
             <h3>And Gain the Following Features:</h3>
             <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Purchase the offer that you want.</h5>
             <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Add the offers you want to the cart and send your choices when you're ready.</h5>
@@ -31,25 +31,69 @@
         </div>
 
         <div class="Signup-Section1-right">
-            <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
-            <h1>Sign Up</h1>
-            <h5>Already have an account?  <a class="Link2" href="{{ url_for('Login') }}">Log In</a></h5>
-            <!-- 
-            The 'return' statement in the onsubmit="return validateForm()" attribute of a form tag controls
-            whether the form submission should proceed based on the result of the validation function. 
-            If the validation function returns false, the submission is canceled; 
-            if it returns true, the submission proceeds. 
-            This allows you to enforce validation rules before submitting the form to the server.
-            -->
-            <form ACTION ="/SignUpInput" method="POST" name = "SignupForm" class="SignupForm" onsubmit ="return validateForm()">
-                <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="SignupInput" >   
-                <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="SignupInput">  
-                <input type="text" autocomplet="off" autofocus placeholder="First Name" name="firstname" class="SignupInput">  
-                <input type="text" autocomplet="off" autofocus placeholder="Last Name" name="lastname" class="SignupInput">  
-                <h6 id="errorMsg">Please fill in all fields</h6>
-                <input type="submit" value="Sign Up" class="Signup-input">  
+            {% if verif == 1 %}
+            <!--It's already verified page -->
+            <div class="VerifiedEmail">
+                <h6 class="msg0"> Warning!</h6>
 
-            </form>
+                <img src="{{ url_for('static', filename='danger.png') }}" 
+                width="100px" height="100px" border="0" alt="CongratsImg"
+                class="DoneImg" onclick="redirectToLogin('{{ url_for('Login') }}')">
+
+                <div class="msg1VerifiedEmail">
+                    <p > <i class="fa-regular fa-circle-xmark" style="color: #a00000;"></i>
+                    Your Email is already verified </p>     
+                </div>
+                    
+                <form action="/Login" method="POST">
+                    <input type="submit" value="Return to login" class="ReturnToLoginSENDLINK">
+                </form>
+            </div>
+            
+            {% else %}
+                {% if verif == 0 %}
+                <!-- Done page -->
+                <div class="VerifiedEmail">
+                    <h6 class="msg0"> Done!</h6>
+                    <img src="{{ url_for('static', filename='Done_img.png') }}" 
+                    width="100px" height="100px" border="0" alt="CongratsImg"
+                    class="DoneImg" onclick="redirectToLogin('{{ url_for('Login') }}')">
+                    <div class="msg1">
+                        <p ><i class="fa-solid fa-circle-check" style="color: #07c304;"></i>
+                        Success! Your email has been verified!</p> 
+                        
+                    </div>
+                        
+                    <form action="/Login" method="POST">
+                        <input type="submit" value="Return to login" class="ReturnToLoginSENDLINK">
+                    </form>
+                </div>
+                {% else %}
+                <!--Normal signup page -->
+
+                <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
+                <h1>Sign Up</h1>
+                <h5>Already have an account?  <a class="Link2" href="{{ url_for('Login') }}">Log In</a></h5>
+                <!-- 
+                The 'return' statement in the onsubmit="return validateForm()" attribute of a form tag controls
+                whether the form submission should proceed based on the result of the validation function. 
+                If the validation function returns false, the submission is canceled; 
+                if it returns true, the submission proceeds. 
+                This allows you to enforce validation rules before submitting the form to the server.
+                -->
+                <form ACTION ="/SignUpInput" method="POST" name = "SignupForm" class="SignupForm" onsubmit ="return validateForm()">
+                    <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="SignupInput" >   
+                    <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="SignupInput">  
+                    <input type="text" autocomplet="off" autofocus placeholder="First Name" name="firstname" class="SignupInput">  
+                    <input type="text" autocomplet="off" autofocus placeholder="Last Name" name="lastname" class="SignupInput">  
+                    <h6 id="errorMsg">Please fill in all fields</h6>
+                    <input type="submit" value="Sign Up" class="Signup-input">  
+    
+                </form>
+
+                {% endif %}
+            {% endif %}
+
         </div>
     </div>
 

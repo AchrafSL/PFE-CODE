@@ -156,8 +156,8 @@ def SignUpInput():
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
 
-    #Not my idea
-    token = generate_verification_token(email, firstname,lastname, password)
+    # generate a token with the operation code 50 for Email verification
+    token = generate_verification_token(email, firstname,lastname, password,50)
     send_verification_email(email, token)
 
     return redirect(f'/Verify?email={email}')
@@ -176,7 +176,7 @@ def Verify():
 # the method is to add Operation arguments and it will be added to the sum like
 # EmailVerification have a code for example(55) and forgotPWD (66) and will be added 
 
-def generate_verification_token(email, firstname, lastname, password):
+def generate_verification_token(email, firstname, lastname, password,operation):
     # Convert email to a number ord('A') -> code ascii (65)
     email_num = sum([ord(char) for char in email])
     # Convert password,firstname and lastname to numbers | create a list of ascii codes of the string
@@ -184,7 +184,7 @@ def generate_verification_token(email, firstname, lastname, password):
     firstname_num = sum([ord(char) for char in firstname])
     lastname_num = sum([ord(char) for char in lastname])
     password_num = sum([ord(char) for char in password])
-    token_num = email_num + firstname_num + lastname_num + password_num
+    token_num = int(( (email_num + firstname_num + lastname_num + password_num) * operation ) / 2)
     return token_num
 
 #First we need to send the usr an email with the verification link
@@ -195,7 +195,7 @@ def send_verification_email(email, token):
     msg.body = f'Please click the following link to verify your email: {verification_link}'
     mail.send(msg)
 
-# Route for verifying-email
+# Route for verifying-email Operation code is :50
 @app.route('/verify_email', methods=['GET'])
 def verify_email():
     token = int(request.args.get('token')) 
@@ -211,16 +211,40 @@ def verify_email():
 
     # Verify the token by comparing it with the generated token for the email
     # because i dont want to save the token it will just take space
-    new_token = generate_verification_token(email, FirstName, LastName, Password)
-    if token == new_token:
-        #Change the client status in the db :
 
-        return 'Email verified successfully'
+    new_token = generate_verification_token(email, FirstName, LastName, Password,50)
+    if token == new_token:
+        #now check if the email is verified or not
+        sql = "SELECT status from Client WHERE Email = %s"
+        data = (email,)
+        mycursor.execute(sql, data)
+        status = mycursor[0][0]
+
+        #if it's not verified | verify and go the done page
+        if status == 'varified':
+
+            # Change the client status in the db :
+            sql = "UPDATE Client SET status = 'verified' WHERE Email = %s"
+            data = (email,)
+            mycursor.execute(sql, data)
+            myconnection.commit()  # Save
+            return  redirect('/Verified_email')
+        
+        #if it's verified go to it's already verified page
+        else:
+            return  redirect('/Already_Verified_email')
+        
     else:
         return 'Invalid token'
 
 
+@app.route('/Verified_email' , methods=["GET"])
+def Verified_email():
+    return render_template('Signup.html',verif = 0)
 
+@app.route('/Already_Verified_email' , methods=["GET"])
+def Already_Verified_email():
+    return render_template('Signup.html',verif = 1)
 
 
 
