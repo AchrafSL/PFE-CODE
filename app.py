@@ -106,7 +106,7 @@ def Cart():
     return render_template("Cart.html")
 
 # Signup ---------------------------------------------------------------------------------
-@app.route('/Signup', methods=["GET"])
+@app.route('/Signup', methods=["GET","POST"])
 def Signup():
     return render_template("Signup.html")
 
@@ -150,6 +150,9 @@ def SignUpInput():
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
 
+    #The email should be case insensitive :
+    email = email.lower()
+
     #No need to check the data because it's already checked by the route /CheckEmail
     sql = "INSERT INTO Client (FirstName, LastName, Email, Password) VALUES (%s, %s, %s, %s)"
     data = (firstname, lastname, email, password)
@@ -168,6 +171,7 @@ def SignUpInput():
 
 @app.route('/Verify',methods=["GET"])
 def Verify():
+
     email = request.args.get('email')
     return render_template("Login.html",email = email) 
 
@@ -195,11 +199,12 @@ def send_verification_email(email, token):
     msg.body = f'Please click the following link to verify your email: {verification_link}'
     mail.send(msg)
 
-# Route for verifying-email Operation code is :50
+# Route for verifying-email | Operation code is :50
 @app.route('/verify_email', methods=['GET'])
 def verify_email():
     token = int(request.args.get('token')) 
     email = request.args.get('email')
+    email = email.lower()
     #search for the usr  and generate the token and compare it with the token :
     sql = "SELECT Password,FirstName,LastName FROM CLIENT WHERE email = %s"
     data = (email,)
@@ -220,7 +225,6 @@ def verify_email():
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
         status = results[0][0]
-        print(status,"-")
 
         #if it's not verified | verify and go the done page
         if status != 'verified':
@@ -263,9 +267,9 @@ def Login():
     return render_template("Login.html",x = 0) 
 
 # x = 1 for ForgotPWD --------------------------------------------------------------------
-@app.route('/passwordForgot', methods=["POST"])
+@app.route('/passwordForgot', methods=["POST","GET"])
 def passwordForgot():
-    return render_template("Login.html",x = 1)
+    return render_template("Login.html",x = 1,Reset=0)
 
 # x = 2 for Verify ----------------------------------------------------------------------
 
@@ -282,6 +286,7 @@ def passwordForgot():
 def CheckLogin():
     if request.method == "POST":
         email = request.json['email']
+        email = email.lower()
         passwd = request.json['passwd']
         sql = "SELECT Email,Password FROM CLIENT WHERE email = %s"
         data = (email,)
@@ -314,7 +319,127 @@ def LoginInput():
 
     
 
+# ForgotPwd verification part to do not let the usr abuse the system and spam 
+# and check if the email exist or not !
 
+# Route for verifying-email | Operation code is :60
+# 127.0.0.1 - - [13/Apr/2024 20:10:05] "GET /ResetPassword HTTP/1.1" 405 -
+# I always get a "GET" request but i dont know where it's coming from 
+
+#Here is the page that apear after clicking forgotPWD:
+@app.route('/ResetPassword',methods=["POST"])
+def ResetPassword():
+    email =  request.form.get("E_mail")
+    email = email.lower()
+    #if the email exist send an email to the usr 
+    sql = "SELECT Email,Password,firstname,lastname FROM CLIENT WHERE email = %s"
+    data = (email,)
+    mycursor.execute(sql, data)
+    results = mycursor.fetchall()
+
+    if len(results) > 0:
+        E_mail = results[0][0]
+        password = results[0][1]
+        firstname = results[0][2]
+        lastname = results[0][3]
+
+        #if it's true then the email exist
+        if (email == E_mail):
+            # generate token
+            token = generate_verification_token(email, firstname, lastname, password,60)
+            #then send the email
+            send_verification_password(email, token)
+
+            #Page tha says to the usr that the email is sent !
+            return render_template('Login.html',x = 1,Reset= 1,email = email)
+
+    #The email doesn't exist the go the doesn't exist page :
+    return render_template('Signup.html',verif = 1,Reset = -1)
+
+#This is the page that apear after the usr recive the link in the email
+#it's a form to fill and send it
+@app.route('/ResetPassword_Page',methods=["GET"])
+def ResetPassword_Page():
+    #Verify the token:
+
+    token = int(request.args.get('token')) 
+    email = request.args.get('email')
+    email = email.lower()
+
+    #search for the usr  and generate the token and compare it with the token :
+    sql = "SELECT Password,FirstName,LastName FROM CLIENT WHERE email = %s"
+    data = (email,)
+    mycursor.execute(sql, data)
+    results = mycursor.fetchall()
+    Password = results[0][0]
+    FirstName = results[0][1]
+    LastName = results[0][2]
+
+    # Verify the token by comparing it with the generated token for the email
+    # because i dont want to save the token it will just take space
+
+    new_token = generate_verification_token(email, FirstName, LastName, Password,60)
+    if token == new_token:
+    #if the token match -> load the page where the from exist
+    # load the page with a arg = email ;
+    # the email will be in an invis input in the form that will be sent with the reset pwd ;
+        return render_template('login.html',reset_form = 1,email = email)
+
+    #if the token doesn't match then 
+    return 'token is not valid'
+
+
+#Check if the new Password is already the same as the one in the db :
+@app.route('/CheckPassword', methods=["POST"])
+def CheckPassword():
+    if request.method == "POST":
+        email = request.json['email']
+        password = request.json['passwd']
+        sql = "SELECT Password FROM CLIENT WHERE email = %s"
+        data = (email,)
+        mycursor.execute(sql, data)
+        results = mycursor.fetchall()
+
+        #Note : jsonify ensure that the message is sent in a format that JavaScript can understand. 
+        # It converts the Python dictionary into a JSON object
+
+        if len(results) > 0:        # <=> if results:
+            if results[0][0] == password:
+                # password already exists
+                return jsonify({"pswd_exist": "true"})
+            else:
+                # password doesn't exist
+                return jsonify({"pswd_exist": "false"})
+        else:
+            return jsonify({"pswd_exist": "false"})
+
+    else:
+        # Handle invalid requests
+        return jsonify({"error": "Invalid request method"})
+
+
+
+#this route will be triggered from the from sent when the (token == new_token )
+@app.route('/ResetPassword_Apply', methods=["POST"])
+def ResetPassword_Apply():
+    email = request.form.get('Email')
+    New_Password = request.form.get('Password')
+    # Change the client password in the db :
+    sql = "UPDATE Client SET Password = %s WHERE Email = %s"
+    data = (New_Password,email)
+    mycursor.execute(sql, data)
+    myconnection.commit()  # Save
+
+    #load the done page after changing the mdp
+    return render_template('Signup.html',verif = 0,apply = 1)
+
+
+
+def send_verification_password(email, token):
+    msg = Message('Reset Your Password',sender='damsostream.login@gmail.com', recipients=[email])
+    verification_link = f'http://127.0.0.1:5000/ResetPassword_Page?token={token}&email={email}'
+    msg.body = f'Please click the following link to Reset your password: {verification_link}'
+    mail.send(msg)
 
 
 

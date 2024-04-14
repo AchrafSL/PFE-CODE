@@ -191,3 +191,10 @@ function validateForm() {
 
     return false;
 }
+
+function ReturnToSignup(){
+    var form = document.forms["ReturnReset_-1"];
+    form.action = "/Signup";
+    form.method = "POST";
+    form.submit();
+}

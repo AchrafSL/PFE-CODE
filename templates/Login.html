@@ -31,6 +31,25 @@
 
         <div class="Login-Section1-right">
             <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
+            {% if reset_form == 1 %}
+            <!-- ResetPWD final form -->
+            <div class="reset_form">
+                <h1> Reset your password</h1>
+                <form action="/ResetPassword_Apply" name="reset_form" onsubmit="return validateResetPWDForm()" method="POST">
+                    <input type="hidden" value="{{email}}" name ="Email">
+                    <h5 class="msg0" style="margin-top:60px;">New password </h5>
+                    <input class = "pwd" type ="password"  name="Password">
+                    <h5 class="msg0"> Confirm new password</h5>
+                    <input class="pwd" type="password" name ="ConfirmPassword">
+                    <h6 id="errorMsg"> </h6>
+                    <input type="submit" value="Reset Password" class="ResetPassword">
+                </form>
+
+            </div>
+            {% else %}
+
+
+
             {% if x == 0 %}
             <h1>Log In</h1>
             <h5>Don't have an account? <a class="Link2" href="{{ url_for('Signup') }}">Sign up</a></h5>
@@ -38,21 +57,52 @@
                 <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="LoginInput">   
                 <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="LoginInput">  
                 <h6 id="errorMsg"> Sorry,looks like that's the wrong email or password.</h6>
-                <input type="submit" value="Forgot Password?" class="passwordForgot-input" onclick="passwordForgotActionChange()">
+                <input type="button" value="Forgot Password?" class="passwordForgot-input" onclick="passwordForgotActionChange()">
                 <input type="submit" value="Login" class="Login-input">  
             </form>
             {% else %}
             {% if x == 1 %}
+            <!-- Reset PWD page -->
             <h1> Reset your password </h1>
             <br>
             <h6> If the account exist, we will email you instructions to reset the password </h6>
             <br><hr align="center"><br>
+                <!-- normal page -->
+                {% if Reset == 0 %}
+
             <h2 style="margin-top:40px;margin-left:38px;">Email</h2>
-            <form action="/ResetPassword" name = "ResetPassword" class="ResetPasswordForm" method="POST">
-                <input type="text" placeholder="e-mail" autofocus autocomplete="off" class="ResetPasswordEmail"> 
+            <form action="/ResetPassword" name = "ResetPassword" class="ResetPasswordForm" method="POST" onsubmit="return ValidateResetPWD()">
+                <input type="text" placeholder="e-mail" autofocus autocomplete="off" class="ResetPasswordEmail" name="E_mail">
+                <h6 id="errorMsg"> Please enter a valid email address.</h6> 
                 <input type="button" value="Return to login" class="ReturnToLogin" onclick="ReturnToLoginActionChange('ResetPassword')">
-                <input type="button" value="Reset Password" class="ResetPassword">
+                <input type="submit" value="Reset Password" class="ResetPassword">
             </form>
+                {% else %}
+                    {% if Reset == 1 %}
+                    <!-- Email exist : -->
+                    <div class="VerifyPWD">
+                        <h6 class="msg0" id="msg0Email"> Please verify your email</h6>
+                        <div class="msg1">
+                            <p ><i class="fa-solid fa-circle-check" style="color: #07c304;"></i>
+                            We've sent an email to</p> 
+                            <p ><b> {{email}}</b> with instructions.</p>
+                        </div>
+                            
+                        <h6 class="msg2">If the email doesn't show up soon, check your spam folder. 
+                            We sent it from <b>DamsoStream.Login@gmail.com</b>.    </h6>
+                        <form action="" name = "sendLinkPWD" method="POST">
+                            <input type="button" value="Return to login" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLinkPWD')">
+                            <input type="submit" value="Resend Link" class="ResendLink" >
+                        </form>
+                    </div>
+
+                    {% else %}
+                    <!-- Email doesn't exist -->
+                    Email doesn't Exist 
+
+                    {% endif %}
+                {% endif %}
+            <!-- End of Reset PWD page-->
             {% else %}
                 <div class="VerifyPWD">
                     <h6 class="msg0"> Please verify your email</h6>
@@ -72,6 +122,9 @@
             {% endif %}
 
             {% endif %}
+
+            {% endif %}
+
         </div>
     </div>
 
