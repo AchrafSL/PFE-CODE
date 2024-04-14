@@ -45,12 +45,21 @@
                         {% if Reset == -1 %} 
                         Sorry, we couldn't find an account associated with that email address. You can sign up for a new account if you're new here!
                         {% else %}
-                        Your Email is already verified </p>     
+                            {% if invalidToken == 1 %}
+                            Oops! It seems like the token in the link is either invalid or has expired.
+                            {% else %}
+                                {% if invalidToken == 2 %}
+                                Oops! It seems like the token in the link is either invalid or has expired. Please request a new password reset link.
+                                {% else %}
+                                Your Email is already verified </p>    
+                                {% endif %}
+                            {%endif%}
                         {% endif %}
                 </div>
                     
                 <form action="/Login" method="POST" name ="ReturnReset_-1">
-                    {% if Reset != -1 %}
+                    {% if Reset != -1 or invalidToken == 2 %}
+
                     <input type="submit" value="Return to login" class="ReturnToLoginSENDLINK">
                     {% else %}
                     <input type="submit" value="Return to Signup" class="ReturnToLoginSENDLINK" onclick="ReturnToSignup()">

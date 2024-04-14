@@ -240,7 +240,8 @@ def verify_email():
             return  redirect('/Already_Verified_email')
         
     else:
-        return 'Invalid token'
+        #return 'Invalid token'
+        return render_template('Signup.html',verif = 1,invalidToken = 1)
 
 
 @app.route('/Verified_email' , methods=["GET"])
@@ -386,7 +387,9 @@ def ResetPassword_Page():
         return render_template('login.html',reset_form = 1,email = email)
 
     #if the token doesn't match then 
-    return 'token is not valid'
+    #return 'token is not valid'
+    return render_template('Signup.html',verif = 1,invalidToken = 2)
+
 
 
 #Check if the new Password is already the same as the one in the db :
