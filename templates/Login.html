@@ -90,15 +90,13 @@
                             
                         <h6 class="msg2">If the email doesn't show up soon, check your spam folder. 
                             We sent it from <b>DamsoStream.Login@gmail.com</b>.    </h6>
-                        <form action="" name = "sendLinkPWD" method="POST">
+                        <form action="/ResendLink" name = "sendLinkPWD" method="POST">
+                            <input type="hidden" value = "password" name = "ResendLink_Type">
+                            <input type="hidden" value="{{email}}" name ="EMAIL">
                             <input type="button" value="Return to login" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLinkPWD')">
                             <input type="submit" value="Resend Link" class="ResendLink" >
                         </form>
                     </div>
-
-                    {% else %}
-                    <!-- Email doesn't exist -->
-                    Email doesn't Exist 
 
                     {% endif %}
                 {% endif %}
@@ -114,9 +112,11 @@
                         
                     <h6 class="msg2">If the email doesn't show up soon, check your spam folder. 
                         We sent it from <b>DamsoStream.Login@gmail.com</b>.    </h6>
-                    <form action="/sendLink" name = "sendLink" method="POST">
+                    <form action="/ResendLink" name = "sendLink" method="POST">
+                        <input type="hidden" value = "email" name = "ResendLink_Type">
+                        <input type="hidden" value="{{email}}" name ="EMAIL">
                         <input type="button" value="Return to login" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLink')">
-                        <input type="button" value="Resend Link" class="ResendLink">
+                        <input type="submit" value="Resend Link" class="ResendLink" onclick="">
                     </form>
                 </div>
             {% endif %}

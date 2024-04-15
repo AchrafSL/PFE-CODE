@@ -328,9 +328,12 @@ def LoginInput():
 # I always get a "GET" request but i dont know where it's coming from 
 
 #Here is the page that apear after clicking forgotPWD:
-@app.route('/ResetPassword',methods=["POST"])
+@app.route('/ResetPassword',methods=["POST","GET"])
 def ResetPassword():
-    email =  request.form.get("E_mail")
+    if request.method == "POST":
+        email =  request.form.get("E_mail")
+    else:
+        email = request.args.get("E_mail")
     email = email.lower()
     #if the email exist send an email to the usr 
     sql = "SELECT Email,Password,firstname,lastname FROM CLIENT WHERE email = %s"
@@ -443,6 +446,33 @@ def send_verification_password(email, token):
     verification_link = f'http://127.0.0.1:5000/ResetPassword_Page?token={token}&email={email}'
     msg.body = f'Please click the following link to Reset your password: {verification_link}'
     mail.send(msg)
+
+
+
+#Resend link 
+@app.route('/ResendLink', methods=["POST"])
+def ResendLink():
+    email = request.form.get('EMAIL')
+    ResendLink_Type = request.form.get('ResendLink_Type')
+    sql = "SELECT Password,FirstName,LastName FROM CLIENT WHERE email = %s"
+    data = (email,)
+    mycursor.execute(sql, data)
+    results = mycursor.fetchall()
+    Password = results[0][0]
+    FirstName = results[0][1]
+    LastName = results[0][2]
+    if ResendLink_Type == 'email':
+        #operation code is 50 (email verification)
+        token = generate_verification_token(email, FirstName, LastName, Password,50)
+        #I have to add some restrictions to this button because the usr can spam it 
+        send_verification_email(email,token)
+        return redirect(f'/Verify?email={email}')
+    else:
+        token = generate_verification_token(email, FirstName, LastName , Password ,60)
+        send_verification_password(email,token)
+        return redirect(f'/ResetPassword?E_mail={email}')
+
+        
 
 
 
