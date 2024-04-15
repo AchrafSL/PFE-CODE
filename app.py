@@ -105,6 +105,17 @@ def AboutUS():
 def Cart():
     return render_template("Cart.html")
 
+
+
+
+
+
+
+
+
+# LogIn and Signup part | ______________________________________________________________________________
+
+
 # Signup ---------------------------------------------------------------------------------
 @app.route('/Signup', methods=["GET","POST"])
 def Signup():
@@ -196,8 +207,10 @@ def generate_verification_token(email, firstname, lastname, password,operation):
 def send_verification_email(email, token):
     msg = Message('Verify Your Email',sender='damsostream.login@gmail.com', recipients=[email])
     verification_link = f'http://127.0.0.1:5000/verify_email?token={token}&email={email}'
-    msg.body = f'Please click the following link to verify your email: {verification_link}'
+    #msg.body = f'Please click the following link to verify your email: {verification_link}'
+    msg.html = render_template('Email_template.html',msg = 'email', verification_link=verification_link)
     mail.send(msg)
+
 
 # Route for verifying-email | Operation code is :50
 @app.route('/verify_email', methods=['GET'])
@@ -273,9 +286,6 @@ def passwordForgot():
     return render_template("Login.html",x = 1,Reset=0)
 
 # x = 2 for Verify ----------------------------------------------------------------------
-
-
-
 
 
 #Treat data comming from the login form :
@@ -444,7 +454,8 @@ def ResetPassword_Apply():
 def send_verification_password(email, token):
     msg = Message('Reset Your Password',sender='damsostream.login@gmail.com', recipients=[email])
     verification_link = f'http://127.0.0.1:5000/ResetPassword_Page?token={token}&email={email}'
-    msg.body = f'Please click the following link to Reset your password: {verification_link}'
+    #msg.body = f'Please click the following link to Reset your password: {verification_link}'
+    msg.html = render_template('Email_template.html',msg = 'password', verification_link=verification_link)
     mail.send(msg)
 
 
@@ -474,7 +485,7 @@ def ResendLink():
 
         
 
-
+#__________________________________________________________________________________________________
 
 
 

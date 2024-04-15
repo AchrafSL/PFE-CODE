@@ -53,6 +53,14 @@ signUp:
 
 Create accounts : customer,Employer , Admin  Dans la base de donner 
 
+----------------------------------------------------------------------------------------------
+Cart page + offer page inspired from etsy : https://www.etsy.com/market/digital_products
+----------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+login and signup design inspired from w3school  |
+-------------------------------------------------------------------------------------
+
 la page offres : changes automatiquement quant les offres change dans la bd;
 the rest : les autres pages sont facile
 
