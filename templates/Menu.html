@@ -42,8 +42,19 @@
             <a href="{{ url_for('Cart') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</a>         
         <!-- Il faut faire des recherche sur font awesome 
         because of it we can add icon easily -->  
-            <a class="Signup" href="{{ url_for('Signup') }}">Sign Up</a>
-            <a class="Login" href="{{ url_for('Login') }}">Log in</a>
+                    
+        {% if session["logged_in"] %}
+
+        <a> Welcome,{{ session["FirstName"] }}! </a> 
+        <img src="{{ url_for('static', filename='logo.jpg') }}" 
+        width="40px" height="40px" border="1" alt="alternative text"
+           align="top" class="pfp" onclick="redirectToHome('{{ url_for('home') }}')"> 
+
+        
+        {% else %}
+        <a class="Signup" href="{{ url_for('Signup') }}">Sign Up</a>
+        <a class="Login" href="{{ url_for('Login') }}">Log in</a>        
+        {% endif %}
         </span>
 
     </div> 

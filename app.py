@@ -1,11 +1,18 @@
-from flask import Flask, render_template,redirect,request,jsonify
+from flask import Flask, render_template,redirect,request,jsonify,session
 import mysql.connector
 from flask_mail import Mail, Message
+from datetime import timedelta
+
 # Mail ,Flask are the actual libraries
 
 # Gmail lets you send up to 500 emails per day using The Gmail SMTP server
 
 app = Flask(__name__)
+
+#Setup the session setting :
+app.secret_key= "PFE_UIT_ACHRAF_CABREL"
+#Data permanent time : 
+app.permanent_session_lifetime = timedelta(minutes=10)
 
 # Configure Flask-Mail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -121,13 +128,13 @@ def Cart():
 def Signup():
     return render_template("Signup.html")
 
-#Email-Exist-Error-Handler(Send a msg to the client without reloading the page)
+#Email-Exist-Error-Handler(Send a msg to the USER without reloading the page)
 @app.route('/CheckEmail', methods=["POST"])
 def CheckEmail():
     if request.method == "POST":
         # Need to check if the user already has an account (can't use the same email)
         email = request.json['email']
-        sql = "SELECT Email FROM CLIENT WHERE email = %s"
+        sql = "SELECT Email FROM USER WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
@@ -165,7 +172,7 @@ def SignUpInput():
     email = email.lower()
 
     #No need to check the data because it's already checked by the route /CheckEmail
-    sql = "INSERT INTO Client (FirstName, LastName, Email, Password) VALUES (%s, %s, %s, %s)"
+    sql = "INSERT INTO USER (FirstName, LastName, Email, Password) VALUES (%s, %s, %s, %s)"
     data = (firstname, lastname, email, password)
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
@@ -219,7 +226,7 @@ def verify_email():
     email = request.args.get('email')
     email = email.lower()
     #search for the usr  and generate the token and compare it with the token :
-    sql = "SELECT Password,FirstName,LastName FROM CLIENT WHERE email = %s"
+    sql = "SELECT Password,FirstName,LastName FROM USER WHERE email = %s"
     data = (email,)
     mycursor.execute(sql, data)
     results = mycursor.fetchall()
@@ -233,7 +240,7 @@ def verify_email():
     new_token = generate_verification_token(email, FirstName, LastName, Password,50)
     if token == new_token:
         #now check if the email is verified or not
-        sql = "SELECT status from Client WHERE Email = %s"
+        sql = "SELECT status from USER WHERE Email = %s"
         data = (email,)
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
@@ -241,8 +248,8 @@ def verify_email():
 
         #if it's not verified | verify and go the done page
         if status != 'verified':
-            # Change the client status in the db :
-            sql = "UPDATE Client SET status = 'verified' WHERE Email = %s"
+            # Change the USER status in the db :
+            sql = "UPDATE USER SET status = 'verified' WHERE Email = %s"
             data = (email,)
             mycursor.execute(sql, data)
             myconnection.commit()  # Save
@@ -299,15 +306,27 @@ def CheckLogin():
         email = request.json['email']
         email = email.lower()
         passwd = request.json['passwd']
-        sql = "SELECT Email,Password FROM CLIENT WHERE email = %s"
+        sql = "SELECT Email,Password,FirstName,LastName,role FROM USER WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
 
 
+
         if len(results) > 0:        # <=> if results:
             if results[0][0] == email and results[0][1] == passwd:
                 # User already exists
+
+                #Save the data in the session :
+                # this session will be permanent for the time we setup in the top :
+                session.permanent = False
+                session["logged_in"] = True
+                session["FirstName"] = results[0][2]
+                session["LastName"] = results[0][3]
+                session["Email"] = results[0][0]
+                session["role"] = results[0][4]
+                #End of session setup
+
                 return jsonify({"usr_exist": "true"})
             else:
                 # User doesn't exist
@@ -346,7 +365,7 @@ def ResetPassword():
         email = request.args.get("E_mail")
     email = email.lower()
     #if the email exist send an email to the usr 
-    sql = "SELECT Email,Password,firstname,lastname FROM CLIENT WHERE email = %s"
+    sql = "SELECT Email,Password,firstname,lastname FROM USER WHERE email = %s"
     data = (email,)
     mycursor.execute(sql, data)
     results = mycursor.fetchall()
@@ -381,7 +400,7 @@ def ResetPassword_Page():
     email = email.lower()
 
     #search for the usr  and generate the token and compare it with the token :
-    sql = "SELECT Password,FirstName,LastName FROM CLIENT WHERE email = %s"
+    sql = "SELECT Password,FirstName,LastName FROM USER WHERE email = %s"
     data = (email,)
     mycursor.execute(sql, data)
     results = mycursor.fetchall()
@@ -411,7 +430,7 @@ def CheckPassword():
     if request.method == "POST":
         email = request.json['email']
         password = request.json['passwd']
-        sql = "SELECT Password FROM CLIENT WHERE email = %s"
+        sql = "SELECT Password FROM USER WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
@@ -440,8 +459,8 @@ def CheckPassword():
 def ResetPassword_Apply():
     email = request.form.get('Email')
     New_Password = request.form.get('Password')
-    # Change the client password in the db :
-    sql = "UPDATE Client SET Password = %s WHERE Email = %s"
+    # Change the USER password in the db :
+    sql = "UPDATE USER SET Password = %s WHERE Email = %s"
     data = (New_Password,email)
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
@@ -465,7 +484,7 @@ def send_verification_password(email, token):
 def ResendLink():
     email = request.form.get('EMAIL')
     ResendLink_Type = request.form.get('ResendLink_Type')
-    sql = "SELECT Password,FirstName,LastName FROM CLIENT WHERE email = %s"
+    sql = "SELECT Password,FirstName,LastName FROM USER WHERE email = %s"
     data = (email,)
     mycursor.execute(sql, data)
     results = mycursor.fetchall()

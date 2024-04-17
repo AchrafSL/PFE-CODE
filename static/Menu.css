@@ -54,6 +54,15 @@ body{
 
 }
 
+.Right-Menu .pfp {
+  position: relative;
+  border: 2px solid rgba(0, 255, 13, 0.215);
+  border-radius: 25px;
+  margin-right: 6px;
+  margin-bottom: 5px;
+  vertical-align: middle;
+}
+
 
 
 /* on utilise un pseudo-class (:hover) a la classe de plusieurs appel a la fonction cree en utilisant JS 
@@ -63,6 +72,9 @@ c'est facile comme ca */
   background-color: #059862 !important  ;
 }
 
+.Right-Menu .pfp:hover{
+  border: 2px solid #324E50;
+}
 /* End of Top nav CSS */
 
 /* Footer CSS */
