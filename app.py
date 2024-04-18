@@ -1,7 +1,9 @@
 from flask import Flask, render_template,redirect,request,jsonify,session
 import mysql.connector
 from flask_mail import Mail, Message
-from datetime import timedelta
+from datetime import timedelta # no need to download the lib
+from datetime import datetime 
+
 
 # Mail ,Flask are the actual libraries
 
@@ -12,7 +14,8 @@ app = Flask(__name__)
 #Setup the session setting :
 app.secret_key= "PFE_UIT_ACHRAF_CABREL"
 #Data permanent time : 
-app.permanent_session_lifetime = timedelta(minutes=10)
+# Session will be exipred automaticaly after 24h :
+app.permanent_session_lifetime = timedelta(hours=24)
 
 # Configure Flask-Mail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -23,6 +26,8 @@ app.config['MAIL_USERNAME'] = 'damsostream.login@gmail.com'
 app.config['MAIL_PASSWORD'] = 'oxdeudalmxpohfpt'
 app.config['MAIL_DEFAULT_SENDER'] = 'damsostream.login@gmail.com'
 mail = Mail(app)
+
+
 
 ''' Considerations
 When using the Gmail SMTP server:
@@ -170,10 +175,10 @@ def SignUpInput():
 
     #The email should be case insensitive :
     email = email.lower()
-
+    date = datetime.now()
     #No need to check the data because it's already checked by the route /CheckEmail
-    sql = "INSERT INTO USER (FirstName, LastName, Email, Password) VALUES (%s, %s, %s, %s)"
-    data = (firstname, lastname, email, password)
+    sql = "INSERT INTO USER (FirstName, LastName, Email, Password,Date_Joined) VALUES (%s, %s, %s, %s, %s)"
+    data = (firstname, lastname, email, password,date)
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
 
@@ -304,7 +309,7 @@ def CheckLogin():
         email = request.json['email']
         email = email.lower()
         passwd = request.json['passwd']
-        sql = "SELECT Email,Password,FirstName,LastName,role FROM USER WHERE email = %s"
+        sql = "SELECT Email,Password,FirstName,LastName,role,idCli,Date_Joined FROM USER WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
@@ -323,6 +328,12 @@ def CheckLogin():
                 session["LastName"] = results[0][3]
                 session["Email"] = results[0][0]
                 session["role"] = results[0][4]
+                session["idCli"] = results[0][5]
+
+                default_date = results[0][6]
+                new_date = default_date.strftime("%Y-%m-%d %H:%M:%S")
+
+                session["Date_Joined"] = new_date
                 #End of session setup
 
                 return jsonify({"usr_exist": "true"})
@@ -504,7 +515,11 @@ def ResendLink():
 ##What will happen after the login |-------------------------------------------------------------
 @app.route("/USER_Page", methods=["GET"])
 def USER_Page():
-    return render_template("USER_Page.html")
+    if (session.get("logged_in") == True):
+        return render_template("USER_Page.html")
+    else:
+        # if the user is not logged_in he will be redirected to the home page :
+        return redirect("/home")    
 
         
 

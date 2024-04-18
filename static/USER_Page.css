@@ -19,6 +19,8 @@
     padding:178px; 
     color: black;
     width:100%;
+    font-family: 'Montserrat', sans-serif;
+
 }
 
 /* USER_Page-Section1 END */
@@ -32,7 +34,15 @@
     width:451px;
     height:520px;
     margin-bottom: 20px;
+    padding-top:10px;
+    padding-bottom: 10px;;
     background-color:white;
+}
+
+.USER_Page-Section1-top1 .User_Name{
+    background-color: gray;
+    padding-top:10px;
+    padding-bottom:10px;
 }
 
 
@@ -42,6 +52,7 @@
     position:relative;
     width:451px;
     height:520px;
+    padding:10px;
     background-color: white;
     color:black;
 }

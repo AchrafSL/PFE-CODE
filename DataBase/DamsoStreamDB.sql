@@ -12,6 +12,7 @@ FirstName char(32) ,
 LastName char(32) ,
 status char(30) DEFAULT 'unverified' ,
 role char(30) DEFAULT 'client',
+Date_Joined DATETIME , 
 primary key (idCli)
 );
 
