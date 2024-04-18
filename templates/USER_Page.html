@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USER_PAGE</title>
+</head>
+<body>
+    <h1> THIS IS THE USER_PAGE</h1>
+    {% if session["logged_in"] %}
+    Welcome,{{ session["FirstName"] }}!
+    {% else %}
+    tinin
+    {% endif %}
+</body>
+</html>

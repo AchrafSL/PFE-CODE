@@ -25,10 +25,16 @@ body{
     font-size: 17px;
   }
 
+  .Menu .logo{
+    cursor: pointer;
+  }
+
 .Right-Menu {
    position: absolute;
    top: 0;
    right: 0;
+   cursor: pointer;
+
 }
 
 .Right-Menu .Signup{

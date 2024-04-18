@@ -278,8 +278,6 @@ def Already_Verified_email():
 
 
 # Login ----------------------------------------------------------------------------------
-
-
 # Here i need to treat all posibilites and ForgotPwd case also: 
 
 # x = 0 for the default  -----------------------------------------------------------------
@@ -501,6 +499,12 @@ def ResendLink():
         token = generate_verification_token(email, FirstName, LastName , Password ,60)
         send_verification_password(email,token)
         return redirect(f'/ResetPassword?E_mail={email}')
+
+
+##What will happen after the login |-------------------------------------------------------------
+@app.route("/USER_Page", methods=["GET"])
+def USER_Page():
+    return render_template("USER_Page.html")
 
         
 

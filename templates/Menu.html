@@ -29,7 +29,7 @@
         width = 44px height = 44px border = 2 alt = "alternative text"
            align = "left" class="logo">
        --> 
-       <img src="{{ url_for('static', filename='logo.jpg') }}" 
+       <img src="{{ url_for('static', filename='logo.jpg') }} " 
        width="44px" height="43px" border="2" alt="alternative text"
        align="left" class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
        
@@ -45,10 +45,14 @@
                     
         {% if session["logged_in"] %}
 
-        <a> Welcome,{{ session["FirstName"] }}! </a> 
-        <img src="{{ url_for('static', filename='logo.jpg') }}" 
+        <a onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')"> 
+            Welcome,{{ session["FirstName"] }}! </a> 
+
+        <!-- there is defaults img witch is User_Icon and the usr can change the img in the 
+        dashboard -->
+        <img src="{{ url_for('static', filename='User_Icon.png') }}" 
         width="40px" height="40px" border="1" alt="alternative text"
-           align="top" class="pfp" onclick="redirectToHome('{{ url_for('home') }}')"> 
+           align="top" class="pfp" onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')"> 
 
         
         {% else %}
