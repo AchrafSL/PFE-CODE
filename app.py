@@ -2,7 +2,8 @@ from flask import Flask, render_template,redirect,request,jsonify,session
 import mysql.connector
 from flask_mail import Mail, Message
 from datetime import timedelta # no need to download the lib
-from datetime import datetime 
+from datetime import datetime  #    
+ 
 
 
 # Mail ,Flask are the actual libraries
@@ -139,6 +140,8 @@ def CheckEmail():
     if request.method == "POST":
         # Need to check if the user already has an account (can't use the same email)
         email = request.json['email']
+        email = email.lower()
+
         sql = "SELECT Email FROM USER WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
@@ -175,6 +178,7 @@ def SignUpInput():
 
     #The email should be case insensitive :
     email = email.lower()
+    
     date = datetime.now()
     #No need to check the data because it's already checked by the route /CheckEmail
     sql = "INSERT INTO USER (FirstName, LastName, Email, Password,Date_Joined) VALUES (%s, %s, %s, %s, %s)"

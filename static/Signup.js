@@ -122,7 +122,7 @@ function validateForm() {
         document.getElementById("errorMsg").style.display = "block";
         return false;
     }
-
+`   `
      
     // Test if the password is valid : MSGS
     // 1 " Password requires at least one lowercase character"

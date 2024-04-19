@@ -20,7 +20,7 @@ data = [
 ]
 mycursor.executemany(sql,data)
 
-mycursor.rowcount # will give u 3 because we stored 1 pieces of data
+mycursor.rowcount # will give u 3 because we stored 3 pieces of data
 mycursor.lastrowid # return the id of the var(with AUTO_INCREMENT) for the last row else return 0 
 
 myconnection.commit()
@@ -31,7 +31,7 @@ myconnection.commit()
 
 # mycursor.execute("SELECT * from CLIENT")
 
-mycursor.execute("SELECT FirstNamefrom CLIENT")
+mycursor.execute("SELECT FirstName from CLIENT")
 
 myresults = mycursor.fetchall() 
 
@@ -50,12 +50,12 @@ for row in myresults:   # In py we can print lists
     #Example-4 : Select data from the table
 
 
-mycursor.execute("SELECT * from CLIENT WHERE FirstNam = 'Achraf' ")
+mycursor.execute("SELECT * from CLIENT WHERE FirstName = 'Achraf' ")
 
 
 myresults = mycursor.fetchall() 
 
-print(myresults[i])  # i is the number of the row form 0 to n 
+print(myresults[i])  # i is the number of the row form 0 to n -> ('','','')
 ------------------------------------------------------------------------------------------------
 
     #Example-5 : Select data from the table
