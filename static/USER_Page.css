@@ -1,3 +1,4 @@
+
 .USER_PageWrapper * {
     margin: 0;
     padding: 0;
@@ -31,20 +32,33 @@
 .USER_Page-Section1-top1{
     display:block;
     position: relative;
-    width:451px;
-    height:520px;
+    width:70%;
+    height:20%;
+    margin-left:-130px;
     margin-bottom: 20px;
     padding-top:10px;
     padding-bottom: 10px;;
     background-color:white;
+    border-radius:10px;
 }
 
 .USER_Page-Section1-top1 .User_Name{
-    background-color: gray;
+    margin-top:-10px;
+    background-color: rgb(205, 203, 203);
     padding-top:10px;
     padding-bottom:10px;
+    margin-bottom:10px;
+    display:block;
 }
 
+
+.top1-info{
+    display:inline-block;
+}
+.default_pfp{
+    display:inline-block;
+    margin-left:420px;
+}
 
 /* USER_Page-Section1-top2 */
 .USER_Page-Section1-top2{

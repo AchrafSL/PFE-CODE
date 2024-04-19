@@ -28,7 +28,7 @@ INSERT INTO Client (FirstName, LastName, Email,Password) VALUES
 ('usr1', '2nd','usr1@gmail.com','1111');
 
 -- Delete values from the CLIENT table 
-DELETE FROM USER WHERE (`idCli` = '1');
+DELETE FROM USER WHERE (`idCli` = '3');
 DELETE FROM client WHERE (`idCli` = '16');
 
 -- Update values of the CLIENT table

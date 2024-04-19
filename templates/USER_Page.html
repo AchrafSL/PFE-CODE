@@ -16,22 +16,29 @@
     for the USER_Page-section1 and other sections --> 
     <div class="USER_Page-Section1">
         <div class="USER_Page-Section1-top1">
-            <h5 class="User_Name"> {{ session["LastName"] }} {{ session["FirstName"] }} </h5>
-            <div class="top1-info">
-            <h5>  <b>FirstName:</b> {{ session["FirstName"] }} </h5>
-            <h5>  <b>LastName:</b> {{ session["LastName"] }} </h5>
-            <h5>  <b>User Id:</b> {{ session["idCli"] }} </h5>
-            <h5>  <b>Email:</b> {{ session["Email"] }} </h5>
+            <!-- USER NAME -->
+            <div class="User_Name"><h5 style="margin-left:10px;"> {{ session["LastName"] }} {{ session["FirstName"] }} </h5></div>
+            <!-- top1_info -->
+            <div class="top1-info" style="margin-left:10px;line-height: 1.8;">
+            <h5 >  <b>FirstName:</b> {{ session["FirstName"] }} </h5>
+            <h5 >  <b>LastName:</b> {{ session["LastName"] }} </h5>
+            <h5 >  <b>User Id:</b> {{ session["idCli"] }} </h5>
+            <h5 >  <b>Email:</b> {{ session["Email"] }} </h5>
             {% if session["role"] == 'client' %}
-            <h5>  <b>Role:</b> {{ session["role"] }} </h5>
+            <h5 >  <b>Role:</b> {{ session["role"] }} </h5>
             {% endif %}
-            <h5>  <b>Date Joined:</b> {{ session["Date_Joined"] }} </h5>
+            <h5 >  <b>Date Joined:</b> {{ session["Date_Joined"] }} </h5>
+
+            <button>Logout</button>
+            <button>Delete</button>
             </div>
-            <img >
-
-
-
+            <!-- top1_info END -->
+            <!-- pfp -->
+            <img src="{{ url_for('static', filename='user.png') }}" 
+            width="180px" height="180px" border="0" alt="User_pfp"
+            class="default_pfp">
         </div>
+        <!-- USER_Page-Section1-top1 END -->
 
         <div class="USER_Page-Section1-top2">
             <h5> smth2 </h5>
