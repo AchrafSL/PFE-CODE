@@ -19,15 +19,9 @@ Inline-Block : mix with Inline and Block
 /* I Found some problems in Inline-block so i used flex when i add some content in the div 
 every thing get messy*/
 
-.LoginWrapper * {
-    margin: 0;
-    padding: 0;
-}
 
 .LoginWrapper{
-    display: absolute;
-    margin:-8px;
-    margin-top:-27px;
+
 }
 
 /* Login-Section1 */

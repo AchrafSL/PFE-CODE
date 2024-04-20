@@ -16,20 +16,13 @@ Inline-Block : mix with Inline and Block
         
 */
 
-.FeedBacksWrapper * {
-    margin: 0;
-    padding: 0;
-}
 
 .FeedBacksWrapper{
-    display: absolute;
-    margin:-8px;
-    margin-top:-27px;
+
 }
 
 /* Header CSS */
 .header{
-    margin-top: auto;
     background-image:url('background1.png');
     background-size:cover;
     background-repeat:no-repeat;

@@ -19,15 +19,8 @@ Inline-Block : mix with Inline and Block
 /* I Found some problems in Inline-block so i used flex when i add some content in the div 
 every thing get messy*/
 
-.SignupWrapper * {
-    margin: 0;
-    padding: 0;
-}
-
 .SignupWrapper{
-    display: absolute;
-    margin:-8px;
-    margin-top:-27px;
+
 }
 
 /* Signup-Section1 */
