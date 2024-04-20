@@ -96,22 +96,22 @@ def test2():
 def home():
     return render_template("Home.html")
 
-# Offers
+# Offers ---------------------------------------------------------------------------------
 @app.route('/Offers', methods=["GET"])
 def Offers():
     return render_template("Offers.html")
 
-# ContactUS
+# ContactUS ------------------------------------------------------------------------------
 @app.route('/ContactUS', methods=["GET"])
 def ContactUS():
     return render_template("ContactUS.html")
 
-# FeedBacks
+# FeedBacks ------------------------------------------------------------------------------
 @app.route('/FeedBacks', methods=["GET"])
 def FeedBacks():
     return render_template("FeedBacks.html")
 
-# AboutUS
+# AboutUS --------------------------------------------------------------------------------
 @app.route('/AboutUs', methods=["GET"])
 def AboutUS():
     return render_template("AboutUs.html")
@@ -179,14 +179,15 @@ def SignUpInput():
     password = request.form.get("password")
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
+    whatsapp = request.form.get("WhatsappNumber")
 
     #The email should be case insensitive :
     email = email.lower()
     
     date = datetime.now()
     #No need to check the data because it's already checked by the route /CheckEmail
-    sql = "INSERT INTO USER (FirstName, LastName, Email, Password,Date_Joined) VALUES (%s, %s, %s, %s, %s)"
-    data = (firstname, lastname, email, password,date)
+    sql = "INSERT INTO USER (FirstName, LastName, Email, Password,Date_Joined,whatsapp) VALUES (%s, %s, %s, %s, %s, %s)"
+    data = (firstname, lastname, email, password,date,whatsapp)
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
 
@@ -317,7 +318,7 @@ def CheckLogin():
         email = request.json['email']
         email = email.lower()
         passwd = request.json['passwd']
-        sql = "SELECT Email,Password,FirstName,LastName,role,idCli,Date_Joined FROM USER WHERE email = %s"
+        sql = "SELECT Email,Password,FirstName,LastName,role,idCli,Date_Joined,whatsapp FROM USER WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
@@ -337,6 +338,8 @@ def CheckLogin():
                 session["Email"] = results[0][0]
                 session["role"] = results[0][4]
                 session["idCli"] = results[0][5]
+                session["whatsapp"] = results[0][7]
+
 
                 default_date = results[0][6]
                 new_date = default_date.strftime("%Y-%m-%d %H:%M:%S")
@@ -531,10 +534,78 @@ def USER_Page():
 
         
 
-#__________________________________________________________________________________________________
+#___________________________________________________________________________________________________
 
 
 
+#UserPage ___________________________________________________________________________________________
+
+
+#Update User_Info: ----------------------------------------------------------------------------------
+@app.route("/UpdateInfo", methods=["POST"])
+def UpdateInfo():
+    firstname = request.form.get('firstname')
+    lastname = request.form.get('lastname')
+    whatsapp = request.form.get('whatsappNumber')
+    email = request.form.get('email')
+    email = email.lower()
+
+    # if the email is changed verify the email :
+    if(email != session["Email"]):
+
+        #Change the status in the data base to unverified :
+        sql = "UPDATE USER SET status = 'unverified' WHERE Email = %s"
+        data = (session["Email"],)
+        mycursor.execute(sql,data)
+        myconnection.commit()  # Save
+
+        sql = "SELECT Password from USER where Email = %s"
+        data = (session["Email"],)
+        mycursor.execute(sql,data)
+        results = mycursor.fetchall()
+
+        # update all :
+        sql = "UPDATE USER SET FirstName = %s,LastName= %s,whatsapp = %s,Email = %s WHERE Email = %s"
+        data = (firstname,lastname,whatsapp,email,session["Email"],)
+        mycursor.execute(sql,data)
+        myconnection.commit()  # Save
+
+
+        # Update session data and go verify email:
+        session["FirstName"] = firstname
+        session["LastName"] = lastname
+        session["Email"] = email
+        session["whatsapp"] = whatsapp 
+
+        # generate a token with the operation code 50 for Email verification
+        token = generate_verification_token(email, firstname,lastname,results[0][0],50)
+        send_verification_email(email, token)
+
+        return redirect(f'/Verify?email={email}')
+    else:
+        # update all :
+        sql = "UPDATE USER SET FirstName = %s,LastName= %s,whatsapp = %s,Email = %s WHERE Email = %s"
+        data = (firstname,lastname,whatsapp,email,session["Email"],)
+        mycursor.execute(sql,data)
+        myconnection.commit()  # Save
+
+    # Update session data :
+    session["FirstName"] = firstname
+    session["LastName"] = lastname
+    session["whatsapp"] = whatsapp 
+    return redirect('/USER_Page')
+
+#logOut -----------------------------------------------------------------------------------------
+@app.route("/logout" , methods=["POST"])
+def logout():
+    session["logged_in"] = False
+    session.pop("FirstName",None)
+    session.pop("LastName",None)
+    session.pop("Email",None)
+    session.pop("role",None)
+    session.pop("idCli",None)
+    session.pop("whatsapp",None)
+    return redirect("/home")
 
 
 

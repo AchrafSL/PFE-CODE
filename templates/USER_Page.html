@@ -3,10 +3,89 @@
 <div class="USER_PageWrapper">
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='USER_Page.css') }}">
-    <!--  This file is not created yet :
-        <script language="javascript" src="static\USER_Page.js"></script>  -->
+    <script language="javascript" src="static\USER_Page.js"></script>  
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+    <!-- JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function validateForm(){
+            let session = {{ session|tojson }}; // Important 
 
+            var email = document.forms["UpdateInfo"]["email"].value;
+            var firstname= document.forms["UpdateInfo"]["firstname"].value;
+            var lastname = document.forms["UpdateInfo"]["lastname"].value;
+            var whatsapp = document.forms["UpdateInfo"]["whatsappNumber"].value;
+        
+            if (email == ""  || firstname == "" || lastname == "") {
+                document.getElementById("errorMsg").innerHTML = "Please fill in all the important (*) fields";
+                document.getElementById("errorMsg").style.visibility = "visible";
+                return false;
+            }
+
+            
+            // Check if the email is valid and send the usr to a verification page to verify newEmail;
+            const emailPattern = /^[A-Za-z0-9_\-\.]+\@[A-Za-z0-9_\-\.]+\.[A-Za-z]{2,4}$/ ;
+            if (!emailPattern.test(email)){
+                // NOT A VALID EMAIL :
+                document.getElementById("errorMsg").innerHTML = "Please enter a valid email address";
+                document.getElementById("errorMsg").style.visibility = "visible";
+                return false;
+            }
+            
+            
+            // Check if the whatsapp number is valid;
+            // ^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$ used from google ;
+            const numberPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            if (!numberPattern.test(whatsapp) && whatsapp != ""){
+                document.getElementById("errorMsg").innerHTML = "Please enter a valid Phone number";
+                document.getElementById("errorMsg").style.visibility = "visible";
+                return false;
+            }
+
+
+            // The problem start here need to adjust thing so the usr can change only 1 be acceptable
+            
+            // You should at least change one of the info 
+            if (firstname == session["FirstName"] && lastname == session["LastName"] && whatsapp == session["whatsapp"] && email == session["Email"])
+            {
+                document.getElementById("errorMsg").innerHTML = "Please consider changing at least one of the inputs before proceeding";
+                document.getElementById("errorMsg").style.visibility = "visible";
+                return false;   
+            }
+            else{
+                // check if the email is changed if changed check if it's already in the db :
+                if (email != session["Email"])
+                {
+
+                // need to check if the email adress in the data base:
+                axios.post('/CheckEmail', {
+                    email: document.forms["UpdateInfo"]["email"].value
+                })
+                .then((response) => {
+                    if (response.data.usr_exist == "true") {
+                        document.getElementById("errorMsg").innerHTML ="Please enter another email adress , this email is already used";
+                        document.getElementById("errorMsg").style.visibility = "visible";
+                    } else {
+                        document.forms["UpdateInfo"].submit();
+
+                    }
+                })
+                .catch((error) => {
+                    console.log("Error:", error);
+                });
+                }
+                else{
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        
+
+
+    </script>
 
     <br>
     <!-- IMPORTANT ! :
@@ -30,13 +109,26 @@
             <h5 >  <b>Role:</b> {{ session["role"] }} </h5>
             {% endif %}
 
+            {% if session["whatsapp"] != "" %}
+            <h5 >  <b>WhatsApp:</b> {{ session["whatsapp"] }} </h5>
+            {% else %}
+            <h5 >  <b>WhatsApp:</b> None </h5>
+            {% endif%}
+
             <h5 >  <b>Date Joined:</b> {{ session["Date_Joined"] }} </h5>
 
-            <button class="logout">Logout</button>
-            {% if session["role"] == 'client' %}
-            <button class="workPage"><b>{{ session["role"] }}</b> Page</button>
-            {% endif %}
-            <button class="delete">Delete</button>
+
+
+
+            <form action="/logout" method="POST">  
+                <input type="submit" class="logout" value="Logout">
+
+                {% if session["role"] == 'client' %}
+                <button class="workPage"><b>{{ session["role"] }}</b> Page</button>
+                {% endif %}
+
+                <button class="delete">Delete</button>
+            </form> 
             </div>
             <!-- top1_info END -->
             <!-- pfp -->
@@ -51,18 +143,18 @@
 
         <div class="USER_Page-Section1-top2">
             <div class="User_Name"><h5 style="margin-left:10px;"> Update Profile </h5></div>
-            <form action="/UpdateInfo" method="POST" onsubmit="return validateForm()">
+            <form  action="/UpdateInfo" method="POST" name="UpdateInfo" onsubmit="return validateForm()">
                 <div class="top2-info" style="margin-left:10px;">
-                <h5><b>FirstName</b></h5>
+                <h5><b>FirstName <span style="color:red;">*</span></b></h5>
                 <input type="text" name="firstname" value="{{ session['FirstName'] }}">
-                <h5><b>LastName</b></h5>
+                <h5><b>LastName <span style="color:red;">*</span></b></h5>
                 <input type="text" name="lastname" value="{{ session['LastName'] }}">
                 <h5><b>WhatsApp Number</b></h5>
-                <input type="text" name="whatsappNumber">
-                <h5><b>Email</b></h5>
+                <input type="text" name="whatsappNumber" value="{{ session['whatsapp'] }}">
+                <h5><b>Email <span style="color:red;">*</span></b></h5>
                 <input type="text" name="email" value="{{ session['Email'] }}">
-                <h5 class="errorMsg" > Error msg </h5>
-                <input type="submit" name="submit" value="Submit" class="submitUpdate">
+                <h5 id="errorMsg" > Error msg </h5>
+                <input type="submit" name="submitUpdateInfo" value="Submit" class="submitUpdate" >
                 </div>
 
 

@@ -30,7 +30,7 @@
 .USER_Page-Section1-top1{
     margin-top:20px;
     width:80%;
-    height:30%;
+    height:32%;
     margin-bottom: 20px;
     padding-top:10px;
     background-color:white;
@@ -134,9 +134,9 @@
     background-color: #059862; ;
 }
 
-.top2-info .errorMsg{
+.top2-info #errorMsg{
     visibility: hidden;
-    margin-top:5px;
+    margin-top:8px;
     color:red;
 }
 

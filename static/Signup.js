@@ -3,9 +3,9 @@ function validateForm() {
     var password  = document.forms["SignupForm"]["password"].value;
     var firstname= document.forms["SignupForm"]["firstname"].value;
     var lastname = document.forms["SignupForm"]["lastname"].value;
+    var whatsapp = document.forms["SignupForm"]["WhatsappNumber"].value;
 
     if (email == "" || password == "" || firstname == "" || lastname == "") {
-        document.getElementById("errorMsg").innerHTML = "Please fill in all fields";
         document.getElementById("errorMsg").style.display = "block";
         return false;
     }
@@ -122,8 +122,16 @@ function validateForm() {
         document.getElementById("errorMsg").style.display = "block";
         return false;
     }
-`   `
-     
+
+    // Test phone number if exist :
+    const numberPattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    if (!numberPattern.test(whatsapp) && whatsapp != ""){
+        document.getElementById("errorMsg").innerHTML = "Please enter a valid Phone number";
+        document.getElementById("errorMsg").style.display = "block";
+        return false;
+    }
+
+
     // Test if the password is valid : MSGS
     // 1 " Password requires at least one lowercase character"
     const lowercaseRegex = /(?=.*[a-z]+)/ ;
@@ -175,11 +183,9 @@ function validateForm() {
     })
     .then((response) => {
         if (response.data.usr_exist == "true") {
-            alert("User exists");
             document.getElementById("errorMsg").innerHTML = "Looks like you already have a user. Did you try logging in?";
             document.getElementById("errorMsg").style.display = "block";
         } else {
-            alert("User doesn't exist");
             document.forms["SignupForm"].submit();
         }
     })

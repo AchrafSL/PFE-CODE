@@ -36,9 +36,16 @@
             <div class="VerifiedEmail">
                 <h6 class="msg0"> Warning!</h6>
 
+                {% if session["logged_in"] %}
+                <img src="{{ url_for('static', filename='danger.png') }}" 
+                width="100px" height="100px" border="0" alt="CongratsImg"
+                class="DoneImg" onclick="redirectToLogin('{{ url_for('home') }}')">
+                {% else %}
                 <img src="{{ url_for('static', filename='danger.png') }}" 
                 width="100px" height="100px" border="0" alt="CongratsImg"
                 class="DoneImg" onclick="redirectToLogin('{{ url_for('Login') }}')">
+                {% endif %}
+
 
                 <div class="msg1VerifiedEmail">
                     <p > <i class="fa-regular fa-circle-xmark" style="color: #a00000;"></i>
@@ -58,12 +65,18 @@
                 </div>
                     
                 <form action="/Login" method="POST" name ="ReturnReset_-1">
-                    {% if Reset != -1 or invalidToken == 2 %}
+                    {% if session["logged_in"] %}
+                        <input type="submit" value="Return to Home" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('ReturnReset_-1')">
 
-                    <input type="submit" value="Return to login" class="ReturnToLoginSENDLINK">
                     {% else %}
-                    <input type="submit" value="Return to Signup" class="ReturnToLoginSENDLINK" onclick="ReturnToSignup()">
+                        {% if Reset != -1 or invalidToken == 2 %}
+
+                        <input type="submit" value="Return to login" class="ReturnToLoginSENDLINK">
+                        {% else %}
+                        <input type="submit" value="Return to Signup" class="ReturnToLoginSENDLINK" onclick="ReturnToSignup()">
+                        {% endif %}
                     {% endif %}
+
                 </form>
             </div>
             
@@ -72,9 +85,17 @@
                 <!-- Done page -->
                 <div class="VerifiedEmail">
                     <h6 class="msg0"> Done!</h6>
+                    {% if session["logged_in"] %}
+                    <img src="{{ url_for('static', filename='Done_img.png') }}" 
+                    width="100px" height="100px" border="0" alt="CongratsImg"
+                    class="DoneImg" onclick="redirectToLogin('{{ url_for('home') }}')">
+                    {% else %}
                     <img src="{{ url_for('static', filename='Done_img.png') }}" 
                     width="100px" height="100px" border="0" alt="CongratsImg"
                     class="DoneImg" onclick="redirectToLogin('{{ url_for('Login') }}')">
+                    {% endif %}
+
+
                     <div class="msg1">
                         <p ><i class="fa-solid fa-circle-check" style="color: #07c304;"></i>
                         {% if apply == 1 %} 
@@ -84,8 +105,12 @@
                         {% endif %}
                         
                     </div>                     
-                    <form action="/Login" method="POST">
+                    <form name="returnSig" action="/Login" method="POST">
+                        {% if session["logged_in"] %}
+                        <input type="submit" value="Return to Home" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('returnSig')">
+                        {% else %}
                         <input type="submit" value="Return to login" class="ReturnToLoginSENDLINK">
+                        {% endif %}
                     </form>
                 </div>
                 {% else %}
@@ -106,7 +131,12 @@
                     <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="SignupInput">  
                     <input type="text" autocomplet="off" autofocus placeholder="First Name" name="firstname" class="SignupInput">  
                     <input type="text" autocomplet="off" autofocus placeholder="Last Name" name="lastname" class="SignupInput">  
-                    <h6 id="errorMsg">Please fill in all fields</h6>
+                    <input type="text" autocomplet="off" autofocus placeholder="Whatsapp Number" name="WhatsappNumber" class="SignupInput">  
+
+                    <h6 id="errorMsg">Please fill in all fields. Your WhatsApp number is optional,
+                         but we highly recommend providing it for better communication if you don't feel comfortable using email.
+
+                    </h6>
                     <input type="submit" value="Sign Up" class="Signup-input">  
     
                 </form>

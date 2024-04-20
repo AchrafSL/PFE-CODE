@@ -10,6 +10,7 @@ function ReturnToLoginActionChange(Variable1){
     form.submit();
 }
 
+
 function validateForm(){
     // Check email validation :
     var Email = document.forms["LoginForm"]["email"].value;
@@ -37,11 +38,9 @@ function validateForm(){
     })
     .then((response) => {
         if (response.data.usr_exist == "true") {
-            alert("User exists");
             document.forms["LoginForm"].submit();
 
         } else {
-            alert("User doesn't exist");
             document.getElementById("errorMsg").innerHTML = "Sorry, looks like that's the wrong email or password.";
             document.getElementById("errorMsg").style.display = "block";
         }

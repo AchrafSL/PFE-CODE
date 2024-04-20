@@ -93,7 +93,12 @@
                         <form action="/ResendLink" name = "sendLinkPWD" method="POST">
                             <input type="hidden" value = "password" name = "ResendLink_Type">
                             <input type="hidden" value="{{email}}" name ="EMAIL">
+                            {% if session["logged_in"] %}
+                            <input type="button" value="Return to Home" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('sendLinkPWD')">
+
+                            {% else%}
                             <input type="button" value="Return to login" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLinkPWD')">
+                            {% endif %}
                             <input type="submit" value="Resend Link" class="ResendLink" >
                         </form>
                     </div>
@@ -115,7 +120,11 @@
                     <form action="/ResendLink" name = "sendLink" method="POST">
                         <input type="hidden" value = "email" name = "ResendLink_Type">
                         <input type="hidden" value="{{email}}" name ="EMAIL">
+                        {% if session["logged_in"] %}
+                        <input type="button" value="Return to Home" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('sendLink')">
+                        {% else %}
                         <input type="button" value="Return to login" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLink')">
+                        {% endif %}
                         <input type="submit" value="Resend Link" class="ResendLink" onclick="">
                     </form>
                 </div>

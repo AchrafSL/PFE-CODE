@@ -13,6 +13,7 @@ LastName char(32) ,
 status char(30) DEFAULT 'unverified' ,
 role char(30) DEFAULT 'client',
 Date_Joined DATETIME , 
+whatsapp char(30),
 primary key (idCli)
 );
 
@@ -28,8 +29,10 @@ INSERT INTO Client (FirstName, LastName, Email,Password) VALUES
 ('usr1', '2nd','usr1@gmail.com','1111');
 
 -- Delete values from the CLIENT table 
+DELETE FROM USER WHERE (`idCli` = '1');
 DELETE FROM USER WHERE (`idCli` = '3');
-DELETE FROM client WHERE (`idCli` = '16');
+DELETE FROM USER WHERE (`idCli` = '2');
+
 
 -- Update values of the CLIENT table
 UPDATE Client SET 
