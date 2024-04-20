@@ -596,7 +596,7 @@ def UpdateInfo():
     return redirect('/USER_Page')
 
 #logOut -----------------------------------------------------------------------------------------
-@app.route("/logout" , methods=["POST"])
+@app.route("/logout" , methods=["POST","GET"])
 def logout():
     session["logged_in"] = False
     session.pop("FirstName",None)
@@ -608,6 +608,15 @@ def logout():
     return redirect("/home")
 
 
+#DeleteAccount -----------------------------------------------------------------------------------
+@app.route("/DeleteAccount" , methods=["POST"])
+def DeleteAccount():
+    sql = "DELETE FROM USER WHERE Email = %s"
+    data = (session["Email"],)
+    mycursor.execute(sql,data)
+    myconnection.commit()  # Save
+
+    return redirect("/logout")
 
 
 # ----------------------------------------------------------------------------------------

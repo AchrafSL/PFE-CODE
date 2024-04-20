@@ -120,14 +120,14 @@
 
 
 
-            <form action="/logout" method="POST">  
+            <form name="logout" action="/logout" method="POST">  
                 <input type="submit" class="logout" value="Logout">
 
                 {% if session["role"] == 'client' %}
-                <button class="workPage"><b>{{ session["role"] }}</b> Page</button>
+                <input type=button class="workPage" value="{{ session['role'] }} Page ">
                 {% endif %}
 
-                <button class="delete">Delete</button>
+                <input type="button" class="delete" value="Delete" onclick="redirectDelete('logout')">
             </form> 
             </div>
             <!-- top1_info END -->

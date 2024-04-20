@@ -56,6 +56,8 @@
 }
 
 .top1-info .logout{
+    cursor: pointer;
+    width:60px;
     margin-top:5px;
     margin-right:5px;
     padding:5px;
@@ -66,9 +68,11 @@
 }
 
 .top1-info .delete{
+    cursor: pointer;
     margin-top:5px;
     margin-right:5px;
     padding:5px;
+    width:60px;
     border-radius: 4px;
     background-color: red;
     border:2px solid black;
@@ -76,6 +80,8 @@
 }
 
 .top1-info .workPage{
+    cursor: pointer;
+    width:82px;
     margin-top:5px;
     margin-right:5px;
     padding:5px;
@@ -122,6 +128,7 @@
     padding-bottom:3px;
 }
 .top2-info .submitUpdate{
+    cursor: pointer;
     width:98.5%;
     margin-top:10px;
     background-color:#04AA6D;
