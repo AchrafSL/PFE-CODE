@@ -1,4 +1,6 @@
 
+/* FlexBox is used to position items easily */
+
 .USER_PageWrapper{
 
 }
@@ -7,12 +9,14 @@
 .USER_Page-Section1{
     display:flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items:center;
 
     background-image:url('Network-Image.jpg');
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;
-    padding:178px; 
+    height:800px;
     color: black;
     width:100%;
     font-family: 'Montserrat', sans-serif;
@@ -22,48 +26,130 @@
 
 
 
-/* USER_Page-Section1-left */
+/* USER_Page-Section1-top1 */
 .USER_Page-Section1-top1{
-    display:block;
-    position: relative;
-    width:70%;
-    height:20%;
-    margin-left:-130px;
+    margin-top:20px;
+    width:80%;
+    height:30%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+.User_Name{
+    margin-top:-10px;
+    background-color: rgb(225, 221, 221);
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-bottom:10px;
+}
+
+.top1-content{
+    display:flex;
+    direction: row;
+    justify-content: space-between;
+}
+
+.top1-info{
+    margin-top:10px;
+}
+
+.top1-info .logout{
+    margin-top:5px;
+    margin-right:5px;
+    padding:5px;
+    border-radius: 4px;
+    background-color: gray;
+    border:2px solid black;
+    color:white;
+}
+
+.top1-info .delete{
+    margin-top:5px;
+    margin-right:5px;
+    padding:5px;
+    border-radius: 4px;
+    background-color: red;
+    border:2px solid black;
+    color:white;
+}
+
+.top1-info .workPage{
+    margin-top:5px;
+    margin-right:5px;
+    padding:5px;
+    border-radius: 4px;
+    background-color: gray;
+    border:2px solid black;
+    color:white;
+}
+
+.top1-info .logout:hover{
+    background-color:yellowgreen;
+}
+.top1-info .workPage:hover{
+    background-color:yellowgreen;
+}
+
+.top1-info .delete:hover{
+    background-color:rgba(134, 0, 0, 0.957);
+}
+
+
+
+
+
+/* USER_Page-Section1-top2 */
+.USER_Page-Section1-top2{
+
+    width:80%;
+    height:41.5%;
     margin-bottom: 20px;
     padding-top:10px;
     padding-bottom: 10px;;
     background-color:white;
     border-radius:10px;
+
+}
+.top2-info h5{
+    margin-top:15px;
+}
+.top2-info input{
+    width:98%;
+    margin-top:3px;
+    padding-top:3px;
+    padding-bottom:3px;
+}
+.top2-info .submitUpdate{
+    width:98.5%;
+    margin-top:10px;
+    background-color:#04AA6D;
+    color:white;
+    border:2px solid black;
+
+    
+}
+.top2-info .submitUpdate:hover{
+    background-color: #059862; ;
 }
 
-.USER_Page-Section1-top1 .User_Name{
-    margin-top:-10px;
-    background-color: rgb(205, 203, 203);
-    padding-top:10px;
-    padding-bottom:10px;
-    margin-bottom:10px;
-    display:block;
+.top2-info .errorMsg{
+    visibility: hidden;
+    margin-top:5px;
+    color:red;
 }
 
 
-.top1-info{
-    display:inline-block;
-}
-.default_pfp{
-    display:inline-block;
-    margin-left:420px;
-}
 
-/* USER_Page-Section1-top2 */
-.USER_Page-Section1-top2{
-    display:block;
-    position:relative;
-    width:451px;
-    height:520px;
-    padding:10px;
-    background-color: white;
-    color:black;
-}
+
+
+
+
+
+
+
+
 
 /* Wave svg from https://www.shapedivider.app/ */
 .wave {
