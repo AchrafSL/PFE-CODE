@@ -668,11 +668,21 @@ def UploadPFP():
     #upload the pfp in the pfp folder
     profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'],pic_name))
 
-
-
     return redirect("/home")
 
 
+
+# Activity Page (Client Page, Employee Page, Admin Page)
+@app.route("/Activity_Page", methods=["POST","GET"])
+def Activity_Page():
+    if session["role"] == "client":
+        return render_template("Activity_Page.html",USR = "client")
+    
+    if session["role"] == "employee":
+        return render_template("Activity_Page.html",USR = "employee")
+
+    if session["role"] == "admin":
+        return render_template("Activity_Page.html",USR = "admin")
 # ----------------------------------------------------------------------------------------
 
 if __name__ == '__main__':

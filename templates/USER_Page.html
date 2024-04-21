@@ -105,7 +105,7 @@
             <h5 >  <b>User Id:</b> {{ session["idCli"] }} </h5>
             <h5 >  <b>Email:</b> {{ session["Email"] }} </h5>
 
-            {% if session["role"] == 'client' %}
+            {% if session["role"] != 'client' %}
             <h5 >  <b>Role:</b> {{ session["role"] }} </h5>
             {% endif %}
 
@@ -115,7 +115,11 @@
             <h5 >  <b>WhatsApp:</b> None </h5>
             {% endif%}
 
+            {% if session["role"] != 'client' %}
             <h5 >  <b>Date Joined:</b> {{ session["Date_Joined"] }} </h5>
+            {% else %}
+            <h5 style="margin-bottom:8px;">  <b>Date Joined:</b> {{ session["Date_Joined"] }} </h5>
+            {% endif %}
 
 
 
@@ -123,8 +127,10 @@
             <form name="logout" action="/DeleteAccount" method="POST" onsubmit="return confirmDelete()">  
                 <input type="button" class="logout" value="Logout" onclick="redirectLogout('logout')">
 
-                {% if session["role"] == 'client' %}
-                <input type=button class="workPage" value="{{ session['role'] }} Page ">
+                {% if session["role"] != 'client' %}
+                <input type=button class="workPage" value="{{ session['role'] }} Page" onclick = "redirectActivityPage('logout')">
+                {% else %}
+                <input type=button class="workPage" value="Activity Page" style="width:35%" onclick = "redirectActivityPage('logout')">
                 {% endif %}
 
                 <input type="submit" class="delete" value="Delete">

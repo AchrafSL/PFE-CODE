@@ -1,0 +1,86 @@
+
+/* FlexBox is used to position items easily */
+
+.Activity_PageWrapper{
+
+}
+
+/* Activity_Page-Section1 */
+.Activity_Page-Section1{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center;
+
+    background-image: url('../images/Network-Image.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    color: black;
+    width:100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Activity_Page-Section1 END */
+
+
+
+/* Activity_Page-Section1-top1 */
+.Activity_Page-Section1-top1{
+    margin-top:20px;
+    width:80%;
+    height:200px;
+    margin-bottom: 20px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+
+
+
+/* Activity_Page-Section1-top2 */
+.Activity_Page-Section1-top2{
+
+    width:80%;
+    height:300px;
+    margin-bottom: 20px;
+    padding-top:10px;
+    padding-bottom: 10px;;
+    background-color:white;
+    border-radius:10px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+.wave .shape-fill {
+    fill:black;
+    
+}
+
+/* End of svg css */
+

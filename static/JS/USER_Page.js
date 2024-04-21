@@ -1,7 +1,7 @@
-function redirectDelete(variable2)
+function redirectActivityPage(variable2)
 {
     var form = document.forms[variable2];
-    form.action = "/DeleteAccount";
+    form.action = "/Activity_Page";
     form.method = "POST";
     form.submit();
 }
