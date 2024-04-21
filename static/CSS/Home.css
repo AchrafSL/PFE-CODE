@@ -1,12 +1,29 @@
+/* 
+Display:
+
+Block :   Example(div)
+        take full width if there is no width
+        add line break;
+        Respect padding , margin , width, height
+
+Inline :  Example(span)
+        Do not add line break;
+        Do not respect width,height
+        respect padding and margin but only in left + right ;
+
+Inline-Block : mix with Inline and Block
+        Respect padding , margin , width, height;
+        
+*/
 
 
-.OffersWrapper{
+.HomeWrapper{
 
 }
 
 /* Header CSS */
 .header{
-    background-image:url('Network-Image.jpg');
+    background-image:url('../images/Network-Image.jpg');
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;

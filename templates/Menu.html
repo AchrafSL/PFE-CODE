@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DamsoStream</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Menu.css') }}">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
    <!-- <link type="text/css" rel="stylesheet" href="C:\Users\achra\OneDrive\Desktop\PFE\PFE-CODE\static\Menu.css">
-    --><script language="javascript" src="static\Menu.js"></script>
+    --><script language="javascript" src="static\JS\Menu.js"></script>
     <!-- "Audiowide" + "Sofia" + "Montserrat" from Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
@@ -29,7 +29,7 @@
         width = 44px height = 44px border = 2 alt = "alternative text"
            align = "left" class="logo">
        --> 
-       <img src="{{ url_for('static', filename='logo.jpg') }} " 
+       <img src="{{ url_for('static', filename='Images/logo.jpg') }} " 
        width="44px" height="43px" border="2" alt="alternative text"
        align="left" class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
        
@@ -53,7 +53,7 @@
 
         <!-- change the img used in the img if usr have uploaded one -->
         
-        <img src="{{ url_for('static', filename='User_Icon.png') }}" 
+        <img src="{{ url_for('static', filename='Images/User_Icon.png') }}" 
         width="40px" height="40px" border="1" alt="alternative text"
            align="top" class="pfp" onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')"> 
 

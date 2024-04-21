@@ -2,8 +2,8 @@
 {% block body %}
 <div class="LoginWrapper">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Login.css') }}">
-    <script language="javascript" src="static\Login.js"></script> 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Login.css') }}">
+    <script language="javascript" src="static\JS\Login.js"></script> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- JS library -->
@@ -14,7 +14,7 @@
     for the Login-section1 and other sections --> 
     <div class="Login-Section1">
         <div class="Login-Section1-left">
-            <img src="{{ url_for('static', filename='logo.jpg') }}" 
+            <img src="{{ url_for('static', filename='Images/logo.jpg') }}" 
             width="70px" height="70px" border="0" alt="alternative text"
             class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
             

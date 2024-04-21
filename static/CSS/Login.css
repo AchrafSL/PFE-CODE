@@ -28,7 +28,7 @@ every thing get messy*/
 .Login-Section1{
 	display:flex;
     justify-content: space-between;
-    background-image:url('Network-Image.jpg');
+    background-image:url('../images/Network-Image.jpg');
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;

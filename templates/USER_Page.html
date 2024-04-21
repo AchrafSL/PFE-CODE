@@ -2,8 +2,8 @@
 {% block body %}
 <div class="USER_PageWrapper">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='USER_Page.css') }}">
-    <script language="javascript" src="static\USER_Page.js"></script>  
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/USER_Page.css') }}">
+    <script language="javascript" src="static\JS\USER_Page.js"></script>  
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
     <!-- JS library -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -132,7 +132,7 @@
             </div>
             <!-- top1_info END -->
             <!-- pfp -->
-            <img src="{{ url_for('static', filename='user.png') }}" 
+            <img src="{{ url_for('static', filename='Images/user.png') }}" 
             width="180px" height="180px" border="0" alt="User_pfp"
             class="User_pfp">
 

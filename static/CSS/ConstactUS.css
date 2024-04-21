@@ -16,13 +16,14 @@ Inline-Block : mix with Inline and Block
         
 */
 
-.AboutUSWrapper{
+
+.ConstactUSWrapper{
 
 }
 
 /* Header CSS */
 .header{
-    background-image:url('background1.png');
+    background-image:url('../images/background1.png');
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;
