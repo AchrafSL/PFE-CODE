@@ -2,7 +2,10 @@ from flask import Flask, render_template,redirect,request,jsonify,session
 import mysql.connector
 from flask_mail import Mail, Message
 from datetime import timedelta # no need to download the lib
-from datetime import datetime  #    
+from datetime import datetime  #
+#pip install flask_wtf wtforms
+from flask_wtf import FlaskForm
+from wtforms import FileField
  
 
 
