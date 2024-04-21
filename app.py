@@ -4,16 +4,26 @@ from flask_mail import Mail, Message
 from datetime import timedelta # no need to download the lib
 from datetime import datetime  #
 
-#Upload files : (Source - flask Documentation:
-# https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/)
- 
-
-
 # Mail ,Flask are the actual libraries
-
 # Gmail lets you send up to 500 emails per day using The Gmail SMTP server
 
+#Upload files : (Source - flask Documentation:
+# https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/)
+
+from werkzeug.utils import secure_filename   
+
+# Avoiding Execution of Malicious Files: Malicious users might upload files with executable extensions
+# like .php, .exe, etc., hoping to execute them on your server. By using secure_filename,
+# you can rename such files to have non-executable extensions or take other preventive measures to
+# ensure they can't be executed inadvertently.
+
+import os
+
+UPLOAD_FOLDER = 'static\\Images\\Users_pfp'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+ 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #Setup the session setting :
 app.secret_key= "PFE_UIT_ACHRAF_CABREL"
@@ -94,8 +104,8 @@ def test2():
 
 
 #Home --------------------------------------------------------------------------------------
-@app.route('/home', methods=["GET"])
-@app.route('/', methods=["GET"])
+@app.route('/home', methods=["GET","POST"])
+@app.route('/', methods=["GET","POST"])
 def home():
     return render_template("Home.html")
 
@@ -321,7 +331,7 @@ def CheckLogin():
         email = request.json['email']
         email = email.lower()
         passwd = request.json['passwd']
-        sql = "SELECT Email,Password,FirstName,LastName,role,idCli,Date_Joined,whatsapp FROM USER WHERE email = %s"
+        sql = "SELECT Email,Password,FirstName,LastName,role,idCli,Date_Joined,whatsapp,pfpName FROM USER WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
@@ -342,6 +352,7 @@ def CheckLogin():
                 session["role"] = results[0][4]
                 session["idCli"] = results[0][5]
                 session["whatsapp"] = results[0][7]
+                session["pfpName"] = results[0][8]
 
 
                 default_date = results[0][6]
@@ -608,6 +619,7 @@ def logout():
     session.pop("role",None)
     session.pop("idCli",None)
     session.pop("whatsapp",None)
+    session.pop("pfpName",None)
     return redirect("/home")
 
 
@@ -622,8 +634,43 @@ def DeleteAccount():
     return redirect("/logout")
 
 
+#UploadPFP ------------------------------------------------------------------------------------------
+@app.route("/UploadPFP", methods=["POST","GET"])
+def UploadPFP():
+    profile_pic = request.files["file"]
+
+    # change the name of the img to : email+Firstname.smth | ofc the data is of the current usr ;
+    pic_filename = secure_filename(profile_pic.filename)
+    file_Extention = pic_filename.rsplit('.', 1)[1].lower()
+    #.rsplit('.', 1): This splits the filename into two parts using the dot (.) as the separator 
+    #. The rsplit() method starts splitting from the right side (end) of the string.
+    # The 1 as the second argument tells Python to split the string only once, 
+    #and it will split at the last occurrence of the dot (.). This means the filename and its extension 
+    # Are separated.| [1]: This accesses the second part of the resulting list after splitting
 
 
+    pic_name = f"{session["Email"]}_{session["FirstName"]}.{file_Extention}" 
+    # If the current usr img name != user583abc_1649114257.png delete the old img saved in the session
+    if session["pfpName"] != "user583abc_1649114257.png":
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'],session["pfpName"]))
+
+
+
+    #Update session pfp name;
+    session["pfpName"] = pic_name
+
+    #Update data base pfp name of the current usr;
+    sql = "UPDATE USER SET pfpName = %s WHERE Email = %s"
+    data = (session["pfpName"],session["Email"],)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    #upload the pfp in the pfp folder
+    profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'],pic_name))
+
+
+
+    return redirect("/home")
 
 
 # ----------------------------------------------------------------------------------------

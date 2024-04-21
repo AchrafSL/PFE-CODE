@@ -14,6 +14,7 @@ status char(30) DEFAULT 'unverified' ,
 role char(30) DEFAULT 'client',
 Date_Joined DATETIME , 
 whatsapp char(30),
+pfpName char(255) DEFAULT 'user583abc_1649114257.png',
 primary key (idCli)
 );
 

@@ -5,3 +5,7 @@ function redirectDelete(variable2)
     form.method = "POST";
     form.submit();
 }
+
+function handleFileUpload(){
+    document.getElementById('uploadForm').submit();
+}

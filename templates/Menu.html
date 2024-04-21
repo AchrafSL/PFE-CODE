@@ -52,10 +52,15 @@
         dashboard -->
 
         <!-- change the img used in the img if usr have uploaded one -->
-        
+        {% if session["pfpName"] ==  'user583abc_1649114257.png' %}
         <img src="{{ url_for('static', filename='Images/User_Icon.png') }}" 
         width="40px" height="40px" border="1" alt="alternative text"
            align="top" class="pfp" onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')"> 
+        {% else %}
+        <img src="{{ url_for('static', filename='Images/Users_pfp/' + session['pfpName']) }}" 
+        width="40px" height="40px" border="1" alt="alternative text"
+           align="top" class="pfp" onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')"> 
+        {% endif %}
 
         
         {% else %}

@@ -132,9 +132,20 @@
             </div>
             <!-- top1_info END -->
             <!-- pfp -->
-            <img src="{{ url_for('static', filename='Images/user.png') }}" 
-            width="180px" height="180px" border="0" alt="User_pfp"
-            class="User_pfp">
+            <div class="profile">
+                <img src="{{ url_for('static', filename='Images/Users_pfp/' + session['pfpName']) }}" 
+                width="180px" height="180px" border="0" alt="User_pfp"
+                class="User_pfp" >
+                <button id="UploadProfilePic"class="Upload" onclick="document.getElementById('file').click()"
+                > Upload PFP </button>
+
+                <form  id="uploadForm" action="/UploadPFP" method="post" enctype=multipart/form-data>
+                    <input type="file" id="file" name="file" style="display:none;" onchange="handleFileUpload()">
+                </form>
+
+            </div>
+
+            
 
             </div>
         </div>
@@ -143,7 +154,7 @@
 
         <div class="USER_Page-Section1-top2">
             <div class="User_Name"><h5 style="margin-left:10px;"> Update Profile </h5></div>
-            <form  action="/UpdateInfo" method="POST" name="UpdateInfo" onsubmit="return validateForm()">
+            <form  action="/UpdateInfo" method="POST" name="UpdateInfo" onsubmit="return validateForm()" >
                 <div class="top2-info" style="margin-left:10px;">
                 <h5><b>FirstName <span style="color:red;">*</span></b></h5>
                 <input type="text" name="firstname" value="{{ session['FirstName'] }}">
