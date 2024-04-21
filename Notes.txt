@@ -1,0 +1,12 @@
+Design inspired from etsy (offers Page - Cart Page) design | w3school (login-signup) design 
+ | youtube(user-page)  design https://www.youtube.com/watch?v=ZHQtxITPcAs&list=PLCC34OHNcOtolz2Vd9ZSeSXWc8Bq23yEz&index=38&t=55s&ab_channel=Codemy.com
+ | youtube (footer) design; https://www.youtube.com/watch?v=mjvOlyeS2PQ&ab_channel=SagarDeveloper
+
+
+the design only the code we made it from scratch; 
+the only code that is copied is the upload file documentation ;
+# https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/
+
+and the footer we took only the html part ; ( just because we dont know any design of a footer 
+we found a simple one and we took it it's also simple code )
+

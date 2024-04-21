@@ -3,9 +3,9 @@ import mysql.connector
 from flask_mail import Mail, Message
 from datetime import timedelta # no need to download the lib
 from datetime import datetime  #
-#pip install flask_wtf wtforms
-from flask_wtf import FlaskForm
-from wtforms import FileField
+
+#Upload files : (Source - flask Documentation:
+# https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/)
  
 
 
@@ -620,6 +620,10 @@ def DeleteAccount():
     myconnection.commit()  # Save
 
     return redirect("/logout")
+
+
+
+
 
 
 # ----------------------------------------------------------------------------------------
