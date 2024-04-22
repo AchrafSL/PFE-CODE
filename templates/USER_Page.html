@@ -11,8 +11,8 @@
         function validateForm(){
             let session = {{ session|tojson }}; // Important 
 
-            var email = document.forms["UpdateInfo"]["email"].value;
-            var firstname= document.forms["UpdateInfo"]["firstname"].value;
+            var email = document.forms["UpdateInfo"]["email"].value.toLowerCase();
+            var firstname= document.forms["UpdateInfo"]["firstname"].value; 
             var lastname = document.forms["UpdateInfo"]["lastname"].value;
             var whatsapp = document.forms["UpdateInfo"]["whatsappNumber"].value;
         
