@@ -4,8 +4,9 @@ use DamsoStreamDB;
 
 -- Operations : (insert, delete, update);
 
+-- USER TABLE :
 create table USER(
-idCli integer NOT NULL,	
+idCli integer NOT NULL AUTO_INCREMENT,	
 Email char(60),
 Password char(60) ,
 FirstName char(32) ,
@@ -17,9 +18,18 @@ whatsapp char(30),
 pfpName char(255) DEFAULT 'user583abc_1649114257.png',
 primary key (idCli)
 );
--- Primary Key Set automaticaly 
-ALTER TABLE USER MODIFY idCli integer AUTO_INCREMENT; 
-ALTER TABLE USER MODIFY Email char(60); 
+
+
+-- OFFERS TABLE :
+-- Filled with informations given by the admin (can be edited by the admin in the admin page)
+CREATE TABLE OFFERS(
+    idOffer INT AUTO_INCREMENT,
+    description TEXT,
+    image_Name VARCHAR(255),
+    Offer_price DECIMAL(10, 2),
+    name VARCHAR(255),
+	PRIMARY KEY (idOffer)
+);
 
 -- ORDERS TABLE :
 -- Filled with information derived from the user's cart
@@ -32,18 +42,59 @@ CREATE TABLE Orders (
     PRIMARY KEY (idOrder),
     FOREIGN KEY (idCli) REFERENCES USER(idCli)
 );
+
 -- The list of order offers will be found in the OrderOffers(table) in a form 
 -- of rows under the same idOrder
 
+-- OrderOffers :
 CREATE TABLE OrderOffers (
-    Offer_Id INT AUTO_INCREMENT,
+    OrderOffers_Id INT AUTO_INCREMENT,
     idOrder INT,
-    description TEXT,
-    image_Name VARCHAR(255),
-    Offer_price DECIMAL(10, 2),
-    name VARCHAR(255),
-	PRIMARY KEY (Offer_Id),
-    FOREIGN KEY (idOrder) REFERENCES Orders(idOrder)
+    idOffer INT,
+    PRIMARY KEY (OrderOffers_Id),
+    FOREIGN KEY (idOrder) REFERENCES Orders(idOrder),
+    FOREIGN KEY (idOffer) REFERENCES OfferS(idOffer)
+);
+
+
+
+-- this table should store orders temporary and remove data when submiting the data
+-- aka filling Order and OrderOffers
+-- Cart page vary from every usr 
+-- and it's filled with data comming from ( offers page ) 
+
+-- Cart TABLE :
+CREATE TABLE CART (
+    idCart INT AUTO_INCREMENT PRIMARY KEY,
+    idCli INT,
+    fullPrice DECIMAL(10, 2),
+    FOREIGN KEY (idCli) REFERENCES USER(idCli)
+);
+
+-- The list of order offers will be found in the CartOffers(table) in a form 
+-- of rows under the same idCart
+
+-- CartOffers TABLE :
+CREATE TABLE CartOffers (
+    CartOffer_id INT AUTO_INCREMENT ,
+    idCart INT,
+    idOffer INT,
+	PRIMARY KEY (cartOffer_id),
+    FOREIGN KEY (idCart) REFERENCES CART(idCart),
+    FOREIGN KEY (idOffer) REFERENCES OFFERS(idOffer)
+);
+
+-- Subscription TABLE :
+CREATE TABLE Subscription (
+    idSubscription INT AUTO_INCREMENT,
+    idCli INT,
+    idOffer INT,
+    subscriptionStatus VARCHAR(50) DEFAULT 'Active',
+    startDate DATE,
+    endDate DATE,
+	PRIMARY KEY (idSubscription),
+	FOREIGN KEY (idOffer) REFERENCES OFFERS(idOffer),
+    FOREIGN KEY (idCli) REFERENCES USER(idCli)
 );
 
 

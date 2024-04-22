@@ -14,19 +14,27 @@
 {% if session["role"] == "client" %}
     <div class="Activity_Page-Section1">
         <div class="Activity_Page-Section1-top1">
-            <h3> <u><b>My Orders :</b></u> </h3>
+            <h3 style="margin-left:10px;"> <u><b>My Orders :</b></u> </h3>
             <div class="orderInfo"> 
                 <h5> <b>Order Number :</b></h5>
                 <h5> <b>Offers : (  ,   ,   ,)</b></h5>
-                <h5> <b>STAT : (NON Treated)</b></h5>
-                <h5> <b>Full price :</b></h5>
+                <h5> <b>StatOfTreatment : (Pending Treatment / Treated )</b></h5>
+                <h5> <b>PaymentStat : (Pending Payment / Payed )</b></h5>
+                <h5> <b>TotalPrice :</b></h5>
             </div>
         </div>
         <!-- Activity_Page-Section1-top1 END -->
 
 
         <div class="Activity_Page-Section1-top2">
-            
+            <h3 style="margin-left:10px;"> <u><b>My Subscriptions :</b></u> </h3>
+            <div class="SubInfo"> 
+                <h5> <b>Subscription Number :</b></h5>
+                <h5> <b>Offer : (  )</b></h5>
+                <h5> <b>SubscriptionStatus : (Active / Inactive )</b></h5>
+                <h5> <b>startDate : ( )</b></h5>
+                <h5> <b>endDate : ( )</b></h5>
+            </div>
         </div>
 
     </div>
