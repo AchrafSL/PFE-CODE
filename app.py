@@ -112,7 +112,20 @@ def home():
 # Offers ---------------------------------------------------------------------------------
 @app.route('/Offers', methods=["GET"])
 def Offers():
-    return render_template("Offers.html")
+    mycursor.execute("SELECT COUNT(*) AS OffersNumber FROM OFFERS;")
+    results = mycursor.fetchall()
+
+    mycursor.execute("SELECT name, Offer_price,idOffer FROM OFFERS;")
+    offer_result = mycursor.fetchall()
+    offer_data = []
+    for row in offer_result:
+        offer = {'name': row[0], 'price': row[1],'idOffer':row[2]}
+        offer_data.append(offer) #add the offer to the end of the list offer_data
+
+    # Zip the range and offer data
+    offer_data = zip(range(results[0][0]), offer_data)
+
+    return render_template("Offers.html" , OffersNumber = results[0][0] , OfferData = offer_data)
 
 # ContactUS ------------------------------------------------------------------------------
 @app.route('/ContactUS', methods=["GET"])

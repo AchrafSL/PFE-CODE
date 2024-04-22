@@ -122,59 +122,22 @@ CREATE TABLE Subscription (
 
 
 -- Examples :
--- Insert values into the CLIENT table
-INSERT INTO Client (FirstName, LastName, Email,Password) VALUES 
-('usr0', '1st','usr0@gmail.com','0000'),
-('usr1', '2nd','usr1@gmail.com','1111');
 
--- Delete values from the CLIENT table 
-DELETE FROM USER WHERE (`idCli` = '1');
-DELETE FROM USER WHERE (`idCli` = '3');
-DELETE FROM USER WHERE (`idCli` = '2');
+INSERT INTO  OFFERS (description,image_Name,Offer_price,name) VALUES
+('netflix account offer description','tswira d netflix',200,'Netflix acocunts');
+-- Example 2
+INSERT INTO OFFERS (description, image_Name, Offer_price, name) 
+VALUES ('Spotify Premium offer description', 'spotify_image.jpg', 150, 'Spotify Premium');
 
+-- Example 3
+INSERT INTO OFFERS (description, image_Name, Offer_price, name) 
+VALUES ('Amazon Prime subscription offer description', 'amazon_image.jpg', 100, 'Amazon Prime');
 
--- Update values of the CLIENT table
-UPDATE Client SET 
-    FirstName = 'NewFirstName',
-    LastName = 'NewLastName',
-    Email = 'newemail@example.com',
-    Password = 'newpassword'
-WHERE 
-    idCli = 0;
+-- Example 4
+INSERT INTO OFFERS (description, image_Name, Offer_price, name) 
+VALUES ('Hulu subscription offer description', 'hulu_image.jpg', 120, 'Hulu Subscription');
 
--- and commit after finish
-
-
--- Test order and orderOffers tables :
- 
-
-
---  ( Offer_Id ,idOrder,description ,image_Name ,Offer_price )
-
--- Offer1 from Order1
-INSERT INTO orderoffers ( idOrder,description ,image_Name ,Offer_price ) VALUES
-(1,'netflix' ,'tswira d netflix' ,20);
-
--- Offer2 from Order1
-INSERT INTO orderoffers ( idOrder,description ,image_Name ,Offer_price ) VALUES
-(1,'github' ,'tswira d github' ,40);
-
---  (idCli,StatOfTreatment ,PaymentStat ,TotalPrice ) 
-DELIMITER //
-CREATE PROCEDURE CalculateAndInsertTotalPrice()
-BEGIN
-    DECLARE totalPrice DECIMAL(10, 2);
-
-    -- Calculate total price
-    SELECT SUM(Offer_price) INTO totalPrice FROM OrderOffers WHERE idOrder = 1;
-
-    -- Insert into Orders table
-    INSERT INTO Orders (idCli, TotalPrice) VALUES (3, totalPrice);
-END //
-DELIMITER ;
-CALL CalculateAndInsertTotalPrice();
-
-
+SELECT COUNT(*) AS OffersNumber FROM OFFERS;
 
 
 
