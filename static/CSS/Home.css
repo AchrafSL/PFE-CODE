@@ -23,7 +23,7 @@ Inline-Block : mix with Inline and Block
 
 /* Header CSS */
 .header{
-    background-image:url('../images/Network-Image.jpg');
+    background-image:url('../images/img1.PNG');
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;
@@ -56,31 +56,31 @@ Inline-Block : mix with Inline and Block
 
 /* Sections CSS */ 
 .section1{
-    background-color:#0066FF;
+    background-image:url('../images/img2.jpg');
     padding: 200px; 
     color:white;
 }
 
 .section2{
-    background-color:rgb(0, 17, 202);
+    background-image:url('../images/img4.jpg');
     padding: 200px; 
     color:white;
 }
 
 .section3{
-    background-color:rgba(0, 136, 255, 0.74);
+    background-image:url('../images/img6.jpg');
     padding: 200px; 
     color:white;
 }
 
 .section4{
-    background-color:rgb(0, 142, 251);
+    background-image:url('../images/img3.jpg');
     padding: 200px; 
     color:white;
 }
 
 .section5{
-    background-color:rgb(0, 174, 254);
+    background-image:url('../images/img5.PNG');
     padding: 200px; 
     color:white;
 }
@@ -121,6 +121,3 @@ a{
     fill:rgb(0, 174, 254);  
 }
 /* End of svg css */
-
-
-
