@@ -147,3 +147,5 @@ SELECT COUNT(*) AS OffersNumber FROM OFFERS;
 
 
 
+
+
