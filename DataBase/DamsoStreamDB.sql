@@ -58,8 +58,9 @@ CREATE TABLE OrderOffers (
 
 
 
--- this table should store orders temporary and remove data when submiting the data
--- aka filling Order and OrderOffers
+-- this table should store offers(selected) temporary and remove data after submiting
+-- the data
+-- aka filling Order and OrderOffers (after clicking send order in cart page)
 -- Cart page vary from every usr 
 -- and it's filled with data comming from ( offers page ) 
 
@@ -96,8 +97,6 @@ CREATE TABLE Subscription (
 	FOREIGN KEY (idOffer) REFERENCES OFFERS(idOffer),
     FOREIGN KEY (idCli) REFERENCES USER(idCli)
 );
-
-
 
 
 

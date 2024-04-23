@@ -8,31 +8,48 @@
 
 
     <br>
-    <!-- Header -->
-    <div class="header" align="center" >
-        <div align="top">
-            <h1>N items in your cart </h1>
-            <div>
-                <img align="left" width="187px" height="143px" alternative-text="Image Of The Offer"
-                border="0" src="{{ url_for('static', filename='Images/logo.jpg') }}">
-                <p>                <h3> In x CARTS , y Bought </h3>
-                    <h3> MAD X.XX </h3>
-                </p>
-                <h3> digital product name</h3>
-                <a> Save for later</a> <a> Remove</a>
-            </div>
 
-            
+    <div class="CartWrapper-Section1">
+        <div class="CartWrapper-Section1-top1">
+            <h3 style="margin-left:10px;"><u><b>Cart:</b></u></h3>
+            <div class="OfferWrapper">
+                {% for offer in OFFERData %}
+                <div class="Cart">
+                    <!-- Change the img with offer["image_Name"] -->
+                    <img src="{{ url_for('static', filename='Images/Users_pfp/user583abc_1649114257.png') }}" 
+                        width="100" height="100px" border="0" alt="ProductPIC"
+                        class="ProductPIC" >
+                        <div class="offerData">
+                            <u><h5><b>Product ID :</b> {{ offer['idOffer'] }}</h5></u>
+                            <h5 >{{ offer['name'] }}</h5> 
+                            <h5 style="color:green;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
+                            <p style="margin-left:22px;"><b>Description :</b> {{ offer['description'] }}</p>
+                        </div>
+
+                    
+
+                       
+                </div>
+                {% endfor %}
+                <h1><b>FULL PRICE : {{ session["fullprice"] }}</b></h1>
+            </div>
+        </div>
+        <!-- CartWrapper-Section1-top1 END -->
+    
+        <div class="CartWrapper-Section1-top2">
+
         </div>
     </div>
+    
+
+
 
     <!-- Wave -->
     <div class="wave">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
         </svg>
-    </div>
+    </div> 
 
-
-</div> <!-- End of Div HomeWrapper-->
+</div> <!-- End of Div CartWrapper -->
 {% endblock %}

@@ -1,12 +1,12 @@
 
 /* FlexBox is used to position items easily */
 
-.CartWrapperWrapper{
+.Product_DescriptionWrapperWrapper{
 
 }
 
-/* CartWrapper-Section1 */
-.CartWrapper-Section1{
+/* Product_DescriptionWrapper-Section1 */
+.Product_DescriptionWrapper-Section1{
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -21,10 +21,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-/* CartWrapper-Section1 END */
+/* Product_DescriptionWrapper-Section1 END */
 
-/* CartWrapper-Section1-top1 */
-.CartWrapper-Section1-top1{
+/* Product_DescriptionWrapper-Section1-top1 */
+.Product_DescriptionWrapper-Section1-top1{
     margin-top:20px;
     width:90%;
     margin-bottom: 20px;
@@ -35,45 +35,61 @@
 
 .OfferWrapper{
     display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.Cart{
-    display:flex;
     flex-direction: row;
     flex-wrap: wrap; 
     justify-content: flex-start;
+}
 
+.Product_Description{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(228, 228, 228);
-    width:90%;
-    height:100px;
+    width:50%;
+    height:355px;
     margin:20px;
     padding:20px;
     margin-top:30px;
+    margin-left:30px;
 }
 
 .ProductPIC{
     margin-left:-2px;
 }
-
-.Cart h5{
+.Product_Description img{
+    cursor: pointer;
+}
+.Product_Description h5{
     word-wrap: break-word; /* Use word-wrap instead of overflow-wrap for better compatibility */
     width: 100%; 
     margin-left:22px;
+    cursor: pointer;
 }   
-.offerData{
-    margin-top:10px;
-    line-height: 1.5;
+
+.OfferData{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: rgb(228, 228, 228);
+    width:35%;
+    height:355px;
+    margin:20px;
+    padding:20px;
+    margin-top:30px;
+    margin-left:15px;
+    line-height:1.7;
+}
+
+.OfferData p{
+    word-wrap: break-word; 
+    width: 100%; 
 }
 
 
-
-
-/* CartWrapper-Section1-top2 */
-.CartWrapper-Section1-top2{
+/* Product_DescriptionWrapper-Section1-top2 */
+.Product_DescriptionWrapper-Section1-top2{
 
     width:90%;
     margin-bottom: 20px;

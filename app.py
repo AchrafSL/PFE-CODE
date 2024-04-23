@@ -96,11 +96,6 @@ mycursor = myconnection.cursor()
 
 # ------------------------------------------------------------------------------------
 
-@app.route('/test2', methods=["GET"])
-def test2():
-    return render_template("test2.html")
-
-
 
 
 #Home --------------------------------------------------------------------------------------
@@ -127,6 +122,34 @@ def Offers():
 
     return render_template("Offers.html" , OffersNumber = results[0][0] , OfferData = offer_data)
 
+#Product_Description --------------------------------------------------------------------------------
+@app.route("/Product_Description", methods=["GET"])
+def Product_Description():
+    id = request.args.get('productId')
+    sql = "SELECT * FROM OFFERS where idOffer = %s"
+    data = (id,)
+
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
+    offer_data = {'productId': results[0][0], 'description': results[0][1],'image_Name':results[0][2]
+                  ,'Offer_price':results[0][3] ,'name': results[0][4]}
+                  
+    return render_template("Product_Description.html",offer = offer_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ContactUS ------------------------------------------------------------------------------
 @app.route('/ContactUS', methods=["GET"])
 def ContactUS():
@@ -144,9 +167,73 @@ def AboutUS():
 
 
 # Cart  ----------------------------------------------------------------------------------
-@app.route('/Cart', methods=["GET"])
+@app.route('/AddOfferToCart', methods=["POST"])
+def AddOfferToCart():
+
+    idOffer = request.form.get('idOffer')
+    sql = "SELECT idCart FROM CART WHERE idCli = %s"
+    data = (session["idCli"],)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
+
+
+    idCart = results[0][0]
+
+    sql = "INSERT INTO CARTOFFERS (idCart, idOffer) VALUES (%s, %s)"  
+    data = (idCart, idOffer,) 
+    mycursor.execute(sql, data)
+    myconnection.commit()
+
+    return redirect("/Cart")
+
+
+
+
+
+@app.route('/Cart', methods=["GET","POST"])
 def Cart():
-    return render_template("Cart.html")
+    #get idCart : (from idCli)
+    sql = "SELECT idCart from CART where idCli = %s"
+    data = (session["idCli"],)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
+
+    idCart = results[0][0]
+
+    
+    #Calculat full price; (also il faut cree une jointure entre les deux tab cartOffers and Offers)
+    sql = "SELECT SUM(O.Offer_price) AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND CO.idCart = %s "
+    data = (idCart,)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
+    fullprice = results[0][0]
+
+    session["fullprice"] = fullprice
+
+
+
+    #get all offers (data) stored :(il faut faire une jointure entre les tableau (offers et offerCart)
+    sql = "SELECT CO.idOffer,O.description, O.image_Name, O.Offer_price, O.name AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND idCart = %s"
+    data = (idCart,)
+    mycursor.execute(sql,data)
+    OfferSresults = mycursor.fetchall()
+
+    
+    # all the offers of the current user cart is stored in results now ;
+    offers_data = []
+    for row in OfferSresults:
+        offer = {
+            'idOffer': row[0],
+            'description': row[1],
+            'image_Name': row[2],
+            'Offer_price': row[3],
+            'name': row[4]} 
+        offers_data.append(offer) #add the offer to the end of the list offer_data
+
+
+    return render_template("Cart.html", OFFERData = offers_data)
+
+
 
 
 
@@ -216,6 +303,18 @@ def SignUpInput():
     data = (firstname, lastname, email, password,date,whatsapp)
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
+
+    sql = "SELECT idCli FROM USER WHERE email = %s"
+    data = (email,)
+    mycursor.execute(sql, data)
+    results = mycursor.fetchall()
+
+    idCli = results[0][0]
+    # CART link with the user id
+    sql = "INSERT INTO CART (idCli) VALUES (%s)" 
+    data = (idCli,)
+    mycursor.execute(sql, data)
+    myconnection.commit()
 
     # generate a token with the operation code 50 for Email verification
     token = generate_verification_token(email, firstname,lastname, password,50)

@@ -15,15 +15,18 @@
             <div class="OfferWrapper">
                 {% for i, offer in OfferData %}
                 <div class="offers">
-                    <form action="/Product_Description" name="Product_Description" method="POST">
+                    <form action="/Product_Description" name="Product_Description" method="GET">
                         <img src="{{ url_for('static', filename='Images/Users_pfp/user583abc_1649114257.png') }}" 
                             width="307x" height="307px" border="0" alt="ProductPIC"
-                            class="ProductPIC" onclick="redirectToProduct('Product_Description')">
+                            class="ProductPIC" onclick="document.getElementById('subm').click()">
 
                         <input type="hidden" name="productId" value="{{ offer['idOffer'] }}">
-
-                        <h5 onclick="">{{ offer['name'] }}</h5> 
-                        <h5 style="color:green;margin-top:10px;" onclick=""><b>MAD </b>{{ offer['price'] }}</h5>
+                        <h5 onclick="document.getElementById('subm').click()">{{ offer['name'] }}</h5> 
+                        <h5 style="color:green;margin-top:10px;" onclick="document.getElementById('subm').click()"><b>MAD </b>{{ offer['price'] }}</h5>
+                        <!-- if didn't click on the submit button it self -> an error occure (
+                            always submiting the idOffer = 1
+                        ) -->
+                        <input id="subm" type="submit" value="view">
                     </form>
                 </div>
                 {% endfor %}
