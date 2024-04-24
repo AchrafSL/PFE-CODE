@@ -869,11 +869,34 @@ def Activity_Page():
     if session["role"] == "client":
         #send the client orders and subscriptions
             #Select the orders :
-        sql = "SELECT idOrder,StatOfTreatment,"
-        data = ""
+        sql = "SELECT idOrder,StatOfTreatment,PaymentStat,TotalPrice FROM ORDERS WHERE idCli = %s"
+        data = (session["idCli"],)
+        mycursor.execute(sql,data)
+        Orders = mycursor.fetchall()
 
-                #For each order select offer names [list of names]
-        return render_template("Activity_Page.html",USR = "client")
+        ListOrders = []
+        for order in Orders:
+            ordVar = {
+                'idOrder': order[0],
+                'StatOfTreatment': order[1],
+                'PaymentStat': order[2],
+                'TotalPrice': order[3],
+                'offers': []
+            }
+
+            #For each order get offers names
+            sql = "SELECT O.name FROM OrderOffers OO, OFFERS O WHERE OO.idOffer = O.idOffer AND OO.idOrder = %s"
+            data = (order[0],)
+            mycursor.execute(sql,data)
+            OffersNames = mycursor.fetchall()
+
+            for OfferName in OffersNames :
+                ordVar['offers'].append(OfferName[0])
+
+            ListOrders.append(ordVar)
+
+ 
+        return render_template("Activity_Page.html",USR = "client" ,ListOrders = ListOrders)
     
 
 

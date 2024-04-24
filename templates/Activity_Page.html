@@ -15,14 +15,19 @@
     <div class="Activity_Page-Section1">
         <div class="Activity_Page-Section1-top1">
             <h3 style="margin-left:10px;"> <u><b>My Orders :</b></u> </h3>
-            {for order }
+            {% for order in ListOrders %}
             <div class="orderInfo"> 
-                <h5> <b>Order Number :</b></h5>
-                <h5> <b>Offers : (  ,   ,   ,)</b></h5>
-                <h5> <b>StatOfTreatment : (Pending Treatment / Treated )</b></h5>
-                <h5> <b>PaymentStat : (Pending Payment / Payed )</b></h5>
-                <h5> <b>TotalPrice :</b></h5>
+                <h5> <b>Order Number : {{ order['idOrder'] }}</b></h5>
+                <h5> <b>Offers : (
+                    {% for offer in order['offers'] %}
+                    {{ offer }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                    )</b></h5>
+                <h5> <b>StatOfTreatment : ({{ order['StatOfTreatment'] }})</b></h5>
+                <h5> <b>PaymentStat : ({{ order['PaymentStat'] }})</b></h5>
+                <h5> <b>TotalPrice : {{ order['TotalPrice'] }}</b></h5>
             </div>
+            {% endfor %}
         </div>
         <!-- Activity_Page-Section1-top1 END -->
 
