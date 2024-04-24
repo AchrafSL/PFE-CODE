@@ -16,7 +16,7 @@
                 {% for i, offer in OfferData %}
                 <div class="offers">
                     <form action="/Product_Description" name="Product_Description" method="GET">
-                        <img src="{{ url_for('static', filename='Images/Users_pfp/user583abc_1649114257.png') }}" 
+                        <img src="{{ url_for('static', filename='Images/product_pics/' + offer['image_Name']) }}"
                             width="307x" height="307px" border="0" alt="ProductPIC"
                             class="ProductPIC" onclick="document.getElementById('subm').click()">
 

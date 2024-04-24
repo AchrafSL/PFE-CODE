@@ -97,7 +97,6 @@ mycursor = myconnection.cursor()
 # ------------------------------------------------------------------------------------
 
 
-
 #Home --------------------------------------------------------------------------------------
 @app.route('/home', methods=["GET","POST"])
 @app.route('/', methods=["GET","POST"])
@@ -110,11 +109,11 @@ def Offers():
     mycursor.execute("SELECT COUNT(*) AS OffersNumber FROM OFFERS;")
     results = mycursor.fetchall()
 
-    mycursor.execute("SELECT name, Offer_price,idOffer FROM OFFERS;")
+    mycursor.execute("SELECT name, Offer_price,idOffer,image_Name FROM OFFERS;")
     offer_result = mycursor.fetchall()
     offer_data = []
     for row in offer_result:
-        offer = {'name': row[0], 'price': row[1],'idOffer':row[2]}
+        offer = {'name': row[0], 'price': row[1],'idOffer':row[2],'image_Name':row[3]}
         offer_data.append(offer) #add the offer to the end of the list offer_data
 
     # Zip the range and offer data
@@ -172,7 +171,7 @@ def AboutUS():
 @app.route('/AddOfferToCart', methods=["POST"])
 def AddOfferToCart():
 
-    idOffer = request.form.get('idOffer')
+    idOffer = request.form.get('idOffer')   
     sql = "SELECT idCart FROM CART WHERE idCli = %s"
     data = (session["idCli"],)
     mycursor.execute(sql,data)
@@ -191,6 +190,7 @@ def AddOfferToCart():
         sql = "INSERT INTO CARTOFFERS (idCart, idOffer) VALUES (%s, %s)"
         data = (idCart, idOffer,) 
         mycursor.execute(sql, data)
+        print('wa7ch')
         myconnection.commit()
 
     return redirect("/Cart")
@@ -201,52 +201,52 @@ def AddOfferToCart():
 
 @app.route('/Cart', methods=["GET","POST"])
 def Cart():
-    if session.get("logged_in") == False:
-        return redirect("home")
-    else:
-        #get idCart : (using idCli)
-        sql = "SELECT idCart from CART where idCli = %s"
-        data = (session["idCli"],)
-        mycursor.execute(sql,data)
-        results = mycursor.fetchall()
+    if 'logged_in' not in session:
+        return redirect('/Login')
 
-        idCart = results[0][0]
+    #get idCart : (using idCli)
+    sql = "SELECT idCart from CART where idCli = %s"
+    data = (session["idCli"],)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
 
-        #Save idCart in a session 
-        session["idCart"] = idCart
+    idCart = results[0][0]
 
-        
-        #Calculat full price; (also il faut cree une jointure entre les deux tab cartOffers and Offers)
-        sql = "SELECT SUM(O.Offer_price) AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND CO.idCart = %s "
-        data = (idCart,)
-        mycursor.execute(sql,data)
-        results = mycursor.fetchall()
-        fullprice = results[0][0]
+    #Save idCart in a session 
+    session["idCart"] = idCart
 
-        session["fullprice"] = fullprice
+    
+    #Calculat full price; (also il faut cree une jointure entre les deux tab cartOffers and Offers)
+    sql = "SELECT SUM(O.Offer_price) AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND CO.idCart = %s "
+    data = (idCart,)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
+    fullprice = results[0][0]
 
-
-
-        #get all offers (data) stored :(il faut faire une jointure entre les tableau (offers et offerCart)
-        sql = "SELECT CO.idOffer,O.description, O.image_Name, O.Offer_price, O.name AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND idCart = %s"
-        data = (idCart,)
-        mycursor.execute(sql,data)
-        OfferSresults = mycursor.fetchall()
-
-        
-        # all the offers of the current user cart is stored in results now ;
-        offers_data = []
-        for row in OfferSresults:
-            offer = {
-                'idOffer': row[0],
-                'description': row[1],
-                'image_Name': row[2],
-                'Offer_price': row[3],
-                'name': row[4]} 
-            offers_data.append(offer) #add the offer to the end of the list offer_data
+    session["fullprice"] = fullprice
 
 
-        return render_template("Cart.html", OFFERData = offers_data)
+
+    #get all offers (data) stored :(il faut faire une jointure entre les tableau (offers et offerCart)
+    sql = "SELECT CO.idOffer,O.description, O.image_Name, O.Offer_price, O.name AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND idCart = %s"
+    data = (idCart,)
+    mycursor.execute(sql,data)
+    OfferSresults = mycursor.fetchall()
+
+    
+    # all the offers of the current user cart is stored in results now ;
+    offers_data = []
+    for row in OfferSresults:
+        offer = {
+            'idOffer': row[0],
+            'description': row[1],
+            'image_Name': row[2],
+            'Offer_price': row[3],
+            'name': row[4]} 
+        offers_data.append(offer) #add the offer to the end of the list offer_data
+
+
+    return render_template("Cart.html", OFFERData = offers_data)
 
 # Remove offers from the cart : 
 @app.route('/RemoveOffer_Cart', methods=["POST"])
@@ -270,46 +270,50 @@ def SendOrder():
     #Save the order and Offers  in Order and OrderOffers
         #Get cart id that corespond to the current usr :
     idCart = session["idCart"]
-    
-    #Check if there is smth in the orderCart corponding to the current cart :
+
+    # Check if the cart is empty or not (aka checking if cartoffer is empty )
+    #Check if there is smth in the cartOffer corponding to the current cart :
     sql = "SELECT (idOffer) FROM CARTOFFERS WHERE idCart = %s"
     data = (idCart,)
     mycursor.execute(sql,data,)
     results = mycursor.fetchall()
     
-    if results is None:
-        #fill order data :
-        sql = "INSERT INTO ORDERS (idCli,TotalPrice) VALUES (%s,%s)"
-        data = (session["idCli"],session["fullprice"],)
+    if not results:
+        return redirect("Offers")
+
+
+    #fill order data :
+    sql = "INSERT INTO ORDERS (idCli,TotalPrice) VALUES (%s,%s)"
+    data = (session["idCli"],session["fullprice"],)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    #order id :
+    idOrder = mycursor.lastrowid
+
+    #fill orderOffers :
+        #Get the data from CartOffers
+    sql = "SELECT idOffer from CARTOFFERS Where idCart = %s"
+    data = (idCart,)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
+
+    for id in results:
+        #Insert data in orderOffers under the same idOrder
+        sql = "INSERT INTO ORDEROFFERS (idOrder,idOffer) VALUES (%s,%s)"
+        data = (idOrder,id[0],)
         mycursor.execute(sql,data)
         myconnection.commit()
 
-        #order id :
-        idOrder = mycursor.lastrowid
-        
-        #fill orderOffers :
-            #Get the data from CartOffers
-        sql = "SELECT idOffer from CARTOFFERS Where idCart = %s"
-        data = (idCart,)
-        mycursor.execute(sql,data)
-        results = mycursor.fetchall()
-
-        for id in results:
-            #Insert data in orderOffers under the same idOrder
-            sql = "INSERT INTO ORDEROFFERS (idOrder,idOffer) VALUES (%s,%s)"
-            data = (idOrder,id[0],)
-            mycursor.execute(sql,data)
-            myconnection.commit()
 
 
+    #Clear all cart data for the current user in the CartOffers
+    sql = "DELETE FROM cartoffers WHERE idCart = %s"
+    data = (idCart,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+    return redirect("home")
 
-        #Clear all cart data for the current user in the CartOffers
-        sql = "DELETE FROM cartoffers WHERE idCart = %s"
-        data = (idCart,)
-        mycursor.execute(sql,data)
-        myconnection.commit()
-
-    return redirect("/Offers")
 
 
 

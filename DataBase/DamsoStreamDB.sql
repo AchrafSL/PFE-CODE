@@ -25,7 +25,7 @@ primary key (idCli)
 CREATE TABLE OFFERS(
     idOffer INT AUTO_INCREMENT,
     description TEXT,
-    image_Name VARCHAR(255),
+    image_Name VARCHAR(255) DEFAULT 'default-product-image.png',
     Offer_price DECIMAL(10, 2),
     name VARCHAR(255),
 	PRIMARY KEY (idOffer)
@@ -122,19 +122,21 @@ CREATE TABLE Subscription (
 
 -- Examples :
 
-INSERT INTO  OFFERS (description,image_Name,Offer_price,name) VALUES
-('netflix account offer description','tswira d netflix',200,'Netflix acocunts');
+-- Example 1
+INSERT INTO OFFERS (description, Offer_price, name) 
+VALUES ('Netflix account offer description', 200, 'Netflix accounts');
+
 -- Example 2
-INSERT INTO OFFERS (description, image_Name, Offer_price, name) 
-VALUES ('Spotify Premium offer description', 'spotify_image.jpg', 150, 'Spotify Premium');
+INSERT INTO OFFERS (description, Offer_price, name) 
+VALUES ('Spotify Premium offer description', 150, 'Spotify Premium');
 
 -- Example 3
-INSERT INTO OFFERS (description, image_Name, Offer_price, name) 
-VALUES ('Amazon Prime subscription offer description', 'amazon_image.jpg', 100, 'Amazon Prime');
+INSERT INTO OFFERS (description, Offer_price, name) 
+VALUES ('Amazon Prime subscription offer description', 100, 'Amazon Prime');
 
 -- Example 4
-INSERT INTO OFFERS (description, image_Name, Offer_price, name) 
-VALUES ('Hulu subscription offer description', 'hulu_image.jpg', 120, 'Hulu Subscription');
+INSERT INTO OFFERS (description, Offer_price, name) 
+VALUES ('Hulu subscription offer description', 120, 'Hulu Subscription');
 
 SELECT COUNT(*) AS OffersNumber FROM OFFERS;
 
