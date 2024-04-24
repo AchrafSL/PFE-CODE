@@ -201,49 +201,52 @@ def AddOfferToCart():
 
 @app.route('/Cart', methods=["GET","POST"])
 def Cart():
-    #get idCart : (using idCli)
-    sql = "SELECT idCart from CART where idCli = %s"
-    data = (session["idCli"],)
-    mycursor.execute(sql,data)
-    results = mycursor.fetchall()
+    if session.get("logged_in") == False:
+        return redirect("home")
+    else:
+        #get idCart : (using idCli)
+        sql = "SELECT idCart from CART where idCli = %s"
+        data = (session["idCli"],)
+        mycursor.execute(sql,data)
+        results = mycursor.fetchall()
 
-    idCart = results[0][0]
+        idCart = results[0][0]
 
-    #Save idCart in a session 
-    session["idCart"] = idCart
+        #Save idCart in a session 
+        session["idCart"] = idCart
 
-    
-    #Calculat full price; (also il faut cree une jointure entre les deux tab cartOffers and Offers)
-    sql = "SELECT SUM(O.Offer_price) AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND CO.idCart = %s "
-    data = (idCart,)
-    mycursor.execute(sql,data)
-    results = mycursor.fetchall()
-    fullprice = results[0][0]
+        
+        #Calculat full price; (also il faut cree une jointure entre les deux tab cartOffers and Offers)
+        sql = "SELECT SUM(O.Offer_price) AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND CO.idCart = %s "
+        data = (idCart,)
+        mycursor.execute(sql,data)
+        results = mycursor.fetchall()
+        fullprice = results[0][0]
 
-    session["fullprice"] = fullprice
-
-
-
-    #get all offers (data) stored :(il faut faire une jointure entre les tableau (offers et offerCart)
-    sql = "SELECT CO.idOffer,O.description, O.image_Name, O.Offer_price, O.name AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND idCart = %s"
-    data = (idCart,)
-    mycursor.execute(sql,data)
-    OfferSresults = mycursor.fetchall()
-
-    
-    # all the offers of the current user cart is stored in results now ;
-    offers_data = []
-    for row in OfferSresults:
-        offer = {
-            'idOffer': row[0],
-            'description': row[1],
-            'image_Name': row[2],
-            'Offer_price': row[3],
-            'name': row[4]} 
-        offers_data.append(offer) #add the offer to the end of the list offer_data
+        session["fullprice"] = fullprice
 
 
-    return render_template("Cart.html", OFFERData = offers_data)
+
+        #get all offers (data) stored :(il faut faire une jointure entre les tableau (offers et offerCart)
+        sql = "SELECT CO.idOffer,O.description, O.image_Name, O.Offer_price, O.name AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND idCart = %s"
+        data = (idCart,)
+        mycursor.execute(sql,data)
+        OfferSresults = mycursor.fetchall()
+
+        
+        # all the offers of the current user cart is stored in results now ;
+        offers_data = []
+        for row in OfferSresults:
+            offer = {
+                'idOffer': row[0],
+                'description': row[1],
+                'image_Name': row[2],
+                'Offer_price': row[3],
+                'name': row[4]} 
+            offers_data.append(offer) #add the offer to the end of the list offer_data
+
+
+        return render_template("Cart.html", OFFERData = offers_data)
 
 # Remove offers from the cart : 
 @app.route('/RemoveOffer_Cart', methods=["POST"])
