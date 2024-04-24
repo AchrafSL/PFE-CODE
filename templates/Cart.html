@@ -13,7 +13,13 @@
         <div class="CartWrapper-Section1-top1">
             <h3 style="margin-left:10px;"><u><b>Cart:</b></u></h3>
             <div class="OfferWrapper">
-                <h1><b>FULL PRICE : <span style="color:green">{{ session["fullprice"] }} MAD</span></b></h1>
+                <div class="sendOrder_Price">
+                    <h1 style="margin-right:300px"><b>FULL PRICE : <span style="color:green">{{ session["fullprice"] }} MAD</span></b></h1>
+                    <!-- Send Order form -->
+                    <form action="/SendOrder" method="POST">
+                        <input type="submit" value="Send Order" class="SendOrderButton">
+                    </form>
+                </div>
 
                 {% for offer in OFFERData %}
                 <div class="Cart">
@@ -48,7 +54,11 @@
                        
                 </div>
                 {% endfor %}
+
+
+
             </div>
+            
         </div>
         <!-- CartWrapper-Section1-top1 END -->
     

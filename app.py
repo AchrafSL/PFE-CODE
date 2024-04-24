@@ -209,6 +209,9 @@ def Cart():
 
     idCart = results[0][0]
 
+    #Save idCart in a session 
+    session["idCart"] = idCart
+
     
     #Calculat full price; (also il faut cree une jointure entre les deux tab cartOffers and Offers)
     sql = "SELECT SUM(O.Offer_price) AS total_price FROM CartOffers CO, OFFERS O WHERE CO.idOffer = O.idOffer AND CO.idCart = %s "
@@ -246,14 +249,7 @@ def Cart():
 @app.route('/RemoveOffer_Cart', methods=["POST"])
 def RemoveOffer_Cart():
     idOffer = request.form.get('offerId')
-    
-    #get idCart : (using idCli)
-    sql = "SELECT idCart from CART where idCli = %s"
-    data = (session["idCli"],)
-    mycursor.execute(sql,data)
-    results = mycursor.fetchall()
-
-    idCart = results[0][0]
+    idCart = session["idCart"]
 
     # Delete row where idCart = %s and idOffer = %s
 
@@ -265,7 +261,52 @@ def RemoveOffer_Cart():
     return redirect("/Cart")
 
 
+#Send Order
+@app.route("/SendOrder", methods = ["POST"])
+def SendOrder():
+    #Save the order and Offers  in Order and OrderOffers
+        #Get cart id that corespond to the current usr :
+    idCart = session["idCart"]
+    
+    #Check if there is smth in the orderCart corponding to the current cart :
+    sql = "SELECT (idOffer) FROM CARTOFFERS WHERE idCart = %s"
+    data = (idCart,)
+    mycursor.execute(sql,data,)
+    results = mycursor.fetchall()
+    
+    if results is None:
+        #fill order data :
+        sql = "INSERT INTO ORDERS (idCli,TotalPrice) VALUES (%s,%s)"
+        data = (session["idCli"],session["fullprice"],)
+        mycursor.execute(sql,data)
+        myconnection.commit()
 
+        #order id :
+        idOrder = mycursor.lastrowid
+        
+        #fill orderOffers :
+            #Get the data from CartOffers
+        sql = "SELECT idOffer from CARTOFFERS Where idCart = %s"
+        data = (idCart,)
+        mycursor.execute(sql,data)
+        results = mycursor.fetchall()
+
+        for id in results:
+            #Insert data in orderOffers under the same idOrder
+            sql = "INSERT INTO ORDEROFFERS (idOrder,idOffer) VALUES (%s,%s)"
+            data = (idOrder,id[0],)
+            mycursor.execute(sql,data)
+            myconnection.commit()
+
+
+
+        #Clear all cart data for the current user in the CartOffers
+        sql = "DELETE FROM cartoffers WHERE idCart = %s"
+        data = (idCart,)
+        mycursor.execute(sql,data)
+        myconnection.commit()
+
+    return redirect("/Offers")
 
 
 
@@ -761,6 +802,8 @@ def logout():
     session.pop("idCli",None)
     session.pop("whatsapp",None)
     session.pop("pfpName",None)
+    session.pop("idCart",None)
+    session.pop("fullprice",None)
     return redirect("/home")
 
 

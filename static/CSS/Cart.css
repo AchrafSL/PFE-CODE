@@ -92,7 +92,20 @@
     background-color: rgb(113, 0, 0);
 }
 
-
+.SendOrderButton{
+    margin:20px;
+    background-color: rgb(0, 0, 0);
+    color:white;
+    border-radius:10px;
+    padding:10px;
+    margin-left:300px;
+}
+.sendOrder_Price{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    align-items:center; 
+}
 
 
 
