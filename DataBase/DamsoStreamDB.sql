@@ -141,8 +141,8 @@ VALUES ('Hulu subscription offer description', 120, 'Hulu Subscription');
 SELECT COUNT(*) AS OffersNumber FROM OFFERS;
 
 
-
-
+-- Select Client Orders and for each order there is a select (for offers)
+-- A list of orders and for each order there is a list of offers (just offers names )
 
 
 

@@ -867,12 +867,27 @@ def UploadPFP():
 @app.route("/Activity_Page", methods=["POST","GET"])
 def Activity_Page():
     if session["role"] == "client":
+        #send the client orders and subscriptions
+            #Select the orders :
+        sql = "SELECT idOrder,StatOfTreatment,"
+        data = ""
+
+                #For each order select offer names [list of names]
         return render_template("Activity_Page.html",USR = "client")
     
+
+
+
+
+
+
     if session["role"] == "employee":
+        #Send all non treated Orders and | Add data to subscription table for the the 
+        # order ( client(usr) )
         return render_template("Activity_Page.html",USR = "employee")
 
     if session["role"] == "admin":
+        #Do the same as the employee but can also add/remove offers | add/remove employee
         return render_template("Activity_Page.html",USR = "admin")
 # ----------------------------------------------------------------------------------------
 
