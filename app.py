@@ -167,6 +167,8 @@ def AboutUS():
 
 
 # Cart  ----------------------------------------------------------------------------------
+
+#Add Offers to the cart :
 @app.route('/AddOfferToCart', methods=["POST"])
 def AddOfferToCart():
 
@@ -178,11 +180,18 @@ def AddOfferToCart():
 
 
     idCart = results[0][0]
-
-    sql = "INSERT INTO CARTOFFERS (idCart, idOffer) VALUES (%s, %s)"  
-    data = (idCart, idOffer,) 
+    #Only add offer if it doesn't exist in the cartoffers :
+    sql = "SELECT idCart FROM CARTOFFERS WHERE idCart = %s AND idOffer = %s"
+    data = (idCart, idOffer,)
     mycursor.execute(sql, data)
-    myconnection.commit()
+    results = mycursor.fetchall()
+
+    # If the offer doesn't exist in CARTOFFERS, insert it
+    if not results:
+        sql = "INSERT INTO CARTOFFERS (idCart, idOffer) VALUES (%s, %s)"
+        data = (idCart, idOffer,) 
+        mycursor.execute(sql, data)
+        myconnection.commit()
 
     return redirect("/Cart")
 
@@ -192,7 +201,7 @@ def AddOfferToCart():
 
 @app.route('/Cart', methods=["GET","POST"])
 def Cart():
-    #get idCart : (from idCli)
+    #get idCart : (using idCli)
     sql = "SELECT idCart from CART where idCli = %s"
     data = (session["idCli"],)
     mycursor.execute(sql,data)
@@ -233,7 +242,27 @@ def Cart():
 
     return render_template("Cart.html", OFFERData = offers_data)
 
+# Remove offers from the cart : 
+@app.route('/RemoveOffer_Cart', methods=["POST"])
+def RemoveOffer_Cart():
+    idOffer = request.form.get('offerId')
+    
+    #get idCart : (using idCli)
+    sql = "SELECT idCart from CART where idCli = %s"
+    data = (session["idCli"],)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
 
+    idCart = results[0][0]
+
+    # Delete row where idCart = %s and idOffer = %s
+
+    sql = "DELETE FROM cartoffers WHERE idCart = %s AND idOffer = %s"
+    data = (idCart,idOffer,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    return redirect("/Cart")
 
 
 
