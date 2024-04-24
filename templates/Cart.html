@@ -13,11 +13,15 @@
         <div class="CartWrapper-Section1-top1">
             <h3 style="margin-left:10px;"><u><b>Cart:</b></u></h3>
             <div class="OfferWrapper">
+                <h1><b>FULL PRICE : <span style="color:green">{{ session["fullprice"] }} MAD</span></b></h1>
+
                 {% for offer in OFFERData %}
                 <div class="Cart">
                     <img src="{{ url_for('static', filename='Images/Users_pfp/user583abc_1649114257.png') }}" 
                     width="100" height="100px" border="0" alt="ProductPIC"
                     class="ProductPIC" >
+                <div class="offerdata-left" style="margin-right:100px;">
+
                     <div class="offerData">
                         <!-- Change the img with offer["image_Name"] -->
 
@@ -25,12 +29,17 @@
                         <h5 >{{ offer['name'] }}</h5> 
                         <h5 style="color:green;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
                     </div>
-                    <p style="margin-left:22px;word-wrap:wrap;width:300px;margin-top:8px;"><b>Description :</b> {{offer['description'] }}</p>
+                    <p style="margin-left:22px;word-wrap:wrap;width:300px;margin-top:8px;margin-right:200px;"><b>Description :</b> {{offer['description'] }}</p>
+                </div>
+
+                <div class="offerdata-right">
                     <!-- remove offer from cart  -->
                     <form action="/RemoveOffer_Cart" method="POST">
                         <input type="hidden" name="offerId" value="{{ offer['idOffer'] }}">
                         <input type="submit" value="Remove offer from cart" class="RemoveFromCart">
                     </form>
+                </div>
+
 
                     
 
@@ -39,7 +48,6 @@
                        
                 </div>
                 {% endfor %}
-                <h1><b>FULL PRICE : {{ session["fullprice"] }}</b></h1>
             </div>
         </div>
         <!-- CartWrapper-Section1-top1 END -->
