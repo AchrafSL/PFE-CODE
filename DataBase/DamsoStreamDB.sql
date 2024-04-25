@@ -99,8 +99,14 @@ CREATE TABLE Subscription (
 );
 
 
+-- email or idUSER to update role
+UPDATE USER SET role = 'employee' where idCli = 2
 
-
+ SELECT o.idOrder,o.idCli, o.StatOfTreatment, o.PaymentStat, o.TotalPrice, 
+usr.FirstName,usr.LastName, usr.Email, usr.WhatsApp 
+ FROM ORDERS o, USER usr 
+ WHERE o.idCli = usr.idCli 
+ AND o.StatOfTreatment = 'Pending Treatment';
 
 
 

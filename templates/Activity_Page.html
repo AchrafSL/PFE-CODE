@@ -56,6 +56,32 @@
 {% if session["role"] == "employee" %}
     <div class="Activity_Page-Section1">
         <div class="Activity_Page-Section1-top1">
+            <h3 style="margin-left:10px;"> <u><b>Client Orders :</b></u> </h3>
+            {% for order in ListOrders %}
+            <div class="ordersInfo"> 
+                <h5> <b>Order Number : {{ order['idOrder'] }}</b></h5>
+                <h5> <b>Offers : (
+                    {% for offer in order['offers'] %}
+                    {{ offer }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                    )</b></h5>
+                <h5> <b>StatOfTreatment : ({{ order['StatOfTreatment'] }})</b></h5>
+                <h5> <b>PaymentStat : ({{ order['PaymentStat'] }})</b></h5>
+                <h5 style="color:green"> <b>TotalPrice : {{ order['TotalPrice'] }}</b></h5>
+                <hr style="border: 1px solid #000;margin-top:5px;margin-bottom:5px;">    
+                <h5> <b>Client Id : {{ order['idCli'] }}</b></h5>    
+                <h5> <b>Client FullName : {{ order['LastName'] }} {{ order['FirstName'] }}</b></h5>
+                <h5 > <b>Email : {{ order['Email'] }}</b></h5>
+                {% if order['WhatsApp'] != '' %}
+                <h5 > <b>Whatsapp : {{ order['WhatsApp'] }}</b></h5>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+
+
+
+
 
         </div>
         <!-- Activity_Page-Section1-top1 END -->

@@ -867,13 +867,14 @@ def UploadPFP():
 @app.route("/Activity_Page", methods=["POST","GET"])
 def Activity_Page():
     if session["role"] == "client":
-        #send the client orders and subscriptions
+
             #Select the orders :
         sql = "SELECT idOrder,StatOfTreatment,PaymentStat,TotalPrice FROM ORDERS WHERE idCli = %s"
         data = (session["idCli"],)
         mycursor.execute(sql,data)
         Orders = mycursor.fetchall()
 
+        #send the client orders and subscriptions
         ListOrders = []
         for order in Orders:
             ordVar = {
@@ -907,7 +908,48 @@ def Activity_Page():
     if session["role"] == "employee":
         #Send all non treated Orders and | Add data to subscription table for the the 
         # order ( client(usr) )
-        return render_template("Activity_Page.html",USR = "employee")
+
+                    #Select all the non treated orders with there client (info also):
+        sql = " SELECT o.idOrder,o.StatOfTreatment, o.PaymentStat, o.TotalPrice,o.idCli, usr.FirstName,usr.LastName, usr.Email, usr.WhatsApp FROM ORDERS o, USER usr WHERE o.idCli = usr.idCli AND o.StatOfTreatment = 'Pending Treatment';"
+        mycursor.execute(sql)
+        Orders = mycursor.fetchall()
+
+        #send the client orders and subscriptions
+        ListOrders = []
+        for order in Orders:
+            ordVar = {
+                'idOrder': order[0],
+                'StatOfTreatment': order[1],
+                'PaymentStat': order[2],
+                'TotalPrice': order[3],
+                'idCli': order[4],
+                'FirstName': order[5],
+                'LastName': order[6],
+                'Email': order[7],
+                'WhatsApp': order[8],
+                'offers': []
+            }
+
+            #For each order get offers names
+            sql = "SELECT O.name FROM OrderOffers OO, OFFERS O WHERE OO.idOffer = O.idOffer AND OO.idOrder = %s"
+            data = (order[0],)
+            mycursor.execute(sql,data)
+            OffersNames = mycursor.fetchall()
+
+            for OfferName in OffersNames :
+                ordVar['offers'].append(OfferName[0])
+
+            ListOrders.append(ordVar)
+
+ 
+        return render_template("Activity_Page.html",USR = "employee" ,ListOrders = ListOrders)
+
+
+
+
+
+
+
 
     if session["role"] == "admin":
         #Do the same as the employee but can also add/remove offers | add/remove employee

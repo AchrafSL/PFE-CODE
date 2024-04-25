@@ -46,7 +46,14 @@
     height:100px;
 }
 
-
+.ordersInfo{
+    line-height: 1.5;
+    background-color: rgb(228, 228, 228);
+    width:930px;
+    margin:20px;
+    padding:20px;
+    height:180px;
+}
 
 
 /* Activity_Page-Section1-top2 */
