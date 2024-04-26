@@ -66,18 +66,84 @@
                 <form action="/ChangeRole" method="POST" name="ChangeRole" class="ChangeRole" onsubmit="return confirmRoleChange('ChangeRole')">
                     <input type="text" placeholder=" Email / USER_ID " name="ChangeRoleInput">
                     <!-- Change role to (Client/Employee/Admin) (Select input)-->
-                    <select class="Role" name="Role">
+                    <select class="Role" name="Role"  style="cursor:pointer;">
                         <option  disabled selected> Please Select a role :</option>
                         <option> client </option>
                         <option> employee </option>
                         <option> admin </option>
                     </select>
-                    <input type="submit" value="ChangeRole" class="ChangeRoleButton">
+                    <input type="submit" value="ChangeRole" class="ChangeRoleButton"  style="cursor:pointer;">
                 </form>
 
             </div>
 
         </div>
+
+        <div class="Activity_Page-Section1-top0_1">
+
+
+
+            <h3 style="margin:10px;"> <u> Add offers : </u></h3>
+            <div class="addOffers">
+                <form class="AddffersForm" action="/AddOffer">
+                    <!-- Image name will be set automaticaly after uploading the img -->
+                    <input type="text" placeholder="Offer Name" > 
+                    <input type="text" placeholder="Offer Price" >
+                    <input type="text" placeholder="Offer duration (IN DAYS)" > 
+                    <input type="file"  style="cursor:pointer;">
+                    <TEXTAREA rows="10" cols="60" placeholder="Offer Description"></TEXTAREA>
+                    <h6 id="ErrorMSG1" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;"> Please fill all fields </h6>
+                    <input type="submit" value="Add Offer" class="AddOfferSubmit"  style="cursor:pointer;">
+                </form>
+
+            </div>
+
+            <hr style="border:1px solid black;width:96%;margin-left:2.5%;margin-top:10px;margin-bottom:10px;">
+
+            <h3 style="margin:10px;"> <u> Remove Offers : </u></h3>
+            <h6 id="ErrorMSG2" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;margin-left:19.8%;">  Please fill OrderID field </h6>
+
+            <div class="RemoveOffers">
+                <form class="RemoveOffersForm" name="RemoveOfferForm" action="/RemoveOffer" method="POST" onsubmit="return ConfirmOfferRemoval()">
+                    <input type="text" placeholder="Offer ID" name="offerID">
+                    <input type="submit" value="Remove Offer" class="RemoveOfferButton"  style="cursor:pointer;">
+                </form>
+            </div>
+            
+            <hr style="border:1px solid black;width:96%;margin-left:2.5%;margin-top:10px;margin-bottom:10px;">
+
+
+            <div class="ModifyOffers">
+                <h3> <u> Modify Offers : </u></h3>
+                <h6 id="ErrorMSG3" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;margin-left:19%;"> Please fill OrderID field </h6>
+
+                <form class="ModifyOffersForm" name="ModifyOffersForm" onsubmit="return ConfirmOfferModification()" action="/get_OfferToModify_Data" method="POST"> 
+                    <input type="text" placeholder="Offer ID" name="offerID">
+                    <input type="submit" value="Modify Offer" class="ModifyOfferButton"  style="cursor:pointer;">
+                </form>
+
+                {% if offerToModify is not none %}
+                <hr style="border:1px solid black;width:80%;margin-left:10%;margin-top:20px;margin-bottom:20px;">
+                <form name="offerToModifyForm" class="offerToModifyForm" action="/modifyOffer" method="POST" enctype=multipart/form-data onsubmit="return VerifyOfferModifying('offerToModifyForm')">
+                    <!-- Image name will be set automaticaly after uploading the img -->
+                    <input type="text" name="name" placeholder="Offer Name" value="{{ offerToModify['name'] }}"> 
+                    <input type="text" name="Offer_price" placeholder="Offer Price" value="{{ offerToModify['Offer_price'] }}">
+                    <input type="text"  name="duration" placeholder="Offer duration (IN DAYS)" value="{{ offerToModify['duration'] }}"> 
+                    <input type="file"  name="file" id="file" style="cursor:pointer;">
+                    <textarea rows="10" name="description" cols="60" placeholder="Offer Description">{{ offerToModify['description'] }}</textarea>         
+                    <input type="hidden" name='offerID' value="{{ offerToModify['offerID'] }}">
+
+                    <h6 id="ErrorMSG4" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;"> Please fill all fields </h6>
+                    <input type="submit" value="Modify Offer" style="cursor:pointer;" class="ModifyOfferSubmit" >
+                </form>
+                {% endif %}
+            </div>
+            
+        </div>
+
+
+
+
         {% endif %}
 
 

@@ -31,7 +31,7 @@
     flex-direction: column;
     justify-content: flex-start;
     
-    margin-top:20px;
+    margin-top:10px;
     width:80%;
     margin-bottom: 20px;
     padding-top:10px;
@@ -77,7 +77,7 @@
 .Activity_Page-Section1-top2{
 
     width:80%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-top:10px;
     padding-bottom: 10px;;
     background-color:white;
@@ -99,7 +99,7 @@
 .Activity_Page-Section1-top0{
     margin-top:20px;
     width:80%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-top:10px;
     background-color:white;
     border-radius:10px;
@@ -125,6 +125,149 @@
 .ChangeRoleButton:hover{
     background-color: yellowgreen;
 }
+
+
+/* Activity_Page-Section1-top0_1 */
+.Activity_Page-Section1-top0_1{
+    margin-top:10px;
+    width:80%;
+    margin-bottom: 10px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+
+
+/* Add offers */
+.addOffers{
+
+}
+
+.AddffersForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    margin:10px;
+}
+
+.AddffersForm input{
+    width:50%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.AddffersForm TEXTAREA{
+    margin:5px;
+    width:51%;
+}
+.AddOfferSubmit{
+    background-color: gray;
+    color:white;
+}
+.AddOfferSubmit:hover{ background-color: yellowgreen;}
+
+
+/* Add offers END */
+
+
+
+
+
+/* Remove Offers */
+.RemoveOffers{
+
+    margin:10px;
+}
+.RemoveOffersForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+}
+.RemoveOffersForm input{
+    width:30%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.RemoveOfferButton{
+    background-color: gray;
+    color:white;
+}
+.RemoveOfferButton:hover{background-color: yellowgreen;}
+/* Remove Offers END */
+
+
+
+
+/* Modify Offers */
+.ModifyOffers{
+    margin:10px;
+}
+
+.ModifyOffersForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+}
+
+
+.ModifyOffersForm input{
+    width:30%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.ModifyOfferButton{
+    background-color: gray;
+    color:white;
+}
+.ModifyOfferButton:hover{background-color: yellowgreen;}
+
+/* offerToModifyForm */
+.offerToModifyForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    margin:10px;
+}
+
+.offerToModifyForm input{
+    width:50%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.offerToModifyForm TEXTAREA{
+    margin:5px;
+    width:51%;
+}
+.ModifyOfferSubmit{
+    background-color: gray;
+    color:white;
+}
+.ModifyOfferSubmit:hover{ background-color: yellowgreen;}
+
+
+/* Modify Offers END */
+
+
+
+
+
+
 
 
 

@@ -836,7 +836,8 @@ def UploadPFP():
     # The 1 as the second argument tells Python to split the string only once, 
     #and it will split at the last occurrence of the dot (.). This means the filename and its extension 
     # Are separated.| [1]: This accesses the second part of the resulting list after splitting
-
+    UPLOAD_FOLDER = 'static\\Images\\Users_pfp'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     pic_name = f"{session["Email"]}_{session["FirstName"]}.{file_Extention}" 
     # If the current usr img name != user583abc_1649114257.png delete the old img saved in the session
@@ -948,7 +949,7 @@ def Activity_Page():
         
         if session["role"] == "admin":
             #Do the same as the employee but can also add/remove offers | change role
-            return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber)
+            return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None)
         else:
             return render_template("Activity_Page.html",USR = "employee" ,ListOrders = ListOrders,OrderNumber = OrderNumber)
 
@@ -1042,16 +1043,123 @@ def ChangeRole():
     return redirect('Activity_Page')
 
 
-#(Add / Remove / Modify / SHow) OFFERS ---------------------------------------------------------------
+#(Add / Remove / Modify) OFFERS ---------------------------------------------------------------
 
 
 #Add offers (+ Upload offer img if there is no imsg use the default ):
 
 
+
 #Remove Offers :
+@app.route("/RemoveOffer", methods=["POST"])
+def RemoveOffer():
+    #if the order exist remove the order :
+    offerID = request.form.get('offerID')
+    sql = "Select idOffer from offers where idOffer = %s"
+    data = (offerID,)
+    mycursor.execute(sql,data,)
+    offer_ID = mycursor.fetchall()
 
-#Show all offers in the db and make changes in them if possible :
+    if offer_ID:
+        #then the offer exist :
+            #Remove the offer :
+                #Delete All offers with same offer id in CartOffers 
+        cart_offers_sql = "DELETE FROM CartOffers WHERE idOffer = %s"
+        data = (offerID,)
+        mycursor.execute(cart_offers_sql,data,)
+        myconnection.commit()
 
+
+                #Delete All offers with same offer id in OrderOffers 
+        order_offers_sql = "DELETE FROM OrderOffers WHERE idOffer = %s"
+        data = (offerID,)
+        mycursor.execute(order_offers_sql,data,)
+        myconnection.commit()
+
+                #Delete All offers with same offer id in Subscription 
+        subscription_sql = "DELETE FROM Subscription WHERE idOffer = %s"
+        data = (offerID,)
+        mycursor.execute(subscription_sql,data,)
+        myconnection.commit()
+
+
+        # Delete Offer
+        sql = "DELETE FROM OFFERS WHERE idOffer = %s "
+        data = (offerID,)
+        mycursor.execute(sql,data)
+        myconnection.commit()
+
+
+
+    return redirect("/Activity_Page")
+
+
+
+#Modify Offers :
+
+    #Get the offerToModify data :
+@app.route("/get_OfferToModify_Data", methods=["POST"])
+def get_OfferToModify_Data():
+    offerID = request.form.get('offerID')
+    sql = "SELECT name,Offer_price,duration,description FROM OFFERS WHERE idOffer = %s "
+    data = (offerID,)
+    mycursor.execute(sql,data)
+    offer = mycursor.fetchall()
+
+    if(not offer):
+        return redirect("/Activity_Page")
+    offerToModify = {
+        'name': offer[0][0],
+        'Offer_price': offer[0][1],
+        'duration': offer[0][2],
+        'description': offer[0][3],
+        'offerID': offerID}   
+    return render_template("Activity_Page.html", offerToModify=offerToModify)
+
+
+
+    #Update the offer data :
+@app.route("/modifyOffer", methods=["POST"])
+def modifyOffer():
+    #Get the new data : 
+    offer_pic = request.files["file"]
+    description = request.form.get('description')
+    duration = request.form.get('duration')
+    Offer_price = request.form.get('Offer_price')
+    name = request.form.get('name')
+    offerID = request.form.get('offerID')
+
+    #Update the offer normal data :
+    sql = "UPDATE OFFERS SET description = %s , duration = %s,Offer_price = %s ,name = %s WHERE idOffer = %s"
+    data = (description,duration,Offer_price,name,offerID,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    #Upload the img in the offers imgs, if the img is changed and save it's name in the offer table :
+    if offer_pic:
+        # change the name of the img to : offername + ...
+        pic_filename = secure_filename(offer_pic.filename)
+        file_Extention = pic_filename.rsplit('.', 1)[1].lower()
+
+        UPLOAD_FOLDER = 'static\\Images\\product_pics'
+        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+        pic_name = f"{name}.{file_Extention}" 
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'],pic_name)
+
+        # Remove the existing file if it exists
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        #upload the offer img in products-pics
+        offer_pic.save(file_path)
+
+        #Update data base offer name :
+        sql = "UPDATE OFFERS SET image_Name = %s WHERE idOffer = %s"
+        data = (pic_name,offerID,)
+        mycursor.execute(sql,data)
+        myconnection.commit()
+
+    return redirect("/Activity_Page")
 
 
 
