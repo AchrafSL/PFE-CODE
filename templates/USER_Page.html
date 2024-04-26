@@ -127,8 +127,8 @@
             <form name="logout" action="/DeleteAccount" method="POST" onsubmit="return confirmDelete()">  
                 <input type="button" class="logout" value="Logout" onclick="redirectLogout('logout')">
 
-                {% if session["role"] == 'employee' %}
-                <input type=button class="workPage" value="{{ session['role'] }} Page"   style="width:42%" onclick = "redirectActivityPage('logout')">
+                {% if session["role"] != 'client' %}
+                <input type=button class="workPage" value="{{ session['role'] }} Page"   style="width:40%" onclick = "redirectActivityPage('logout')">
                 {% else %}
                 <input type=button class="workPage" value="Activity Page"  style="width:38%"onclick = "redirectActivityPage('logout')">
                 {% endif %}

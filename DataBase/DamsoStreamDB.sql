@@ -30,6 +30,8 @@ CREATE TABLE OFFERS(
     name VARCHAR(255),
 	PRIMARY KEY (idOffer)
 );
+ALTER TABLE OFFERS
+ADD COLUMN duration INT;
 
 -- ORDERS TABLE :
 -- Filled with information derived from the user's cart
@@ -100,13 +102,16 @@ CREATE TABLE Subscription (
 
 
 -- email or idUSER to update role
-UPDATE USER SET role = 'employee' where idCli = 2
+UPDATE USER SET role = 'admin' where idCli = 2
 
  SELECT o.idOrder,o.idCli, o.StatOfTreatment, o.PaymentStat, o.TotalPrice, 
 usr.FirstName,usr.LastName, usr.Email, usr.WhatsApp 
  FROM ORDERS o, USER usr 
  WHERE o.idCli = usr.idCli 
  AND o.StatOfTreatment = 'Pending Treatment';
+ 
+ 
+ 
 
 
 
@@ -127,24 +132,27 @@ usr.FirstName,usr.LastName, usr.Email, usr.WhatsApp
 
 
 -- Examples :
+-- Values of duration is in DAYS
 
 -- Example 1
-INSERT INTO OFFERS (description, Offer_price, name) 
-VALUES ('Netflix account offer description', 200, 'Netflix accounts');
+INSERT INTO OFFERS (description, Offer_price, name,duration) 
+VALUES ('Netflix account offer description', 200, 'Netflix accounts',150);
 
 -- Example 2
-INSERT INTO OFFERS (description, Offer_price, name) 
-VALUES ('Spotify Premium offer description', 150, 'Spotify Premium');
+INSERT INTO OFFERS (description, Offer_price, name,duration) 
+VALUES ('Spotify Premium offer description', 150, 'Spotify Premium',150);
 
 -- Example 3
-INSERT INTO OFFERS (description, Offer_price, name) 
-VALUES ('Amazon Prime subscription offer description', 100, 'Amazon Prime');
+INSERT INTO OFFERS (description, Offer_price, name,duration) 
+VALUES ('Amazon Prime subscription offer description', 100, 'Amazon Prime',150);
 
 -- Example 4
-INSERT INTO OFFERS (description, Offer_price, name) 
-VALUES ('Hulu subscription offer description', 120, 'Hulu Subscription');
+INSERT INTO OFFERS (description, Offer_price, name,duration) 
+VALUES ('Hulu subscription offer description', 120, 'Hulu Subscription',150);
 
 SELECT COUNT(*) AS OffersNumber FROM OFFERS;
+
+
 
 
 -- Select Client Orders and for each order there is a select (for offers)

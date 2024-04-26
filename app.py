@@ -1,8 +1,7 @@
 from flask import Flask, render_template,redirect,request,jsonify,session
 import mysql.connector
 from flask_mail import Mail, Message
-from datetime import timedelta # no need to download the lib
-from datetime import datetime  #
+from datetime import timedelta,datetime # no need to download the lib
 
 # Mail ,Flask are the actual libraries
 # Gmail lets you send up to 500 emails per day using The Gmail SMTP server
@@ -532,8 +531,7 @@ def CheckLogin():
                 # User already exists
 
                 #Save the data in the session :
-                # this session will be permanent for the time we setup in the top :
-                session.permanent = False
+                session.permanent = True
                 session["logged_in"] = True
                 session["FirstName"] = results[0][2]
                 session["LastName"] = results[0][3]
@@ -863,11 +861,14 @@ def UploadPFP():
 
 
 
-# Activity Page (Client Page, Employee Page, Admin Page)
+
+
+
+
+# Activity Page (Client Page, Employee Page, Admin Page) ---------------------------------------------
 @app.route("/Activity_Page", methods=["POST","GET"])
 def Activity_Page():
     if session["role"] == "client":
-
             #Select the orders :
         sql = "SELECT idOrder,StatOfTreatment,PaymentStat,TotalPrice FROM ORDERS WHERE idCli = %s"
         data = (session["idCli"],)
@@ -899,18 +900,21 @@ def Activity_Page():
  
         return render_template("Activity_Page.html",USR = "client" ,ListOrders = ListOrders)
     
+    
+    elif session["role"] == "employee" or session["role"] == "admin":
+
+        #Count the non (treated/payed) orders
+        mycursor.execute("select count(*) from orders where  StatOfTreatment = 'Pending Treatment' AND PaymentStat = 'Pending Payment'")
+        resu = mycursor.fetchall()
+        OrderNumber = resu[0][0]
 
 
 
 
+        #Send all non treated Orders
 
-
-    if session["role"] == "employee":
-        #Send all non treated Orders and | Add data to subscription table for the the 
-        # order ( client(usr) )
-
-                    #Select all the non treated orders with there client (info also):
-        sql = " SELECT o.idOrder,o.StatOfTreatment, o.PaymentStat, o.TotalPrice,o.idCli, usr.FirstName,usr.LastName, usr.Email, usr.WhatsApp FROM ORDERS o, USER usr WHERE o.idCli = usr.idCli AND o.StatOfTreatment = 'Pending Treatment';"
+                    #Select all the non (treated/payed) orders with there client (info also):
+        sql = " SELECT o.idOrder,o.StatOfTreatment, o.PaymentStat, o.TotalPrice,o.idCli, usr.FirstName,usr.LastName, usr.Email, usr.WhatsApp FROM ORDERS o, USER usr WHERE o.idCli = usr.idCli AND o.StatOfTreatment = 'Pending Treatment' AND PaymentStat = 'Pending Payment' ;"
         mycursor.execute(sql)
         Orders = mycursor.fetchall()
 
@@ -941,8 +945,12 @@ def Activity_Page():
 
             ListOrders.append(ordVar)
 
- 
-        return render_template("Activity_Page.html",USR = "employee" ,ListOrders = ListOrders)
+        
+        if session["role"] == "admin":
+            #Do the same as the employee but can also add/remove offers | change role
+            return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber)
+        else:
+            return render_template("Activity_Page.html",USR = "employee" ,ListOrders = ListOrders,OrderNumber = OrderNumber)
 
 
 
@@ -951,9 +959,102 @@ def Activity_Page():
 
 
 
-    if session["role"] == "admin":
-        #Do the same as the employee but can also add/remove offers | add/remove employee
-        return render_template("Activity_Page.html",USR = "admin")
+#Payment --------------------------------------------------------------------------------------------  
+
+# Add data to subscription table for the client who sent the order : 
+# And Change PaymentStat To payed
+@app.route("/Payed", methods=["POST"])
+def Payed():
+    idOrder = request.form.get('idOrder')
+
+    #Add offers to subscription data :
+        #Select offers id and duration of the order:
+    sql = "SElECT OO.idOffer, o.duration from offers AS o,orderoffers AS OO where OO.idOffer = o.idOffer AND idOrder = %s"
+    data = (idOrder,)
+    mycursor.execute(sql,data)
+    Offersid_durations = mycursor.fetchall()
+
+        #Add all offers to subscription :
+    current_date = datetime.now()
+    for orferid_duration in Offersid_durations:
+
+        duration = timedelta(days = orferid_duration[1])
+        endDate = current_date + duration
+
+        sql = "INSERT INTO subscription (idCli,idOffer,subscriptionStatus,startDate,endDate) VALUES (%s,%s,%s,%s,%s)"
+        data = (session["idCli"],orferid_duration[0],'Payed',current_date,endDate)
+        mycursor.execute(sql,data)
+        myconnection.commit()
+
+
+    #Change PaymentStat in Orders table :
+    sql = "UPDATE ORDERS SET PaymentStat = 'Payed',StatOfTreatment = 'treated' WHERE idOrder = %s "
+    data = (idOrder,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+
+    return redirect('Activity_Page')
+
+
+
+
+
+
+
+#Change StatOfTreatment To treated -------------------------------------------------------------------
+@app.route("/Treated", methods=["POST"])
+def Treated():
+    idOrder = request.form.get('idOrder')
+    sql = "UPDATE ORDERS SET StatOfTreatment = 'treated' where idOrder = %s"
+    data = (idOrder,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    return redirect('Activity_Page')
+
+
+
+
+
+#ChangeRole ------------------------------------------------------------------------
+@app.route('/ChangeRole', methods=["POST"])
+def ChangeRole():
+    #Get the email_UserID AND ROLE
+    email_UserId = request.form.get('ChangeRoleInput')
+    role = request.form.get('Role')
+
+    #Check if it's an email or an id and Change sql query according to the results of the check :
+    if email_UserId.isdigit():
+        #Input is a number
+        sql = "UPDATE USER SET role = %s WHERE idCli = %s"
+
+    else:
+        #Input is a string
+        sql = "UPDATE USER SET role = %s WHERE Email = %s"
+        email_UserId.lower()
+
+
+    data = (role,email_UserId,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    return redirect('Activity_Page')
+
+
+#(Add / Remove / Modify / SHow) OFFERS ---------------------------------------------------------------
+
+
+#Add offers (+ Upload offer img if there is no imsg use the default ):
+
+
+#Remove Offers :
+
+#Show all offers in the db and make changes in them if possible :
+
+
+
+
 # ----------------------------------------------------------------------------------------
 
 if __name__ == '__main__':

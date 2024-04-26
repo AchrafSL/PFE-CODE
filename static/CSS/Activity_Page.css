@@ -55,6 +55,23 @@
     height:180px;
 }
 
+.clientinfo{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.OperationOnOrder input{
+    margin-top:18px;
+    background-color: gray;
+    color:white;
+    padding:10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.OperationOnOrder input:hover{
+    background-color: yellowgreen;
+}
 
 /* Activity_Page-Section1-top2 */
 .Activity_Page-Section1-top2{
@@ -78,9 +95,36 @@
 
 
 
+/* Activity_Page-Section1-top0 */
+.Activity_Page-Section1-top0{
+    margin-top:20px;
+    width:80%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
 
+.ChangeRole input{
+    width: 32.5%;
+    padding:5px;
+    border:2px solid black;
+    border-radius: 5px;
 
-
+}
+.ChangeRole select{
+    width: 32.5%;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+.ChangeRoleButton{
+    background-color: gray;
+    color:white;
+}
+.ChangeRoleButton:hover{
+    background-color: yellowgreen;
+}
 
 
 

@@ -52,11 +52,39 @@
 
 
 
-<!-- Employee Page -->
-{% if session["role"] == "employee" %}
+<!-- Employee and Page -->
+{% if session["role"] == "employee" or session["role"] == "admin" %}
     <div class="Activity_Page-Section1">
+        
+        <!-- admin special section -->
+        {% if session["role"] == "admin" %}
+        <div class="Activity_Page-Section1-top0">
+            <u><h3 style="margin:10px;"> Change USER Role :</h3></u>
+            <div style="margin:10px;">
+                <h6 id="ErrorMSG" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;"> Please fill all fields </h6>
+
+                <form action="/ChangeRole" method="POST" name="ChangeRole" class="ChangeRole" onsubmit="return confirmRoleChange('ChangeRole')">
+                    <input type="text" placeholder=" Email / USER_ID " name="ChangeRoleInput">
+                    <!-- Change role to (Client/Employee/Admin) (Select input)-->
+                    <select class="Role" name="Role">
+                        <option  disabled selected> Please Select a role :</option>
+                        <option> client </option>
+                        <option> employee </option>
+                        <option> admin </option>
+                    </select>
+                    <input type="submit" value="ChangeRole" class="ChangeRoleButton">
+                </form>
+
+            </div>
+
+        </div>
+        {% endif %}
+
+
+
+
         <div class="Activity_Page-Section1-top1">
-            <h3 style="margin-left:10px;"> <u><b>Client Orders :</b></u> </h3>
+            <h3 style="margin:10px;"> <u><b>Clients' Orders : <span style="color:green;"> {{ OrderNumber }} </span> </b></u>  </h3>
             {% for order in ListOrders %}
             <div class="ordersInfo"> 
                 <h5> <b>Order Number : {{ order['idOrder'] }}</b></h5>
@@ -69,13 +97,31 @@
                 <h5> <b>PaymentStat : ({{ order['PaymentStat'] }})</b></h5>
                 <h5 style="color:green"> <b>TotalPrice : {{ order['TotalPrice'] }}</b></h5>
                 <hr style="border: 1px solid #000;margin-top:5px;margin-bottom:5px;">    
-                <h5> <b>Client Id : {{ order['idCli'] }}</b></h5>    
-                <h5> <b>Client FullName : {{ order['LastName'] }} {{ order['FirstName'] }}</b></h5>
-                <h5 > <b>Email : {{ order['Email'] }}</b></h5>
-                {% if order['WhatsApp'] != '' %}
-                <h5 > <b>Whatsapp : {{ order['WhatsApp'] }}</b></h5>
-                {% endif %}
+                <div class="clientinfo">
+                    <div class="clientInfoContainer">
+                        <h5> <b>Client Id : {{ order['idCli'] }}</b></h5>    
+                        <h5> <b>Client FullName : {{ order['LastName'] }} {{ order['FirstName'] }}</b></h5>
+                        <h5 > <b>Email : {{ order['Email'] }}</b></h5>
+                        {% if order['WhatsApp'] != '' %}
+                        <h5 > <b>Whatsapp : {{ order['WhatsApp'] }}</b></h5>
+                        {% endif %}
+                    </div>
+                    <div class="OperationOnOrder">
+                        <form action="/Treated" method="POST" name="status" onsubmit="return confirmTreatStatus()" >
+                            <input type="hidden" name="idOrder" value="{{ order['idOrder'] }}" id="idOrder">
+                            <!-- Payed page will add the offers to the subscription table -->
+                            <!-- and Change order status to payed -->
+                            <input type="button" value="Change to Payed Status" class="payed"  onclick="RedirectToPayed('status',{{ order['idOrder'] }})">
+                            <!-- Treated will only change the status of the order to treated -->
+                            <input type="submit" value="Change to treated status" class="treated">
+                        </form>
+                    </div>
+
+                </div>
+
+
             </div>
+
             {% endfor %}
 
 
@@ -101,21 +147,9 @@
 
 
 
-<!-- admin Page -->
-{% if session["role"] == "admin" %}
-    <div class="Activity_Page-Section1">
-        <div class="Activity_Page-Section1-top1">
-        </div>
-        <!-- Activity_Page-Section1-top1 END -->
 
 
-        <div class="Activity_Page-Section1-top2">
-            
-        </div>
 
-    </div>
-{% endif %}
-<!--END OF admin Page -->
 
 
 
