@@ -144,7 +144,7 @@
 
 }
 
-.AddffersForm{
+.AddOffersForm{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -152,7 +152,7 @@
     margin:10px;
 }
 
-.AddffersForm input{
+.AddOffersForm input{
     width:50%;
     margin:5px;
     padding:5px;
@@ -160,7 +160,7 @@
     border-radius: 5px;
 }
 
-.AddffersForm TEXTAREA{
+.AddOffersForm TEXTAREA{
     margin:5px;
     width:51%;
 }

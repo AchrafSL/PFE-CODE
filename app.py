@@ -1045,8 +1045,102 @@ def ChangeRole():
 
 #(Add / Remove / Modify) OFFERS ---------------------------------------------------------------
 
+#Check if the Name of the offer if it does actualy exist (axios) (for add Offer only)
+@app.route('/CheckOfferName', methods=["POST"])
+def CheckOfferName():
+    if request.method == "POST":
+        name = request.json['name']
+        name = name.lower()
+
+        sql = "SELECT LOWER(name) FROM OFFERS WHERE LOWER(name) = %s"
+        data = (name,)
+        mycursor.execute(sql, data)
+        results = mycursor.fetchall()
+
+
+        if len(results) > 0:        # <=> if results:
+            if results[0][0] == name:
+                # User already exists
+                return jsonify({"name_exist": "true"})
+            else:
+                # User doesn't exist
+                return jsonify({"name_exist": "false"})
+        else:
+            return jsonify({"name_exist": "false"})
+
+    else:
+        # Handle invalid requests
+        return jsonify({"error": "Invalid request method"})
+
+
+#Check if the offer id exist (axios) (GENERAL FOR REMOVE / MODIFY )
+@app.route('/CheckOfferID', methods=["POST"])
+def CheckOfferID():
+    if request.method == "POST":
+        offerID = request.json['offerID']
+
+        sql = "SELECT idOffer FROM OFFERS WHERE idOffer = %s"
+        data = (offerID,)
+        mycursor.execute(sql, data)
+        results = mycursor.fetchall()
+
+
+        if len(results) > 0:        # <=> if results:
+            return jsonify({"offerID_exist": "true"})
+        else:
+            # User doesn't exist
+            return jsonify({"offerID_exist": "false"})
+
+    else:
+        # Handle invalid requests
+        return jsonify({"error": "Invalid request method"})
+
+
+
+
 
 #Add offers (+ Upload offer img if there is no imsg use the default ):
+@app.route("/AddOffer", methods = ["POST"])
+def AddOffer():
+        #Get the new data : 
+    offer_pic = request.files["file"]
+    description = request.form.get('description')
+    duration = request.form.get('duration')
+    Offer_price = request.form.get('Offer_price')
+    name = request.form.get('name')
+
+    # Insert the offer normal data :
+    sql = "INSERT INTO OFFERS (description,duration,Offer_price,name) VALUES (%s,%s,%s,%s)"
+    data = (description,duration,Offer_price,name)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    offerID = mycursor.lastrowid
+
+    #Upload the img if it does exist else it will be automaticaly set to the default pic:
+    if offer_pic:
+        # change the name of the img to : offername + ...
+        pic_filename = secure_filename(offer_pic.filename)
+        file_Extention = pic_filename.rsplit('.', 1)[1].lower()
+
+        UPLOAD_FOLDER = 'static\\Images\\product_pics'
+        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+        pic_name = f"{name}.{file_Extention}" 
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'],pic_name)
+
+        #upload the offer img in products-pics
+        offer_pic.save(file_path)
+
+        #Update data base offer name :
+        sql = "UPDATE OFFERS SET image_Name = %s WHERE idOffer = %s"
+        data = (pic_name,offerID,)
+        mycursor.execute(sql,data)
+        myconnection.commit()
+
+    return redirect('Activity_Page')
+
+
 
 
 

@@ -27,6 +27,30 @@ function ConfirmOfferModification(){
         document.getElementById("ErrorMSG3").style.display = "block";
         return false;
     }
+
+
+    // Check the if the offerID does actually exist : 
+    axios.post('/CheckOfferID', {
+        offerID : offerId
+    })
+    .then((response) => {
+        if (response.data.offerID_exist == "false") {
+            document.getElementById("ErrorMSG3").innerHTML = "We couldn't find any offer with the provided ID. Please double-check the ID and try again.";
+            document.getElementById("ErrorMSG3").style.display = "block";
+
+        } else {
+            document.getElementById("ErrorMSG3").style.display = "none";
+            document.forms["ModifyOffersForm"].submit();
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+    return false;
+
+
+
     
 }
 
@@ -52,6 +76,55 @@ function VerifyOfferModifying(formName){
         return false; 
     }
 
+    
+
+
+}
+
+
+
+
+
+function VerifyAddOffer(formName){
+    //Get data :
+    var name = document.forms[formName]["name"].value;
+    var offerPrice = document.forms[formName]["Offer_price"].value;
+    var duration = document.forms[formName]["duration"].value;
+    var description = document.forms[formName]["description"].value;
+    // Check if any field is empty : 
+    if (!name || !offerPrice || !duration || !description) {
+        document.getElementById("ErrorMSG1").innerHTML = "Please fill all fields ";
+        document.getElementById("ErrorMSG1").style.display = "block";
+        return false; 
+    }
+
+    // Check if the price and duration is numbers
+    if (isNaN(offerPrice) || isNaN(duration))
+    {
+        document.getElementById("ErrorMSG1").innerHTML = "Offer_price and Duration must be numeric values";
+        document.getElementById("ErrorMSG1").style.display = "block";
+        return false; 
+    }
+    
+    // Check the name of the offer if it does actually exist : 
+    axios.post('/CheckOfferName', {
+        name : name
+    })
+    .then((response) => {
+        if (response.data.name_exist == "true") {
+            document.getElementById("ErrorMSG1").innerHTML = "Sorry, the product name you provided is already in use. Please consider choosing a different name for your offer.";
+            document.getElementById("ErrorMSG1").style.display = "block";
+
+        } else {
+            document.getElementById("ErrorMSG1").style.display = "none";
+            document.forms["AddOffersForm"].submit();
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+    return false;
 
 }
 
@@ -71,16 +144,31 @@ function ConfirmOfferRemoval(){
         document.getElementById("ErrorMSG2").style.display = "block";
         return false;
     }
-    else{
-        document.getElementById("ErrorMSG2").style.display = "none";
-        var result = confirm("Are you sure you want to delete the offer with the following ID ?\n\nOffer ID: " + offerId);
-        if(result){
-            return true;
+
+    // Check the if the offerID does actually exist : 
+    axios.post('/CheckOfferID', {
+        offerID : offerId
+    })
+    .then((response) => {
+        if (response.data.offerID_exist == "false") {
+            document.getElementById("ErrorMSG2").innerHTML = "We couldn't find any offer with the provided ID. Please double-check the ID and try again.";
+            document.getElementById("ErrorMSG2").style.display = "block";
+
+        } else {
+            document.getElementById("ErrorMSG2").style.display = "none";
+            var result = confirm("Are you sure you want to delete the offer with the following ID ?\n\nOffer ID: " + offerId);
+            if(result){
+                document.forms["RemoveOfferForm"].submit();
+            }
         }
-        else{
-            return false;
-        }
-    }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+    return false;
+
+    
 
 }
 

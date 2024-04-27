@@ -85,13 +85,13 @@
 
             <h3 style="margin:10px;"> <u> Add offers : </u></h3>
             <div class="addOffers">
-                <form class="AddffersForm" action="/AddOffer">
+                <form class="AddOffersForm" name="AddOffersForm" action="/AddOffer"  method="POST" enctype=multipart/form-data onsubmit="return VerifyAddOffer('AddOffersForm')">
                     <!-- Image name will be set automaticaly after uploading the img -->
-                    <input type="text" placeholder="Offer Name" > 
-                    <input type="text" placeholder="Offer Price" >
-                    <input type="text" placeholder="Offer duration (IN DAYS)" > 
-                    <input type="file"  style="cursor:pointer;">
-                    <TEXTAREA rows="10" cols="60" placeholder="Offer Description"></TEXTAREA>
+                    <input type="text" name="name" placeholder="Offer Name" > 
+                    <input type="text" name="Offer_price" placeholder="Offer Price" >
+                    <input type="text" name="duration" placeholder="Offer duration (IN DAYS)" > 
+                    <input type="file"  name="file" style="cursor:pointer;">
+                    <TEXTAREA rows="10" name="description" cols="60" placeholder="Offer Description"></TEXTAREA>
                     <h6 id="ErrorMSG1" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;"> Please fill all fields </h6>
                     <input type="submit" value="Add Offer" class="AddOfferSubmit"  style="cursor:pointer;">
                 </form>
