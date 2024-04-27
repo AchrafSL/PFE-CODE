@@ -871,7 +871,7 @@ def UploadPFP():
 def Activity_Page():
     if session["role"] == "client":
             #Select the orders :
-        sql = "SELECT idOrder,StatOfTreatment,PaymentStat,TotalPrice FROM ORDERS WHERE idCli = %s"
+        sql = "SELECT idOrder,StatOfTreatment,PaymentStat,TotalPrice FROM ORDERS WHERE idCli = %s AND StatOfTreatment = 'Pending Treatment' AND PaymentStat = 'Pending Payment' "
         data = (session["idCli"],)
         mycursor.execute(sql,data)
         Orders = mycursor.fetchall()
