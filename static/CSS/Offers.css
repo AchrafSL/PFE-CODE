@@ -67,6 +67,29 @@
     cursor: pointer;
 }   
 
+/* Search offers  */
+.SearchProduct {
+    border:1px solid black; 
+    width:93.5%;
+    margin:10px;
+    margin-bottom: 0px;;
+    padding:10px;
+    margin-left:2.5%;
+}
+.SearchProduct input{
+    width:84.5%;
+    padding:10px;
+}
+.SearchProduct button{
+    width:15%;
+    padding:10px;
+    background-color: gray;
+    color:white;
+}
+.SearchProduct button:hover{
+    background-color: yellowgreen;
+}
+
 
 /* OffersWrapper-Section1-top2 */
 .OffersWrapper-Section1-top2{

@@ -103,13 +103,21 @@ def home():
     return render_template("Home.html")
 
 # Offers ---------------------------------------------------------------------------------
-@app.route('/Offers', methods=["GET"])
+@app.route('/Offers', methods=["GET","POST"])
 def Offers():
     mycursor.execute("SELECT COUNT(*) AS OffersNumber FROM OFFERS;")
     results = mycursor.fetchall()
 
-    mycursor.execute("SELECT name, Offer_price,idOffer,image_Name FROM OFFERS;")
-    offer_result = mycursor.fetchall()
+    word = request.args.get('product')
+    if word is not None:
+        sql = "SELECT name, Offer_price,idOffer,image_Name FROM OFFERS WHERE name LIKE %s"
+        data = ("%" + word + "%",)  
+        mycursor.execute(sql, data)
+        offer_result = mycursor.fetchall()
+    else:
+        mycursor.execute("SELECT name, Offer_price,idOffer,image_Name FROM OFFERS;")
+        offer_result = mycursor.fetchall()
+
     offer_data = []
     for row in offer_result:
         offer = {'name': row[0], 'price': row[1],'idOffer':row[2],'image_Name':row[3]}
@@ -118,7 +126,7 @@ def Offers():
     # Zip the range and offer data
     offer_data = zip(range(results[0][0]), offer_data)
 
-    return render_template("Offers.html" , OffersNumber = results[0][0] , OfferData = offer_data)
+    return render_template("Offers.html" , OffersNumber = results[0][0] , OfferData = offer_data ,word = word )
 
 #Product_Description --------------------------------------------------------------------------------
 @app.route("/Product_Description", methods=["GET"])

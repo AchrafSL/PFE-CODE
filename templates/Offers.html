@@ -11,7 +11,20 @@
 
     <div class="OffersWrapper-Section1">
         <div class="OffersWrapper-Section1-top1">
-            <h3 style="margin-left:10px;"><u><b>OFFERS:</b></u></h3>
+            <h3 style="margin-left:10px;"><u><b>OFFERS:  <span style="color:green"> {{  OffersNumber }} </span></b></u></h3>
+            <form action="/Offers" name= "SearchProduct" id="SearchProduct" method="GET" class="SearchProduct">
+                {% if word is not none %}
+                <input type="search" id="search-input" name="product" placeholder="Search products..."  value="{{ word }}">
+                {% else %}
+                <input type="search" id="search-input" name="product" placeholder="Search products..." >
+                {% endif %}
+                <button type="submit">Search</button>
+            </form>
+
+
+            
+
+
             <div class="OfferWrapper">
                 {% for i, offer in OfferData %}
                 <div class="offers">
