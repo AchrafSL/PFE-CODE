@@ -14,7 +14,7 @@
 {% if session["role"] == "client" %}
     <div class="Activity_Page-Section1">
         <div class="Activity_Page-Section1-top1">
-            <h3 style="margin:10px;"> <u><b>My Orders :</b></u> </h3>
+            <h3 style="margin:10px;"> <u><b>My Orders :  <span style="color:green;"> {{ OrderNumber }} </span></b></u> </h3>
             {% for order in ListOrders %}
             <div class="orderInfo"> 
                 <h5> <b>Order Number : {{ order['idOrder'] }}</b></h5>
@@ -31,16 +31,40 @@
         </div>
         <!-- Activity_Page-Section1-top1 END -->
 
-
+        <!-- Subscription part -->
         <div class="Activity_Page-Section1-top2">
-            <h3 style="margin-left:10px;"> <u><b>My Subscriptions :</b></u> </h3>
-            <div class="SubInfo"> 
-                <h5> <b>Subscription Number :</b></h5>
-                <h5> <b>Offer : (  )</b></h5>
-                <h5> <b>SubscriptionStatus : (Active / Inactive )</b></h5>
-                <h5> <b>startDate : ( )</b></h5>
-                <h5> <b>endDate : ( )</b></h5>
+            <h3 style="margin-left:10px;"> <u><b>My Subscriptions :  <span style="color:green;"> {{ ActiveSubNumber }} </span> </b></u> </h3>
+
+            {% for sub in ListOfSubs %}
+            <div class="Subscription" > 
+                <div class="SubInfo" style="margin:0px;padding:0px;">
+                    <h5> <b>Subscription Number : {{ sub['idSubscription'] }}</b></h5>
+                    <h5> <b>Offer : {{ sub['OfferName'] }} </b></h5>
+                    <h5> <b>SubscriptionStatus :{{sub['subscriptionStatus'] }}</b></h5>
+                    <h5> <b>startDate : {{sub['StartDate'] }}</b></h5>
+                    <h5> <b>endDate : {{sub['EndDate'] }} </b></h5>
+                </div>
+                {% if sub['subscriptionStatus'] == 'Inactive' %}
+                <div class="OperationOnSub" style="margin:0px;padding:0px;">
+                    <form style="margin:0px;padding:0px;" action="/DeleteSub" method="POST" class="subs" name="subs" onsubmit="return confirmSubOperation()" >
+
+                        <input type="hidden" name="idSub" value="{{ sub['idSubscription'] }}" id="idSub">
+                        <input type="hidden" name="idOffer" value="{{ sub['idOffer'] }}">
+                        <input type="button" value="Renew Subscription"  onclick="RedirectToRenewSub('subs',{{ sub['idSubscription'] }})" >
+                        <input type="submit" value="Delete Subscription" style="margin-top:18px;">
+                    </form>
+                </div> 
+                {% endif %}
             </div>
+
+
+            
+            {% endfor %}
+
+
+
+
+
         </div>
 
     </div>
@@ -175,6 +199,7 @@
                     <div class="OperationOnOrder">
                         <form action="/Treated" method="POST" name="status" onsubmit="return confirmTreatStatus()" >
                             <input type="hidden" name="idOrder" value="{{ order['idOrder'] }}" id="idOrder">
+                            <input type="hidden" name="idCli" value = "{{ order['idCli'] }}" id="idCli">
                             <!-- Payed page will add the offers to the subscription table -->
                             <!-- and Change order status to payed -->
                             <input type="button" value="Change to Payed Status" class="payed"  onclick="RedirectToPayed('status',{{ order['idOrder'] }})">
@@ -199,9 +224,9 @@
         <!-- Activity_Page-Section1-top1 END -->
 
 
-        <div class="Activity_Page-Section1-top2">
+     <!--   <div class="Activity_Page-Section1-top2">
             
-        </div>
+        </div> --> 
 
     </div>
 {% endif %}

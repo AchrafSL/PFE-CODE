@@ -1,4 +1,4 @@
-from flask import Flask, render_template,redirect,request,jsonify,session
+from flask import Flask, render_template,redirect,request,jsonify,session,url_for
 import mysql.connector
 from flask_mail import Mail, Message
 from datetime import timedelta,datetime # no need to download the lib
@@ -870,6 +870,15 @@ def UploadPFP():
 @app.route("/Activity_Page", methods=["POST","GET"])
 def Activity_Page():
     if session["role"] == "client":
+                #Count the non (treated/payed) orders
+        sql = "select count(*) from orders where  StatOfTreatment = 'Pending Treatment' AND PaymentStat = 'Pending Payment' AND idCli = %s"
+        data = (session['idCli'],)
+        mycursor.execute(sql,data)
+        resu = mycursor.fetchall()
+        OrderNumber = resu[0][0]
+
+
+
             #Select the orders :
         sql = "SELECT idOrder,StatOfTreatment,PaymentStat,TotalPrice FROM ORDERS WHERE idCli = %s AND StatOfTreatment = 'Pending Treatment' AND PaymentStat = 'Pending Payment' "
         data = (session["idCli"],)
@@ -898,8 +907,45 @@ def Activity_Page():
 
             ListOrders.append(ordVar)
 
+        #My subscriptions Part :
+                        #Count the (Active) subscription :
+        sql = "select count(*) from subscription WHERE subscriptionStatus = 'Active' AND idCli = %s"
+        data = (session['idCli'],)
+        mycursor.execute(sql,data)
+        resu = mycursor.fetchall()
+        ActiveSubNumber = resu[0][0]
+
+        # jointure entre subscription and offer
+        sql = "select S.idSubscription,S.idOffer,S.subscriptionStatus,S.StartDate,S.endDate,O.name from subscription S,offers O WHERE S.idOffer = O.idOffer AND idCli = %s ORDER BY subscriptionStatus ASC"
+        data = (session['idCli'],)
+        mycursor.execute(sql,data)
+        Subs = mycursor.fetchall()
+
+        #Check if endDate <= current date else change sub status to inActive
+        currentDate = datetime.now().date()
+        for sub in Subs:
+            endDate = sub[4]
+            if endDate < currentDate :
+                sql = "UPDATE subscription SET subscriptionStatus = 'Inactive' WHERE idSubscription = %s"
+                data = (sub[0],)  
+                mycursor.execute(sql, data)
+                myconnection.commit()
+
+
+        ListOfSubs = []
+        for sub in Subs:
+            subInfo = {
+                'idSubscription': sub[0],
+                'idOffer': sub[1],
+                'subscriptionStatus': sub[2],
+                'StartDate': sub[3], 
+                'EndDate': sub[4], 
+                'OfferName': sub[5]
+            }
+            ListOfSubs.append(subInfo)
+
  
-        return render_template("Activity_Page.html",USR = "client" ,ListOrders = ListOrders)
+        return render_template("Activity_Page.html",USR = "client" ,ListOrders = ListOrders,OrderNumber = OrderNumber,ActiveSubNumber = ActiveSubNumber,ListOfSubs = ListOfSubs)
     
     
     elif session["role"] == "employee" or session["role"] == "admin":
@@ -967,7 +1013,7 @@ def Activity_Page():
 @app.route("/Payed", methods=["POST"])
 def Payed():
     idOrder = request.form.get('idOrder')
-
+    idCli = request.form.get('idCli')
     #Add offers to subscription data :
         #Select offers id and duration of the order:
     sql = "SElECT OO.idOffer, o.duration from offers AS o,orderoffers AS OO where OO.idOffer = o.idOffer AND idOrder = %s"
@@ -983,7 +1029,7 @@ def Payed():
         endDate = current_date + duration
 
         sql = "INSERT INTO subscription (idCli,idOffer,subscriptionStatus,startDate,endDate) VALUES (%s,%s,%s,%s,%s)"
-        data = (session["idCli"],orferid_duration[0],'Payed',current_date,endDate)
+        data = (idCli,orferid_duration[0],'Active',current_date,endDate)
         mycursor.execute(sql,data)
         myconnection.commit()
 
@@ -1177,13 +1223,28 @@ def RemoveOffer():
         myconnection.commit()
 
 
+
+        #Also delete the img of the offer saved in product_pics if it's not a default img !
+        sql = "SELECT image_Name FROM OFFERS WHERE idOffer = %s"
+        data = (offerID,)
+        mycursor.execute(sql, data)
+        results = mycursor.fetchall()
+
+        UPLOAD_FOLDER = 'static\\Images\\product_pics'
+        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+        if results:
+            pic_name = results[0][0]
+            if pic_name != 'default-product-image.png':
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], pic_name)
+                os.remove(file_path)
+
+
         # Delete Offer
         sql = "DELETE FROM OFFERS WHERE idOffer = %s "
         data = (offerID,)
         mycursor.execute(sql,data)
         myconnection.commit()
-
-
 
     return redirect("/Activity_Page")
 
@@ -1254,6 +1315,53 @@ def modifyOffer():
         myconnection.commit()
 
     return redirect("/Activity_Page")
+
+
+#Delete subscription ---------------------------------------------------------------------------
+@app.route("/DeleteSub", methods = ["POST","GET"])
+def DeleteSub():
+    if request.method == "POST":
+        idSub = request.form.get('idSub')
+    else:
+        idSub = request.args.get('idSub')
+
+    sql = "DELETE FROM subscription WHERE idSubscription = %s"
+    data = (idSub,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    return redirect("/Activity_Page")
+
+#Renew subscription  --------------------------------------------------------------------------
+@app.route("/RenewSub", methods = ["POST"])
+def RenewSub():
+    idCli = session['idCli']
+    idOffer = request.form.get('idOffer')
+    idSub = request.form.get('idSub')
+
+
+    #Get offer price :
+    sql = "SELECT Offer_price FROM OFFERS WHERE idOffer = %s"
+    data = (idOffer,)
+    mycursor.execute(sql,data)
+    resu = mycursor.fetchall()
+    OfferPrice = resu[0][0]
+    
+    #Fill order table :
+    sql = "INSERT INTO ORDERS (idCli, TotalPrice) VALUES (%s, %s)"
+    data = (idCli,OfferPrice) 
+    mycursor.execute(sql, data)
+    myconnection.commit()
+
+    idOrder = mycursor.lastrowid
+
+    #Fill orderOffers table :
+    sql = "INSERT INTO ORDEROFFERS (idOrder,idOffer) VALUES (%s, %s)"
+    data = (idOrder,idOffer) 
+    mycursor.execute(sql, data)
+    myconnection.commit()
+
+    return redirect(url_for('DeleteSub', idSub=idSub))
 
 
 

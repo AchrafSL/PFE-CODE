@@ -5,6 +5,15 @@ function RedirectToPayed(var1,idOrder){
     document.getElementById("idOrder").value = idOrder;
     form.submit();
 }
+
+function RedirectToRenewSub(var1,idSub){
+    var form = document.forms[var1];
+    form.action = "/RenewSub";
+    form.method = "POST";
+    document.getElementById("idSub").value = idSub;
+    form.submit();
+}
+
 function confirmTreatStatus(){
     var result = confirm("Note: Changing the status to 'Treated' will remove the order from the clients' orders list and retain the same information submitted by the user. Are you sure you want to mark this order as 'Treated'?");
     if(result){
@@ -201,5 +210,16 @@ function confirmRoleChange(formName) {
         } else {
             return false;
         }
+    }
+}
+
+
+function confirmSubOperation(){
+    var result = confirm("Are you sure you want to remove this subscription? This action cannot be undone and will terminate your access to the associated services");
+    if(result){
+        return true;
+    }
+    else{
+        return false;
     }
 }
