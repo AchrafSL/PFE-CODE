@@ -24,10 +24,12 @@
                     <h5 >{{ offer['name'] }}</h5> 
                     <h5 style="color:green;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
                     <p><b>Description :</b> {{ offer['description'] }}</p>
+                    {% if session['role'] != 'employee'%}
                     <form action="/AddOfferToCart" name="addToCart" method="post">
                         <input type="hidden" value="{{ offer['productId'] }}" name="idOffer"> 
                         <input type="submit" value="add to cart">
                     </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

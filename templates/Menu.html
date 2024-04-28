@@ -39,7 +39,9 @@
         <a href="{{ url_for('AboutUS') }}">About-US</a> 
 
         <span class="Right-Menu">   
-            <a href="{{ url_for('Cart') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</a>         
+            {% if session['role'] != 'employee' %}
+            <a href="{{ url_for('Cart') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</a>  
+            {% endif %}       
         <!-- Il faut faire des recherche sur font awesome 
         because of it we can add icon easily -->  
                     

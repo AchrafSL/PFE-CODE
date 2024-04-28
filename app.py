@@ -170,6 +170,9 @@ def AboutUS():
 @app.route('/AddOfferToCart', methods=["POST"])
 def AddOfferToCart():
 
+    if session['role'] == 'employee' :
+        return redirect('home')
+
     idOffer = request.form.get('idOffer')   
     sql = "SELECT idCart FROM CART WHERE idCli = %s"
     data = (session["idCli"],)
@@ -202,6 +205,10 @@ def AddOfferToCart():
 def Cart():
     if 'logged_in' not in session:
         return redirect('/Login')
+    
+        
+    if session['role'] == 'employee' :
+        return redirect('home')
 
     #get idCart : (using idCli)
     sql = "SELECT idCart from CART where idCli = %s"

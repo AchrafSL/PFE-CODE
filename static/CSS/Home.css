@@ -24,6 +24,7 @@ Inline-Block : mix with Inline and Block
 /* Header CSS */
 .header{
     background-image:url('../images/img1.PNG');
+    z-index: -1;
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;
