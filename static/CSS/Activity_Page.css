@@ -91,7 +91,7 @@
 
 /* Activity_Page-Section1-top0 */
 .Activity_Page-Section1-top0{
-    margin-top:20px;
+    margin-top:10px;
     width:80%;
     margin-bottom: 10px;
     padding-top:10px;
@@ -293,6 +293,82 @@
 .subs  input:hover{
     background-color: yellowgreen;
 }
+
+
+/* Activity_Page-Section1-header */
+.Activity_Page-Section1-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top:20px;
+    width:80%;
+    margin-bottom: 10px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+.Activity_Page-Section1-header .Revenue{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #E4E4E4;
+    width:300px;
+    height:57px;
+    margin:10px;
+}
+.Activity_Page-Section1-header .NumbSignup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #E4E4E4;
+    width:300px;
+    height:57px;
+    margin:10px;
+}
+.RevenueWrapper{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.NumbSignupWrapper{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Remove Offers */
+.RemoveUSER{
+
+    margin:10px;
+}
+.RemoveUSERForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+}
+.RemoveUSERForm input{
+    width:30%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.RemoveUSERButton{
+    background-color: gray;
+    color:white;
+}
+.RemoveUSERButton:hover{background-color: yellowgreen;}
+/* Remove Offers END */
 
 
 

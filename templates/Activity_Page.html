@@ -76,13 +76,37 @@
 
 
 
-<!-- Employee and Page -->
+<!-- Employee and Admin Page -->
 {% if session["role"] == "employee" or session["role"] == "admin" %}
     <div class="Activity_Page-Section1">
         
         <!-- admin special section -->
         {% if session["role"] == "admin" %}
+
+        <!-- Dashboard part -->
+        <div class="Activity_Page-Section1-header">
+            <!-- Revenue part -->
+            <div class="RevenueWrapper">
+                <u><h3 style="margin:10px;"> Revenue </h3></u>
+                <div class="Revenue">
+                    <span style="color:green;"> {{ Revenue }} MAD </span>
+                </div>
+            </div>
+
+            <!-- Number of signup Clients -->
+            <div class="NumbSignupWrapper">
+                <u><h3 style="margin:10px;">  Number of signup Clients </h3></u>
+                <div class="NumbSignup">
+                    <span style="color:green;"> {{ NumbSignup }}</span>
+                </div>
+            </div>
+
+        </div>
+
+
         <div class="Activity_Page-Section1-top0">
+
+            <!-- Change USER ROLE -->
             <u><h3 style="margin:10px;"> Change USER Role :</h3></u>
             <div style="margin:10px;">
                 <h6 id="ErrorMSG" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;"> Please fill all fields </h6>
@@ -100,6 +124,23 @@
                 </form>
 
             </div>
+
+            <hr style="margin-left:5%;margin-top:20px;margin-bottom:20px;width:90%;border:1px solid black;">
+
+            <!-- Delete USER -->
+            <u><h3 style="margin:10px;"> Delete USER :</h3></u>
+            <h6 id="ErrorMSGDeletUSR" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;margin-left:19.8%;">  Please fill OrderID field </h6>
+            <div style="margin-left:10px;">
+
+                <div class="RemoveUSER">
+                    <form class="RemoveUSERForm" name="RemoveUSERForm" action="/RemoveUSER" method="POST" onsubmit="return ConfirmUSERRemoval()">
+                        <input type="text" placeholder="USER ID" name="UserID">
+                        <input type="submit" value="Remove USER" class="RemoveUSERButton"  style="cursor:pointer;">
+                    </form>
+                </div>
+            </div>
+
+
 
         </div>
 
@@ -230,7 +271,7 @@
 
     </div>
 {% endif %}
-<!-- END OF Employee Page -->
+<!-- END OF Employee And Admin Page -->
 
 
 

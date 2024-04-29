@@ -181,6 +181,47 @@ function ConfirmOfferRemoval(){
 
 }
 
+function ConfirmUSERRemoval(){
+    var UserID = document.forms["RemoveOfferForm"]["UserID"].value;
+    if (UserID == ''){
+        document.getElementById("ErrorMSG2").innerHTML = "TPlease Fill UserID field";
+        document.getElementById("ErrorMSG2").style.display = "block";
+        return false;
+    }
+    if (isNaN(UserID)){
+        document.getElementById("ErrorMSG2").innerHTML = "The value of UserID should be a number";
+        document.getElementById("ErrorMSG2").style.display = "block";
+        return false;
+    }
+
+    // Check the if the UserID does actually exist : 
+    axios.post('/CheckOfferID', {
+        offerID : offerId
+    })
+    .then((response) => {
+        if (response.data.offerID_exist == "false") {
+            document.getElementById("ErrorMSG2").innerHTML = "We couldn't find any offer with the provided ID. Please double-check the ID and try again.";
+            document.getElementById("ErrorMSG2").style.display = "block";
+
+        } else {
+            document.getElementById("ErrorMSG2").style.display = "none";
+            var result = confirm("Are you sure you want to delete the offer with the following ID ?\n\nOffer ID: " + offerId);
+            if(result){
+                document.forms["RemoveOfferForm"].submit();
+            }
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+    return false;
+
+}
+
+
+
+
 function confirmRoleChange(formName) {
     var selectedRole = document.getElementsByClassName('Role')[0].value;
     var email_UserId = document.forms[formName]["ChangeRoleInput"].value;

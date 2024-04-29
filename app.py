@@ -1007,10 +1007,20 @@ def Activity_Page():
 
             ListOrders.append(ordVar)
 
+
+        #Get the number of clients and total revenue
+        mycursor.execute("SELECT count(*) FROM USER WHERE role='client' ")
+        result = mycursor.fetchall()
+        NumbSignup = result[0][0]
+
+        mycursor.execute("Select SUM(TotalPrice) from orders Where PaymentStat = 'Payed' ")
+        result = mycursor.fetchall()
+        Revenue =  result[0][0]
         
-        if session["role"] == "admin":
+        
+        if session["role"] == "admin":      
             #Do the same as the employee but can also add/remove offers | change role
-            return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None)
+            return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue)
         else:
             return render_template("Activity_Page.html",USR = "employee" ,ListOrders = ListOrders,OrderNumber = OrderNumber)
 
