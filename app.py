@@ -1388,6 +1388,43 @@ def RenewSub():
 
     return redirect(url_for('DeleteSub', idSub=idSub))
 
+#CheckUserID --------------------------------------------------------------------------------------
+
+#Check if the UserID exist (axios)
+@app.route('/CheckUserID', methods=["POST"])
+def CheckUserID():
+    if request.method == "POST":
+        UserID = request.json['UserID']
+
+        sql = "SELECT idCli FROM USER WHERE idCli= %s"
+        data = (UserID,)
+        mycursor.execute(sql, data)
+        results = mycursor.fetchall()
+
+        
+        sql = "SELECT role from USER where idCli = %s"
+        data = (UserID,)
+        mycursor.execute(sql,data)
+        role = mycursor.fetchall()
+
+        if len(results) > 0:        # <=> if results:
+            if role[0][0] == 'admin':
+                return jsonify({"UserID_exist": "admin"})
+            else:
+                return jsonify({"UserID_exist": "true"})
+        else:
+            # User doesn't exist
+            return jsonify({"UserID_exist": "false"})
+
+    else:
+        # Handle invalid requests
+        return jsonify({"error": "Invalid request method"})
+    
+
+#RemoveUSER -------------------------------------------------------------------------------------
+@app.route("/RemoveUSER", methods = ["POST"])
+def RemoveUSER():
+    return redirect("/Activity_Page")
 
 
 # ----------------------------------------------------------------------------------------

@@ -182,33 +182,41 @@ function ConfirmOfferRemoval(){
 }
 
 function ConfirmUSERRemoval(){
-    var UserID = document.forms["RemoveOfferForm"]["UserID"].value;
+    var UserID = document.forms["RemoveUSERForm"]["UserID"].value;
     if (UserID == ''){
-        document.getElementById("ErrorMSG2").innerHTML = "TPlease Fill UserID field";
-        document.getElementById("ErrorMSG2").style.display = "block";
+        document.getElementById("ErrorMSGDeletUSR").innerHTML = "Please Fill UserID field";
+        document.getElementById("ErrorMSGDeletUSR").style.display = "block";
         return false;
     }
     if (isNaN(UserID)){
-        document.getElementById("ErrorMSG2").innerHTML = "The value of UserID should be a number";
-        document.getElementById("ErrorMSG2").style.display = "block";
+        document.getElementById("ErrorMSGDeletUSR").innerHTML = "The value of UserID should be a number";
+        document.getElementById("ErrorMSGDeletUSR").style.display = "block";
         return false;
     }
 
     // Check the if the UserID does actually exist : 
-    axios.post('/CheckOfferID', {
-        offerID : offerId
+    axios.post('/CheckUserID', {
+        UserID : UserID
     })
     .then((response) => {
-        if (response.data.offerID_exist == "false") {
-            document.getElementById("ErrorMSG2").innerHTML = "We couldn't find any offer with the provided ID. Please double-check the ID and try again.";
-            document.getElementById("ErrorMSG2").style.display = "block";
+        if (response.data.UserID_exist == "false") {
+            document.getElementById("ErrorMSGDeletUSR").innerHTML = "We couldn't find any User with the provided ID. Please double-check the ID and try again.";
+            document.getElementById("ErrorMSGDeletUSR").style.display = "block";
 
         } else {
-            document.getElementById("ErrorMSG2").style.display = "none";
-            var result = confirm("Are you sure you want to delete the offer with the following ID ?\n\nOffer ID: " + offerId);
-            if(result){
-                document.forms["RemoveOfferForm"].submit();
+            if(response.data.UserID_exist == "admin")
+            {
+                document.getElementById("ErrorMSGDeletUSR").innerHTML = "Apologies, it seems you're trying to delete an admin account. This action is restricted for security reasons.";
+                document.getElementById("ErrorMSGDeletUSR").style.display = "block";
             }
+            else{
+                document.getElementById("ErrorMSGDeletUSR").style.display = "none";
+                var result = confirm("Are you sure you want to delete the offer with the following ID ?\n\nOffer ID: " + UserID);
+                if(result){
+                    document.forms["RemoveUSERForm"].submit();
+                }
+            }
+
         }
     })
     .catch((error) => {
