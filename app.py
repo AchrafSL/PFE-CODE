@@ -2,6 +2,7 @@ from flask import Flask, render_template,redirect,request,jsonify,session,url_fo
 import mysql.connector
 from flask_mail import Mail, Message
 from datetime import timedelta,datetime # no need to download the lib
+import json
 
 # Mail ,Flask are the actual libraries
 # Gmail lets you send up to 500 emails per day using The Gmail SMTP server
@@ -824,6 +825,10 @@ def logout():
     session.pop("pfpName",None)
     session.pop("idCart",None)
     session.pop("fullprice",None)
+    session.pop("ListOrders", None)
+    session.pop("OrderNumber", None)
+    session.pop("NumbSignup", None)
+    session.pop("Revenue", None)
     return redirect("/home")
 
 
@@ -1029,7 +1034,10 @@ def Activity_Page():
             ListOfEmployees = None
             ListOfAdmins = None  
         '''
-
+        session['ListOrders'] = ListOrders
+        session['OrderNumber'] = OrderNumber
+        session['NumbSignup'] = NumbSignup
+        session['Revenue'] = Revenue
         
         if session["role"] == "admin":      
             #Do the same as the employee but can also add/remove offers | change role
@@ -1541,10 +1549,12 @@ def showUsers():
         }
         ListOfAdmins.append(adminData)
 
-    ListOrders = request.form.get('ListOrders')
-    NumbSignup = request.form.get('NumbSignup')
-    Revenue = request.form.get('Revenue')
-    OrderNumber  = request.form.get('OrderNumber ')
+    #If i used the simple way to redirect the data will be shown in the top but i dont want that :
+    ListOrders = session['ListOrders']
+    OrderNumber = session['OrderNumber']
+    NumbSignup = session['NumbSignup']
+    Revenue = session['Revenue']
+
 
     return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue,ListOfClients=ListOfClients,ListOfEmployees = ListOfEmployees,ListOfAdmins = ListOfAdmins)
 
