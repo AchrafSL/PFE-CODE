@@ -215,14 +215,57 @@
 
         <div class="Activity_Page-Section1-ShowUsers">
             <!-- The button is only showed when the lists are empty or null or notDefined -->
-            {% if not ListOfAdmins and not ListOfEmployees and not ListOfAdmins %}
+            {% if not ListOfClients and not ListOfEmployees and not ListOfAdmins %}
             <form action="/showUsers" method="POST">
                 <input type="submit" value="Show USERS">
             </form>
             {% endif %}
 
-            {% if not ListOfAdmins and not ListOfEmployees and not ListOfAdmins %}
-            <h1>List of Clients</h1>
+            {% if ListOfAdmins %}      
+            <u><b><h3>List of Admins :</h3></b></u>
+            {% endif %}
+
+            {% for admin in ListOfAdmins %}
+            <div class="ShowData">
+                <b>ID:</b> {{ admin['idCli'] }}<br>
+                <b>Email:</b> {{ admin['Email'] }}<br>
+                <b>First Name:</b> {{ admin['FirstName'] }}<br>
+                <b>Last Name:</b> {{ admin['LastName'] }}<br>
+                <b>Status:</b> {{ admin['status'] }}<br>
+                <b>Role:</b> {{ admin['role'] }}<br>
+                <b>Date Joined:</b> {{ admin['Date_Joined'] }}<br>
+                {% if admin['whatsapp'] != '' %}
+                <b>WhatsApp:</b> {{ admin['whatsapp'] }}<br>
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+            <hr style="border:1px solid black;width:90%;margin-left:5%;margin-top:10px;margin-bottom:20px;">
+
+            {% if ListOfEmployees%}      
+            <u><b><h3>List of Employees :</h3></b></u>
+            {% endif %}
+
+            {% for employee in ListOfEmployees %}
+            <div class="ShowData">
+                <b>ID:</b> {{ employee['idCli'] }}<br>
+                <b>Email:</b> {{ employee['Email'] }}<br>
+                <b>First Name:</b> {{ employee['FirstName'] }}<br>
+                <b>Last Name:</b> {{ employee['LastName'] }}<br>
+                <b>Status:</b> {{ employee['status'] }}<br>
+                <b>Role:</b> {{ employee['role'] }}<br>
+                <b>Date Joined:</b> {{ employee['Date_Joined'] }}<br>
+                {% if employee['whatsapp'] != '' %}
+                <b>WhatsApp:</b> {{ employee['whatsapp'] }}<br>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <hr style="border:1px solid black;width:90%;margin-left:5%;margin-top:10px;margin-bottom:20px;">
+
+
+            {% if ListOfClients  %}
+            <u><b><h3>List of Clients :</h3></b></u>
             {% endif %}
             
             {% for client in ListOfClients %}
@@ -234,42 +277,15 @@
                 <b>Status:</b> {{ client['status'] }}<br>
                 <b>Role:</b> {{ client['role'] }}<br>
                 <b>Date Joined:</b> {{ client['Date_Joined'] }}<br>
+                {% if client['whatsapp'] != '' %}
                 <b>WhatsApp:</b> {{ client['whatsapp'] }}<br>
+                {% endif %}
             </div>
             {% endfor %}
             
-        
-            <h1>List of Employees</h1>
-            <ul>
-                {% for employee in ListOfEmployees %}
-                <li>
-                    <b>ID:</b> {{ employee['idCli'] }}<br>
-                    <b>Email:</b> {{ employee['Email'] }}<br>
-                    <b>First Name:</b> {{ employee['FirstName'] }}<br>
-                    <b>Last Name:</b> {{ employee['LastName'] }}<br>
-                    <b>Status:</b> {{ employee['status'] }}<br>
-                    <b>Role:</b> {{ employee['role'] }}<br>
-                    <b>Date Joined:</b> {{ employee['Date_Joined'] }}<br>
-                    <b>WhatsApp:</b> {{ employee['whatsapp'] }}<br>
-                </li>
-                {% endfor %}
-            </ul>
-        
-            <h1>List of Admins</h1>
-            <ul>
-                {% for admin in ListOfAdmins %}
-                <li>
-                    <b>ID:</b> {{ admin['idCli'] }}<br>
-                    <b>Email:</b> {{ admin['Email'] }}<br>
-                    <b>First Name:</b> {{ admin['FirstName'] }}<br>
-                    <b>Last Name:</b> {{ admin['LastName'] }}<br>
-                    <b>Status:</b> {{ admin['status'] }}<br>
-                    <b>Role:</b> {{ admin['role'] }}<br>
-                    <b>Date Joined:</b> {{ admin['Date_Joined'] }}<br>
-                    <b>WhatsApp:</b> {{ admin['whatsapp'] }}<br>
-                </li>
-                {% endfor %}
-            </ul>
+
+
+
 
 
 

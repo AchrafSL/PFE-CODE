@@ -400,7 +400,13 @@
 }
 
 .ShowData{
-    
+    background-color: rgb(228, 228, 228);
+    margin:20px;
+    padding:20px;
+}
+
+.Activity_Page-Section1-ShowUsers h3{
+    margin-left:10px;
 }
 
 /* Wave svg from https://www.shapedivider.app/ */
