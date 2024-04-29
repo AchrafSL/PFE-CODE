@@ -1424,6 +1424,14 @@ def CheckUserID():
 #RemoveUSER -------------------------------------------------------------------------------------
 @app.route("/RemoveUSER", methods = ["POST"])
 def RemoveUSER():
+    #It's 100% not an admin so we can delete the account : 
+    UserID = request.form.get('UserID')
+
+    sql = "DELETE FROM USER WHERE idCli = %s"
+    data = (UserID,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
     return redirect("/Activity_Page")
 
 
