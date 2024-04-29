@@ -213,6 +213,73 @@
 
 
 
+        <div class="Activity_Page-Section1-ShowUsers">
+            <!-- The button is only showed when the lists are empty or null or notDefined -->
+            {% if not ListOfAdmins and not ListOfEmployees and not ListOfAdmins %}
+            <form action="/showUsers" method="POST">
+                <!-- ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue-->
+                <input type="hidden" name="ListOrders" value="{{ ListOrders }}">
+                <input type="hidden" name="NumbSignup" value="{{ NumbSignup }}">
+                <input type="hidden" name="Revenue" value="{{ Revenue }}">
+                <input type="hidden" name="OrderNumber" value="{{ OrderNumber }}">
+                <input type="submit" value="Show USERS">
+            </form>
+            {% endif %}
+
+            <h1>List of Clients</h1>
+            <ul>
+                {% for client in ListOfClients %}
+                <li>
+                    <b>ID:</b> {{ client['idCli'] }}<br>
+                    <b>Email:</b> {{ client['Email'] }}<br>
+                    <b>First Name:</b> {{ client['FirstName'] }}<br>
+                    <b>Last Name:</b> {{ client['LastName'] }}<br>
+                    <b>Status:</b> {{ client['status'] }}<br>
+                    <b>Role:</b> {{ client['role'] }}<br>
+                    <b>Date Joined:</b> {{ client['Date_Joined'] }}<br>
+                    <b>WhatsApp:</b> {{ client['whatsapp'] }}<br>
+                </li>
+                {% endfor %}
+            </ul>
+        
+            <h1>List of Employees</h1>
+            <ul>
+                {% for employee in ListOfEmployees %}
+                <li>
+                    <b>ID:</b> {{ employee['idCli'] }}<br>
+                    <b>Email:</b> {{ employee['Email'] }}<br>
+                    <b>First Name:</b> {{ employee['FirstName'] }}<br>
+                    <b>Last Name:</b> {{ employee['LastName'] }}<br>
+                    <b>Status:</b> {{ employee['status'] }}<br>
+                    <b>Role:</b> {{ employee['role'] }}<br>
+                    <b>Date Joined:</b> {{ employee['Date_Joined'] }}<br>
+                    <b>WhatsApp:</b> {{ employee['whatsapp'] }}<br>
+                </li>
+                {% endfor %}
+            </ul>
+        
+            <h1>List of Admins</h1>
+            <ul>
+                {% for admin in ListOfAdmins %}
+                <li>
+                    <b>ID:</b> {{ admin['idCli'] }}<br>
+                    <b>Email:</b> {{ admin['Email'] }}<br>
+                    <b>First Name:</b> {{ admin['FirstName'] }}<br>
+                    <b>Last Name:</b> {{ admin['LastName'] }}<br>
+                    <b>Status:</b> {{ admin['status'] }}<br>
+                    <b>Role:</b> {{ admin['role'] }}<br>
+                    <b>Date Joined:</b> {{ admin['Date_Joined'] }}<br>
+                    <b>WhatsApp:</b> {{ admin['whatsapp'] }}<br>
+                </li>
+                {% endfor %}
+            </ul>
+
+
+
+
+
+        </div>
+
 
         <div class="Activity_Page-Section1-top1">
             <h3 style="margin:10px;"> <u><b>Clients' Orders : <span style="color:green;"> {{ OrderNumber }} </span> </b></u>  </h3>

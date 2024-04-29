@@ -1017,6 +1017,19 @@ def Activity_Page():
         result = mycursor.fetchall()
         Revenue =  result[0][0]
         
+
+        ''' Using this the data will be displayed on the top
+        #Get data from the button  Show USERS :
+        if request.method == "GET":
+            ListOfClients = request.args.get('ListOfClients')
+            ListOfEmployees = request.args.get('ListOfEmployees')
+            ListOfAdmins = request.args.get('ListOfAdmins')
+        else:
+            ListOfClients = None
+            ListOfEmployees = None
+            ListOfAdmins = None  
+        '''
+
         
         if session["role"] == "admin":      
             #Do the same as the employee but can also add/remove offers | change role
@@ -1466,6 +1479,74 @@ def RemoveUSER():
 
 
     return redirect("/Activity_Page")
+
+
+#Show All Users -----------------------------------------------------------------------------------
+@app.route("/showUsers", methods=["POST"])
+def showUsers():
+    #SET the List of Clients :
+    sql = "SELECT idCli,Email,FirstName,LastName,status ,role,Date_Joined,whatsapp FROM USER where role='client'"
+    mycursor.execute(sql)
+    Clients = mycursor.fetchall()
+    ListOfClients = []
+    for client in Clients:
+        clientData = {
+            'idCli': client[0],
+            'Email': client[1],
+            'FirstName': client[2],
+            'LastName': client[3],
+            'status': client[4],
+            'role': client[5],
+            'Date_Joined': client[6],
+            'whatsapp': client[7]
+        }
+        ListOfClients.append(clientData)
+
+
+
+    #SET the List of Employees :
+    sql = "SELECT idCli,Email,FirstName,LastName,status ,role,Date_Joined,whatsapp FROM USER where role='employee'"
+    mycursor.execute(sql)
+    Employees = mycursor.fetchall()
+    ListOfEmployees = []
+    for Employee in Employees:
+        employeeData = {
+            'idCli': Employee[0],
+            'Email': Employee[1],
+            'FirstName': Employee[2],
+            'LastName': Employee[3],
+            'status': Employee[4],
+            'role': Employee[5],
+            'Date_Joined': Employee[6],
+            'whatsapp': Employee[7]
+        }
+        ListOfEmployees.append(employeeData)
+
+
+    #SET the List of Admins :
+    sql = "SELECT idCli,Email,FirstName,LastName,status ,role,Date_Joined,whatsapp FROM USER where role='admin'"
+    mycursor.execute(sql)
+    Admins = mycursor.fetchall()
+    ListOfAdmins = []
+    for Admin in Admins:
+        adminData = {
+            'idCli': Admin[0],
+            'Email': Admin[1],
+            'FirstName': Admin[2],
+            'LastName': Admin[3],
+            'status': Admin[4],
+            'role': Admin[5],
+            'Date_Joined': Admin[6],
+            'whatsapp': Admin[7]
+        }
+        ListOfAdmins.append(adminData)
+
+    ListOrders = request.form.get('ListOrders')
+    NumbSignup = request.form.get('NumbSignup')
+    Revenue = request.form.get('Revenue')
+    OrderNumber  = request.form.get('OrderNumber ')
+
+    return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue,ListOfClients=ListOfClients,ListOfEmployees = ListOfEmployees,ListOfAdmins = ListOfAdmins)
 
 
 # ----------------------------------------------------------------------------------------

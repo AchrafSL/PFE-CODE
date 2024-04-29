@@ -374,6 +374,33 @@
 
 
 
+/* Activity_Page-Section1-ShowUsers */
+.Activity_Page-Section1-ShowUsers{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    margin-top:20px;
+    width:80%;
+    margin-bottom: 10px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+.Activity_Page-Section1-ShowUsers input{
+    margin:10px;
+    width:10%;
+    height:50px;
+    color:white;
+    background-color: gray;
+    cursor: pointer;
+}
+.Activity_Page-Section1-ShowUsers input:hover{
+    background-color: yellowgreen;
+}
+
+
+
 /* Wave svg from https://www.shapedivider.app/ */
 .wave {
     position: absolute;
