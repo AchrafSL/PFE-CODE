@@ -1428,7 +1428,7 @@ def RemoveUSER():
     #Delete the user using only user id because these a way to see users id :
 
     #It's 100% not an admin so we can delete the account : 
-    UserId = request.form.get('UserId')
+    UserId = request.form.get('UserID')
 
 
     #Can't delete user directly 
@@ -1463,9 +1463,6 @@ def RemoveUSER():
     sqlUser = "DELETE FROM USER WHERE idCli = %s"
     mycursor.execute(sqlUser, data)
     myconnection.commit()
-
-
-
 
 
     return redirect("/Activity_Page")
