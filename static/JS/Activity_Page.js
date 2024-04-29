@@ -188,6 +188,8 @@ function ConfirmUSERRemoval(){
         document.getElementById("ErrorMSGDeletUSR").style.display = "block";
         return false;
     }
+
+    
     if (isNaN(UserID)){
         document.getElementById("ErrorMSGDeletUSR").innerHTML = "The value of UserID should be a number";
         document.getElementById("ErrorMSGDeletUSR").style.display = "block";

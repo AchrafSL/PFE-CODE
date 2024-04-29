@@ -1396,6 +1396,7 @@ def CheckUserID():
     if request.method == "POST":
         UserID = request.json['UserID']
 
+
         sql = "SELECT idCli FROM USER WHERE idCli= %s"
         data = (UserID,)
         mycursor.execute(sql, data)
@@ -1424,13 +1425,48 @@ def CheckUserID():
 #RemoveUSER -------------------------------------------------------------------------------------
 @app.route("/RemoveUSER", methods = ["POST"])
 def RemoveUSER():
-    #It's 100% not an admin so we can delete the account : 
-    UserID = request.form.get('UserID')
+    #Delete the user using only user id because these a way to see users id :
 
-    sql = "DELETE FROM USER WHERE idCli = %s"
-    data = (UserID,)
-    mycursor.execute(sql,data)
+    #It's 100% not an admin so we can delete the account : 
+    UserId = request.form.get('UserId')
+
+
+    #Can't delete user directly 
+    data = (UserId,)
+
+    # Delete cartOffers data about the user if it exists
+    sqlCartOffers = "DELETE FROM CartOffers WHERE idCart IN (SELECT idCart FROM Cart WHERE idCli = %s)"
+    mycursor.execute(sqlCartOffers, data)
     myconnection.commit()
+
+    # Delete cart data about the user
+    sqlCart = "DELETE FROM Cart WHERE idCli = %s"
+    mycursor.execute(sqlCart, data)
+    myconnection.commit()
+
+    # Delete orderOffers data about the user 
+    sqlOrderOffers = "DELETE FROM OrderOffers WHERE idOrder IN (SELECT idOrder FROM Orders WHERE idCli = %s)"
+    mycursor.execute(sqlOrderOffers, data)
+    myconnection.commit()
+
+    # Delete order data about the user
+    sqlOrders = "DELETE FROM Orders WHERE idCli = %s"
+    mycursor.execute(sqlOrders, data)
+    myconnection.commit()
+
+    # Delete subscription data about the user
+    sqlSubscription = "DELETE FROM Subscription WHERE idCli = %s"
+    mycursor.execute(sqlSubscription, data)
+    myconnection.commit()
+
+    # Delete user
+    sqlUser = "DELETE FROM USER WHERE idCli = %s"
+    mycursor.execute(sqlUser, data)
+    myconnection.commit()
+
+
+
+
 
     return redirect("/Activity_Page")
 
