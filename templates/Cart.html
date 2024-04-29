@@ -26,24 +26,24 @@
                 <div class="Cart">
                     <img src="{{ url_for('static', filename='Images/product_pics/' + offer['image_Name']) }}"
                     width="100" height="100px" border="0" alt="ProductPIC"
-                    class="ProductPIC" >
-                <div class="offerdata-left" style="margin-right:100px;">
+                    class="ProductPIC"  style="cursor:pointer;" onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')">
+                <div class="offerdata-left" style="margin-right:100px;cursor:pointer;" >
 
-                    <div class="offerData">
+                    <div class="offerData" >
                         <!-- Change the img with offer["image_Name"] -->
 
-                        <u><h5><b>Product ID :</b> {{ offer['idOffer'] }}</h5></u>
-                        <h5 >{{ offer['name'] }}</h5> 
-                        <h5 style="color:green;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
+                        <u><h5 style="cursor:pointer;"  onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')"><b>Product ID :</b> {{ offer['idOffer'] }}</h5></u>
+                        <h5 style="cursor:pointer;"  onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')">{{ offer['name'] }}</h5> 
+                        <h5 onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')" style="color:green;cursor:pointer;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
                     </div>
-                    <p style="margin-left:22px;word-wrap:wrap;width:300px;margin-top:8px;margin-right:200px;"><b>Description :</b> {{offer['description'] }}</p>
+                    <p onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')" style="margin-left:22px;word-wrap:wrap;width:300px;margin-top:8px;margin-right:200px;cursor:pointer;"><b>Description :</b> {{offer['description'] }}</p>
                 </div>
 
                 <div class="offerdata-right">
                     <!-- remove offer from cart  -->
                     <form action="/RemoveOffer_Cart" method="POST">
                         <input type="hidden" name="offerId" value="{{ offer['idOffer'] }}">
-                        <input type="submit" value="Remove offer from cart" class="RemoveFromCart">
+                        <input type="submit" value="Remove offer from cart" class="RemoveFromCart" style="cursor:pointer"> 
                     </form>
                 </div>
 

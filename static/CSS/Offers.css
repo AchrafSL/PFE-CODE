@@ -72,19 +72,22 @@
     border:1px solid black; 
     width:93.5%;
     margin:10px;
-    margin-bottom: 0px;;
+    margin-bottom: 10px;;
     padding:10px;
     margin-left:2.5%;
 }
 .SearchProduct input{
     width:84.5%;
     padding:10px;
+
 }
 .SearchProduct button{
     width:15%;
     padding:10px;
     background-color: gray;
     color:white;
+    cursor: pointer;
+
 }
 .SearchProduct button:hover{
     background-color: yellowgreen;
