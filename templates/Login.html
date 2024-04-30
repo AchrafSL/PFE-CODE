@@ -42,7 +42,7 @@
                     <h5 class="msg0"> Confirm new password</h5>
                     <input class="pwd" type="password" name ="ConfirmPassword">
                     <h6 id="errorMsg"> </h6>
-                    <input type="submit" value="Reset Password" class="ResetPassword">
+                    <input type="submit" value="Reset Password" class="ResetPassword" style="cursor:pointer;">
                 </form>
 
             </div>
@@ -57,8 +57,8 @@
                 <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="LoginInput">   
                 <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="LoginInput">  
                 <h6 id="errorMsg"> Sorry,looks like that's the wrong email or password.</h6>
-                <input type="button" value="Forgot Password?" class="passwordForgot-input" onclick="passwordForgotActionChange()">
-                <input type="submit" value="Login" class="Login-input">  
+                <input type="button" value="Forgot Password?" class="passwordForgot-input" onclick="passwordForgotActionChange()" style="cursor:pointer;">
+                <input type="submit" value="Login" class="Login-input" style="cursor:pointer;">  
             </form>
             {% else %}
             {% if x == 1 %}
@@ -74,8 +74,8 @@
             <form action="/ResetPassword" name = "ResetPassword" class="ResetPasswordForm" method="POST" onsubmit="return ValidateResetPWD()">
                 <input type="text" placeholder="e-mail" autofocus autocomplete="off" class="ResetPasswordEmail" name="E_mail">
                 <h6 id="errorMsg"> Please enter a valid email address.</h6> 
-                <input type="button" value="Return to login" class="ReturnToLogin" onclick="ReturnToLoginActionChange('ResetPassword')">
-                <input type="submit" value="Reset Password" class="ResetPassword">
+                <input type="button" value="Return to login" class="ReturnToLogin"  style="cursor:pointer;" onclick="ReturnToLoginActionChange('ResetPassword')">
+                <input type="submit" value="Reset Password" class="ResetPassword" style="cursor:pointer;">
             </form>
                 {% else %}
                     {% if Reset == 1 %}
@@ -94,12 +94,12 @@
                             <input type="hidden" value = "password" name = "ResendLink_Type">
                             <input type="hidden" value="{{email}}" name ="EMAIL">
                             {% if session["logged_in"] %}
-                            <input type="button" value="Return to Home" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('sendLinkPWD')">
+                            <input type="button" value="Return to Home" style="cursor:pointer;" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('sendLinkPWD')">
 
                             {% else%}
-                            <input type="button" value="Return to login" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLinkPWD')">
+                            <input type="button" value="Return to login" style="cursor:pointer;" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLinkPWD')">
                             {% endif %}
-                            <input type="submit" value="Resend Link" class="ResendLink" >
+                            <input type="submit" value="Resend Link" class="ResendLink" style="cursor:pointer;">
                         </form>
                     </div>
 
@@ -121,11 +121,11 @@
                         <input type="hidden" value = "email" name = "ResendLink_Type">
                         <input type="hidden" value="{{email}}" name ="EMAIL">
                         {% if session["logged_in"] %}
-                        <input type="button" value="Return to Home" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('sendLink')">
+                        <input type="button" value="Return to Home" style="cursor:pointer;" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('sendLink')">
                         {% else %}
-                        <input type="button" value="Return to login" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLink')">
+                        <input type="button" value="Return to login"  style="cursor:pointer;" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLink')">
                         {% endif %}
-                        <input type="submit" value="Resend Link" class="ResendLink" onclick="">
+                        <input type="submit" value="Resend Link" class="ResendLink" style="cursor:pointer;">
                     </form>
                 </div>
             {% endif %}

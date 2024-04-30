@@ -212,7 +212,8 @@
         {% endif %}
 
 
-
+        {% if session["role"] == "admin" %}
+     
         <div class="Activity_Page-Section1-ShowUsers">
             <!-- The button is only showed when the lists are empty or null or notDefined -->
             {% if not ListOfClients and not ListOfEmployees and not ListOfAdmins %}
@@ -292,6 +293,7 @@
 
 
         </div>
+        {% endif %}
 
 
         <div class="Activity_Page-Section1-top1">

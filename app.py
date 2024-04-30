@@ -2,7 +2,6 @@ from flask import Flask, render_template,redirect,request,jsonify,session,url_fo
 import mysql.connector
 from flask_mail import Mail, Message
 from datetime import timedelta,datetime # no need to download the lib
-import json
 
 # Mail ,Flask are the actual libraries
 # Gmail lets you send up to 500 emails per day using The Gmail SMTP server
@@ -418,6 +417,7 @@ def SignUpInput():
 
 #Verify the email : (so we can Eliminate invalid or spam emails from our list) -------------------
 
+#Page showing to the usr that we sent an email to them and give them the choice to resend the link
 @app.route('/Verify',methods=["GET"])
 def Verify():
 
