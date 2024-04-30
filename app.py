@@ -214,7 +214,9 @@ def Cart():
     if 'logged_in' not in session:
         return redirect('/Login')
     
-        
+    if 'role' not in session:
+        return redirect('/Login')
+
     if session['role'] == 'employee' :
         return redirect('home')
 

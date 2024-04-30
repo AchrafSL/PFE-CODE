@@ -28,10 +28,12 @@ CREATE TABLE OFFERS(
     image_Name VARCHAR(255) DEFAULT 'default-product-image.png',
     Offer_price DECIMAL(10, 2),
     name VARCHAR(255),
+    duration INT,
 	PRIMARY KEY (idOffer)
 );
-ALTER TABLE OFFERS
-ADD COLUMN duration INT;
+
+-- ALTER TABLE OFFERS
+-- ADD COLUMN duration INT;
 
 -- ORDERS TABLE :
 -- Filled with information derived from the user's cart
