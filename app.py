@@ -1306,8 +1306,6 @@ def get_OfferToModify_Data():
     mycursor.execute(sql,data)
     offer = mycursor.fetchall()
 
-    if(not offer):
-        return redirect("/Activity_Page")
     offerToModify = {
         'name': offer[0][0],
         'Offer_price': offer[0][1],
