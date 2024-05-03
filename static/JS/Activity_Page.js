@@ -24,6 +24,8 @@ function confirmTreatStatus(){
     }
 }
 
+
+
 function ConfirmOfferModification(){
     var offerId = document.forms["ModifyOffersForm"]["offerID"].value;
     if (isNaN(offerId)){
@@ -247,22 +249,56 @@ function confirmRoleChange(formName) {
             document.getElementById("ErrorMSG").style.display = "block";
             return false;
         }
+        else{ 
+            return true;
+        }
     }
+
 
     if (!selectedRole || selectedRole === 'Please Select a role :') {
         document.getElementById("ErrorMSG").innerHTML = " Please fill all fields ";
         document.getElementById("ErrorMSG").style.display = "block";
         return false;
     } else {
-        document.getElementById("ErrorMSG").style.display = "none";
-        var result = confirm("Are you sure you want to change the USR role to " + selectedRole);
-        if (result) {
-            return true;
+
+
+
+    // Check the if the UserID does actually exist : 
+    axios.post('/CheckUserID', {
+        UserID : email_UserId 
+    })
+    .then((response) => {
+        if (response.data.UserID_exist == "false") {
+            document.getElementById("ErrorMSG").innerHTML = "We couldn't find any User with the provided ID. Please double-check the ID and try again.";
+            document.getElementById("ErrorMSG").style.display = "block";
+
         } else {
-            return false;
+            if(response.data.UserID_exist == "admin")
+            {
+                document.getElementById("ErrorMSG").innerHTML = "Apologies, it seems you're trying to Change the role of an admin account. This action is restricted for security reasons.";
+                document.getElementById("ErrorMSG").style.display = "block";
+            }
+            else{
+                document.getElementById("ErrorMSG").style.display = "none";
+                var result = confirm("Are you sure you want to change the USR role to " + selectedRole);
+                if (result) {
+                    document.forms[formName].submit();
+                }
+            }
+
         }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+
+        
+
     }
+    return false;
 }
+
 
 
 function confirmSubOperation(){

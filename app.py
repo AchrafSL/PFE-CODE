@@ -105,9 +105,11 @@ def home():
 # Offers ---------------------------------------------------------------------------------
 @app.route('/Offers', methods=["GET","POST"])
 def Offers():
+    #the number of offers
     mycursor.execute("SELECT COUNT(*) AS OffersNumber FROM OFFERS;")
     results = mycursor.fetchall()
 
+    # Search for an offer :
     word = request.args.get('product')
     if word is not None:
         sql = "SELECT name, Offer_price,idOffer,image_Name FROM OFFERS WHERE name LIKE %s"
@@ -189,6 +191,7 @@ def AddOfferToCart():
 
 
     idCart = results[0][0]
+
     #Only add offer if it doesn't exist in the cartoffers :
     sql = "SELECT idCart FROM CARTOFFERS WHERE idCart = %s AND idOffer = %s"
     data = (idCart, idOffer,)
@@ -200,7 +203,6 @@ def AddOfferToCart():
         sql = "INSERT INTO CARTOFFERS (idCart, idOffer) VALUES (%s, %s)"
         data = (idCart, idOffer,) 
         mycursor.execute(sql, data)
-        print('wa7ch')
         myconnection.commit()
 
     return redirect("/Cart")
@@ -278,6 +280,7 @@ def RemoveOffer_Cart():
     myconnection.commit()
 
     return redirect("/Cart")
+
 
 
 #Send Order
@@ -397,12 +400,8 @@ def SignUpInput():
     mycursor.execute(sql, data)
     myconnection.commit()  # Save
 
-    sql = "SELECT idCli FROM USER WHERE email = %s"
-    data = (email,)
-    mycursor.execute(sql, data)
-    results = mycursor.fetchall()
-
-    idCli = results[0][0]
+    idCli = mycursor.lastrowid
+    
     # CART link with the user id
     sql = "INSERT INTO CART (idCli) VALUES (%s)" 
     data = (idCli,)
@@ -457,7 +456,8 @@ def send_verification_email(email, token):
 def verify_email():
     token = int(request.args.get('token')) 
     email = request.args.get('email')
-    email = email.lower()
+    email = email.lower()   
+
     #search for the usr  and generate the token and compare it with the token :
     sql = "SELECT Password,FirstName,LastName FROM USER WHERE email = %s"
     data = (email,)
@@ -510,6 +510,8 @@ def Already_Verified_email():
 
 
 
+
+
 # Login ----------------------------------------------------------------------------------
 # Here i need to treat all posibilites and ForgotPwd case also: 
 
@@ -537,6 +539,7 @@ def CheckLogin():
         email = request.json['email']
         email = email.lower()
         passwd = request.json['passwd']
+
         sql = "SELECT Email,Password,FirstName,LastName,role,idCli,Date_Joined,whatsapp,pfpName FROM USER WHERE email = %s"
         data = (email,)
         mycursor.execute(sql, data)
@@ -592,8 +595,6 @@ def LoginInput():
 # and check if the email exist or not !
 
 # Route for verifying-email | Operation code is :60
-# 127.0.0.1 - - [13/Apr/2024 20:10:05] "GET /ResetPassword HTTP/1.1" 405 -
-# I always get a "GET" request but i dont know where it's coming from 
 
 #Here is the page that apear after clicking forgotPWD:
 @app.route('/ResetPassword',methods=["POST","GET"])
@@ -602,6 +603,7 @@ def ResetPassword():
         email =  request.form.get("E_mail")
     else:
         email = request.args.get("E_mail")
+        
     email = email.lower()
     #if the email exist send an email to the usr 
     sql = "SELECT Email,Password,firstname,lastname FROM USER WHERE email = %s"
@@ -622,11 +624,13 @@ def ResetPassword():
             #then send the email
             send_verification_password(email, token)
 
-            #Page tha says to the usr that the email is sent !
+            #Page that says to the usr that the email is sent !
             return render_template('Login.html',x = 1,Reset= 1,email = email)
 
     #The email doesn't exist the go the doesn't exist page :
     return render_template('Signup.html',verif = 1,Reset = -1)
+
+
 
 #This is the page that apear after the usr recive the link in the email
 #it's a form to fill and send it
@@ -730,10 +734,10 @@ def ResendLink():
     Password = results[0][0]
     FirstName = results[0][1]
     LastName = results[0][2]
+
     if ResendLink_Type == 'email':
         #operation code is 50 (email verification)
         token = generate_verification_token(email, FirstName, LastName, Password,50)
-        #I have to add some restrictions to this button because the usr can spam it 
         send_verification_email(email,token)
         return redirect(f'/Verify?email={email}')
     else:
@@ -987,7 +991,7 @@ def Activity_Page():
         mycursor.execute(sql)
         Orders = mycursor.fetchall()
 
-        #send the client orders and subscriptions
+        #send the clients orders and subscriptions
         ListOrders = []
         for order in Orders:
             ordVar = {
@@ -1045,7 +1049,7 @@ def Activity_Page():
             #Do the same as the employee but can also add/remove offers | change role
             return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue)
         else:
-            return render_template("Activity_Page.html",USR = "employee" ,ListOrders = ListOrders,OrderNumber = OrderNumber)
+                return render_template("Activity_Page.html",USR = "employee" ,ListOrders = ListOrders,OrderNumber = OrderNumber)
 
 
 
@@ -1419,11 +1423,20 @@ def CheckUserID():
     if request.method == "POST":
         UserID = request.json['UserID']
 
+        #If the id is a number :
+        if (UserID.isdigit()):
+            sql = "SELECT idCli FROM USER WHERE idCli= %s"
+            data = (UserID,)
+            mycursor.execute(sql, data)
+            results = mycursor.fetchall()
+        else:
+        #the id is an email :
+            sql = "SELECT idCli FROM USER WHERE Email = %s"
+            data = (UserID,)
+            mycursor.execute(sql, data)
+            results = mycursor.fetchall()
 
-        sql = "SELECT idCli FROM USER WHERE idCli= %s"
-        data = (UserID,)
-        mycursor.execute(sql, data)
-        results = mycursor.fetchall()
+
 
         
         sql = "SELECT role from USER where idCli = %s"

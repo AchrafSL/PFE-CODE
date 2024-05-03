@@ -11,6 +11,9 @@ function ReturnToLoginActionChange(Variable1){
 }
 
 
+
+
+
 function validateForm(){
     // Check email validation :
     var Email = document.forms["LoginForm"]["email"].value;
@@ -52,6 +55,9 @@ function validateForm(){
     return false;
 }
 
+
+
+
 function ValidateResetPWD(){
     var Email = document.forms["ResetPassword"]["E_mail"].value;
     const emailPattern = /^[A-Za-z0-9_\-\.]+\@[A-Za-z0-9_\-\.]+\.[A-Za-z]{2,4}$/ ;
@@ -63,6 +69,10 @@ function ValidateResetPWD(){
     }
     return true
 }
+
+
+
+
 
 
 
