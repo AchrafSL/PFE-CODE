@@ -249,9 +249,7 @@ function confirmRoleChange(formName) {
             document.getElementById("ErrorMSG").style.display = "block";
             return false;
         }
-        else{ 
-            return true;
-        }
+
     }
 
 

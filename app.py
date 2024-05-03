@@ -1435,10 +1435,9 @@ def CheckUserID():
             data = (UserID,)
             mycursor.execute(sql, data)
             results = mycursor.fetchall()
+            UserID = results[0][0]
 
 
-
-        
         sql = "SELECT role from USER where idCli = %s"
         data = (UserID,)
         mycursor.execute(sql,data)
