@@ -1426,17 +1426,16 @@ def CheckUserID():
         #If the id is a number :
         if (UserID.isdigit()):
             sql = "SELECT idCli FROM USER WHERE idCli= %s"
-            data = (UserID,)
-            mycursor.execute(sql, data)
-            results = mycursor.fetchall()
+
         else:
         #the id is an email :
             sql = "SELECT idCli FROM USER WHERE Email = %s"
-            data = (UserID,)
-            mycursor.execute(sql, data)
-            results = mycursor.fetchall()
-            UserID = results[0][0]
 
+    
+        data = (UserID,)
+        mycursor.execute(sql, data)
+        results = mycursor.fetchall()
+        UserID = results[0][0]
 
         sql = "SELECT role from USER where idCli = %s"
         data = (UserID,)
