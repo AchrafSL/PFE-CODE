@@ -1186,7 +1186,7 @@ def CheckOfferID():
         if len(results) > 0:        # <=> if results:
             return jsonify({"offerID_exist": "true"})
         else:
-            # User doesn't exist
+            # offer doesn't exist
             return jsonify({"offerID_exist": "false"})
 
     else:
@@ -1245,58 +1245,51 @@ def AddOffer():
 #Remove Offers :
 @app.route("/RemoveOffer", methods=["POST"])
 def RemoveOffer():
-    #if the order exist remove the order :
     offerID = request.form.get('offerID')
-    sql = "Select idOffer from offers where idOffer = %s"
+   
+        #Remove the offer :
+            #Delete All offers with same offer id in CartOffers 
+    cart_offers_sql = "DELETE FROM CartOffers WHERE idOffer = %s"
     data = (offerID,)
-    mycursor.execute(sql,data,)
-    offer_ID = mycursor.fetchall()
-
-    if offer_ID:
-        #then the offer exist :
-            #Remove the offer :
-                #Delete All offers with same offer id in CartOffers 
-        cart_offers_sql = "DELETE FROM CartOffers WHERE idOffer = %s"
-        data = (offerID,)
-        mycursor.execute(cart_offers_sql,data,)
-        myconnection.commit()
+    mycursor.execute(cart_offers_sql,data,)
+    myconnection.commit()
 
 
-                #Delete All offers with same offer id in OrderOffers 
-        order_offers_sql = "DELETE FROM OrderOffers WHERE idOffer = %s"
-        data = (offerID,)
-        mycursor.execute(order_offers_sql,data,)
-        myconnection.commit()
+            #Delete All offers with same offer id in OrderOffers 
+    order_offers_sql = "DELETE FROM OrderOffers WHERE idOffer = %s"
+    data = (offerID,)
+    mycursor.execute(order_offers_sql,data,)
+    myconnection.commit()
 
-                #Delete All offers with same offer id in Subscription 
-        subscription_sql = "DELETE FROM Subscription WHERE idOffer = %s"
-        data = (offerID,)
-        mycursor.execute(subscription_sql,data,)
-        myconnection.commit()
+            #Delete All offers with same offer id in Subscription 
+    subscription_sql = "DELETE FROM Subscription WHERE idOffer = %s"
+    data = (offerID,)
+    mycursor.execute(subscription_sql,data,)
+    myconnection.commit()
 
 
 
-        #Also delete the img of the offer saved in product_pics if it's not a default img !
-        sql = "SELECT image_Name FROM OFFERS WHERE idOffer = %s"
-        data = (offerID,)
-        mycursor.execute(sql, data)
-        results = mycursor.fetchall()
+    #Also delete the img of the offer saved in product_pics if it's not a default img !
+    sql = "SELECT image_Name FROM OFFERS WHERE idOffer = %s"
+    data = (offerID,)
+    mycursor.execute(sql, data)
+    results = mycursor.fetchall()
 
-        UPLOAD_FOLDER = 'static\\Images\\product_pics'
-        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    UPLOAD_FOLDER = 'static\\Images\\product_pics'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-        if results:
-            pic_name = results[0][0]
-            if pic_name != 'default-product-image.png':
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], pic_name)
-                os.remove(file_path)
+    if results:
+        pic_name = results[0][0]
+        if pic_name != 'default-product-image.png':
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], pic_name)
+            os.remove(file_path)
 
 
-        # Delete Offer
-        sql = "DELETE FROM OFFERS WHERE idOffer = %s "
-        data = (offerID,)
-        mycursor.execute(sql,data)
-        myconnection.commit()
+    # Delete Offer
+    sql = "DELETE FROM OFFERS WHERE idOffer = %s "
+    data = (offerID,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
 
     return redirect("/Activity_Page")
 
@@ -1429,6 +1422,7 @@ def CheckUserID():
 
         else:
         #the id is an email :
+            UserId = UserId.lower()
             sql = "SELECT idCli FROM USER WHERE Email = %s"
 
     
@@ -1436,6 +1430,7 @@ def CheckUserID():
         mycursor.execute(sql, data)
         results = mycursor.fetchall()
         UserID = results[0][0]
+
 
         sql = "SELECT role from USER where idCli = %s"
         data = (UserID,)
@@ -1484,7 +1479,8 @@ def RemoveUSER():
     myconnection.commit()
 
     # Delete order data about the user
-    sqlOrders = "DELETE FROM Orders WHERE idCli = %s"
+    #on peux pas car si on supprime les order on va trouver un problem sur le calcule de revenue donc on va set idCli dans orders a ‘null’ 
+    sqlOrders = "UPDATE Orders SET idCli = NULL WHERE idCli = %s"
     mycursor.execute(sqlOrders, data)
     myconnection.commit()
 
