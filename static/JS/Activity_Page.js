@@ -253,7 +253,7 @@ function confirmRoleChange(formName) {
     }
 
 
-    if (!selectedRole || selectedRole === 'Please Select a role :') {
+    if (!selectedRole || selectedRole === 'Please Select a role :' || email_UserId == '') {
         document.getElementById("ErrorMSG").innerHTML = " Please fill all fields ";
         document.getElementById("ErrorMSG").style.display = "block";
         return false;
