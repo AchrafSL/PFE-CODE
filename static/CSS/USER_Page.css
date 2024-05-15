@@ -120,7 +120,7 @@
     margin-right:5px;
 }
 .Upload:hover{
-    background-color: yellowgreen;
+    background-color: yellowgreen;  
 }
 
 .User_pfp{
@@ -129,6 +129,10 @@
     margin-bottom: 5px;
     border-radius: 5px;
 } 
+.profile img{
+    border:2px solid gray;
+    
+}
 
 
 

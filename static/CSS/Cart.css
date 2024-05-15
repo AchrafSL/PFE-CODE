@@ -131,6 +131,38 @@
 
 
 
+/* Redirect to whatsapp */
+.imgContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top:10px;
+    margin-right:10px;
+    margin-bottom: 10px;
+}
+
+.imgContainer a{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none;
+
+    border: 2px solid #25D366;
+    border-radius: 25px;
+    padding:10px;
+    background-color: #25D366;
+    cursor: pointer;
+}
+.imgContainer h6{
+    margin-left:5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: small;
+    color:white;
+
+}
 
 
 

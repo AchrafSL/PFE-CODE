@@ -1024,9 +1024,10 @@ def Activity_Page():
         result = mycursor.fetchall()
         NumbSignup = result[0][0]
 
-        mycursor.execute("Select SUM(TotalPrice) from orders Where PaymentStat = 'Payed' ")
+        mycursor.execute("Select SUM(TotalPrice),count(*) from orders Where PaymentStat = 'Payed' ")
         result = mycursor.fetchall()
         Revenue =  result[0][0]
+        NumbOrders = result[0][1]
         
 
         ''' Using this the data will be displayed on the top
@@ -1044,10 +1045,11 @@ def Activity_Page():
         session['OrderNumber'] = OrderNumber
         session['NumbSignup'] = NumbSignup
         session['Revenue'] = Revenue
-        
+        session['NumbOrders'] = NumbOrders
+
         if session["role"] == "admin":      
             #Do the same as the employee but can also add/remove offers | change role
-            return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue)
+            return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue,NumbOrders = NumbOrders)
         else:
                 return render_template("Activity_Page.html",USR = "employee" ,ListOrders = ListOrders,OrderNumber = OrderNumber)
 
@@ -1561,9 +1563,10 @@ def showUsers():
     OrderNumber = session['OrderNumber']
     NumbSignup = session['NumbSignup']
     Revenue = session['Revenue']
+    NumbOrders = session['NumbOrders']
 
 
-    return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue,ListOfClients=ListOfClients,ListOfEmployees = ListOfEmployees,ListOfAdmins = ListOfAdmins)
+    return render_template("Activity_Page.html",USR = "admin",ListOrders = ListOrders,OrderNumber = OrderNumber,offerToModify = None,NumbSignup = NumbSignup ,Revenue=Revenue,ListOfClients=ListOfClients,ListOfEmployees = ListOfEmployees,ListOfAdmins = ListOfAdmins,NumbOrders=NumbOrders)
 
 
 # ----------------------------------------------------------------------------------------
