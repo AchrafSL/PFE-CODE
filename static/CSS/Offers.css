@@ -52,9 +52,12 @@
     padding:20px;
     margin-top:30px;
     margin-left:30px;
+
+    border:1px solid black;
 }
 
 .ProductPIC{
+    border:2px solid gray;
     margin-left:-2px;
 }
 .offers img{
