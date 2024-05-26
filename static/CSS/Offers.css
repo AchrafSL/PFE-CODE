@@ -57,7 +57,8 @@
 }
 
 .ProductPIC{
-    border:2px solid gray;
+    border:4px solid rgb(63, 63, 63);
+    border-radius: 25px;
     margin-left:-2px;
 }
 .offers img{
@@ -66,7 +67,8 @@
 .offers h5{
     word-wrap: break-word; /* Use word-wrap instead of overflow-wrap for better compatibility */
     width: 100%; 
-    margin-left:22px;
+    margin-left:5px;
+    margin-top:8px;
     cursor: pointer;
 }   
 

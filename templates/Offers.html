@@ -34,7 +34,7 @@
                             class="ProductPIC" onclick="redirectToProduct('Product_Description','{{ offer['idOffer'] }}')">
 
                         <input type="hidden" name="productId" value="{{ offer['idOffer'] }}" id="productId">
-                        <h5 style="margin-top:5px;margin-right:20px;" onclick="redirectToProduct('Product_Description','{{ offer['idOffer'] }}')">{{ offer['name'] }}</h5> 
+                        <h5 onclick="redirectToProduct('Product_Description','{{ offer['idOffer'] }}')">{{ offer['name'] }}</h5> 
                         <h5 style="color:green;margin-top:10px;" onclick="redirectToProduct('Product_Description','{{ offer['idOffer'] }}')"><b>MAD </b>{{ offer['price'] }}</h5>
 
                     </form>
