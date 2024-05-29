@@ -22,12 +22,16 @@ Inline-Block : mix with Inline and Block
 
 /* Header CSS */
 .header{
-    background-image:url('../images/background1.png');
+    background-image:url('../images/Network-Image.jpg');
+    z-index: -1;
     background-size:cover;
     background-repeat:no-repeat;
     background-position: center;
-    padding:178px; 
+    padding:220px; 
     color: white; 
+    opacity:95%;
+    font-family: 'Montserrat', sans-serif;
+
 }
 
 .header h1{
@@ -37,52 +41,56 @@ Inline-Block : mix with Inline and Block
     font-family: sans-serif;
 }
 
-.header h3{
-    color: #FFF4A3;
-    font-weight: 700;
-    margin-top: 30px !important;
-    font-size: 23px;
-
-}
-
-.header a{
-    display:inline-block;
-    margin-top: 30px !important;
-    text-decoration: underline;
-    font-family:'Source Sans Pro', sans-serif;  
-}
 /* End of header CSS */
 
 /* Sections CSS */ 
 .section1{
-    background-color:#0066FF;
-    padding: 200px; 
-    color:white;
+    background-color:#ffffff;
+    padding-top: 200px;
+    padding-bottom:150px; 
+    padding-left:100px;
+    padding-right:100px;
+    color:rgb(0, 0, 0);
+    font-family: 'Montserrat', sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center; /* align les items pour l'axe x */
+
 }
 
+.section1 hr{
+    margin-top:80px;
+    margin-bottom:80px;
+    border:1px solid rgb(173, 172, 172);
+    width:100%;
+
+}
+
+.section1 h4{
+    color:gray;
+    opacity:0.6;
+}
+
+
+/* section 2 */
 .section2{
-    background-color:rgb(0, 17, 202);
-    padding: 200px; 
-    color:white;
+    background-color:#dbdbdb;
+    padding: 80px; 
+    color:rgb(0, 0, 0);
+    font-family: 'Montserrat', sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center; /* align les items pour l'axe x */
+}
+.section2 h1{
+    margin-bottom:20px;
+}
+.section2 h4{
+    color:gray;
+    opacity:0.6;
 }
 
-.section3{
-    background-color:rgba(0, 136, 255, 0.74);
-    padding: 200px; 
-    color:white;
-}
 
-.section4{
-    background-color:rgb(0, 142, 251);
-    padding: 200px; 
-    color:white;
-}
-
-.section5{
-    background-color:rgb(0, 174, 254);
-    padding: 200px; 
-    color:white;
-}
 /* End of sections CSS*/
 
 ul{
@@ -111,13 +119,10 @@ a{
     height: 138px;
 }
 
-.wave .shape-fill {
-    fill:black;
-    
-}
+
 
 .wave .shape-fill6 {
-    fill:rgb(0, 174, 254);  
+    fill:#dbdbdb;
 }
 /* End of svg css */
 

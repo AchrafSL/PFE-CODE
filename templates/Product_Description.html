@@ -10,6 +10,9 @@
     <br>
 
     <div class="Product_DescriptionWrapper-Section1">
+
+
+
         <div class="Product_DescriptionWrapper-Section1-top1">
             <h3 style="margin-left:10px;"><u><b>Product_Description:</b></u></h3>
             <div class="OfferWrapper">
@@ -19,16 +22,21 @@
                             width="350px" height="350px" border="0" alt="ProductPIC"
                             class="ProductPIC">
                 </div>
+
                 <div class="OfferData">
                     <u><h5><b>Product ID :</b> {{ offer['productId'] }}</h5></u>
                     <h5 >{{ offer['name'] }}</h5> 
                     <h5 style="color:green;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
                     <p><b>Description :</b> {{ offer['description'] }}</p>
                     {% if session['role'] != 'employee'%}
+                    <div class="BtnPo"> 
+                        <hr style="border:1px solid gray;width:100%;margin-top:30px;">
                     <form action="/AddOfferToCart" name="addToCart" method="post">
                         <input type="hidden" value="{{ offer['productId'] }}" name="idOffer"> 
-                        <input type="submit" value="add to cart">
+                        <input class="AddToCartBtn" type="submit" value="add to cart">
                     </form>
+                    </div>
+
                     {% endif %}
                 </div>
             </div>
@@ -36,7 +44,7 @@
         <!-- Product_DescriptionWrapper-Section1-top1 END -->
     
         <div class="Product_DescriptionWrapper-Section1-top2">
-
+            I want to add comments here
         </div>
     </div>
     

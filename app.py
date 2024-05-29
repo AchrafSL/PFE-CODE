@@ -31,6 +31,18 @@ app.secret_key= "PFE_UIT_ACHRAF_CABREL"
 app.permanent_session_lifetime = timedelta(hours=24)
 
 # Configure Flask-Mail
+
+# Email account used for verification
+app.config['MAIL_USERNAME_VERIFICATION'] = 'damsostream.login@gmail.com'
+app.config['MAIL_PASSWORD_VERIFICATION'] = 'oxdeudalmxpohfpt'
+app.config['MAIL_DEFAULT_SENDER_VERIFICATION'] = 'damsostream.login@gmail.com'
+
+# Email account used for sending contact us messages
+app.config['MAIL_USERNAME_CONTACT'] = 'DamsoStream.ContactUS@gmail.com'
+app.config['MAIL_PASSWORD_CONTACT'] = 'plalxfraqsmxacrq'
+app.config['MAIL_DEFAULT_SENDER_CONTACT'] = 'DamsoStream.ContactUS@gmail.com'
+
+
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
@@ -163,11 +175,39 @@ def Product_Description():
 def ContactUS():
     return render_template("ContactUS.html")
 
-# FeedBacks ------------------------------------------------------------------------------
-@app.route('/FeedBacks', methods=["GET"])
-def FeedBacks():
-    return render_template("FeedBacks.html")
+@app.route("/ConstactUSFormEmailSend", methods=["POST"])
+def ConstactUSFormEmailSend():
+    senderName = request.form.get("ContactUSName")
+    senderEmail = request.form.get("ContactUSEmail")
+    senderMSG = request.form.get("ContactUSMSG")
+    email = "damsostream@gmail.com"
 
+    # Contact us email config
+    app.config['MAIL_USERNAME'] = app.config['MAIL_USERNAME_CONTACT']
+    app.config['MAIL_PASSWORD'] = app.config['MAIL_PASSWORD_CONTACT']
+    app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_DEFAULT_SENDER_CONTACT']
+    mail.init_app(app)
+
+    msg = Message(senderName + ' Contact request', sender="DamsoStream.ContactUS@gmail.com", recipients=[email])
+    msg.body = senderMSG
+    # A solution for sending an email using user email (because we can't do that)
+    msg.reply_to = senderEmail
+    mail.send(msg)
+
+    # Reconfigure Flask-Mail for verification email
+    app.config['MAIL_USERNAME'] = app.config['MAIL_USERNAME_VERIFICATION']
+    app.config['MAIL_PASSWORD'] = app.config['MAIL_PASSWORD_VERIFICATION']
+    app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_DEFAULT_SENDER_VERIFICATION']
+    mail.init_app(app)
+
+
+
+
+
+
+
+
+    return redirect("ContactUS")
 # AboutUS --------------------------------------------------------------------------------
 @app.route('/AboutUs', methods=["GET"])
 def AboutUS():

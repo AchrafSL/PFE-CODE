@@ -30,7 +30,7 @@
                 <div class="offers">
                     <form action="/Product_Description" name="Product_Description" method="GET">
                         <img src="{{ url_for('static', filename='Images/product_pics/' + offer['image_Name']) }}"
-                            width="295x" height="295px" border="0" alt="ProductPIC"
+                            width="300px" height="300px" border="0" alt="ProductPIC"
                             class="ProductPIC" onclick="redirectToProduct('Product_Description','{{ offer['idOffer'] }}')">
 
                         <input type="hidden" name="productId" value="{{ offer['idOffer'] }}" id="productId">

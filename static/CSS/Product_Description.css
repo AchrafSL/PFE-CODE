@@ -46,7 +46,11 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(228, 228, 228);
-    width:50%;
+
+    border:2px solid black;
+    border-radius:10px;
+
+    width:30%;
     height:355px;
     margin:20px;
     padding:20px;
@@ -55,6 +59,8 @@
 }
 
 .ProductPIC{
+    border:2px solid rgb(86, 84, 84);
+    border-radius:25px;
     margin-left:-2px;
 }
 .Product_Description img{
@@ -73,13 +79,16 @@
     justify-content: flex-start;
     align-items: flex-start;
     background-color: rgb(228, 228, 228);
-    width:35%;
+    width:54.5%;
     height:355px;
     margin:20px;
     padding:20px;
     margin-top:30px;
     margin-left:15px;
     line-height:1.7;
+
+    border:2px solid black;
+    border-radius:10px;
 }
 
 .OfferData p{
@@ -109,8 +118,30 @@
 }
 
 
+.AddToCartBtn{
+    margin-top:50px;
+    padding:10px;
+    background-color: gray;
+    color:white;
+    padding-left:20px;
+    padding-right:20px;
 
-
+    border:2px solid black;
+    border-radius:10px;
+    cursor:pointer;
+}
+.AddToCartBtn:hover{
+    background-color:yellowgreen;
+}
+.BtnPo{
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}
 
 
 

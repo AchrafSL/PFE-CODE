@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const imgsrc2 = [
         "static/Images/product_pics/duolingo.jpg",
-        "static/Images/product_pics/grammarly.jpg",
-        "static/Images/product_pics/adobe.jpg",
+        "static/Images/product_pics/grammarly.png",
+        "static/Images/product_pics/Adobe Creative Cloud.png",
         "static/Images/product_pics/canva.jpg"
     ];
 
