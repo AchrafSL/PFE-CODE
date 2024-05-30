@@ -89,7 +89,7 @@ html,body{
 c'est facile comme ca */
 
 .Menu a:hover{
-  background-color: #059862 !important  ;
+  background-color: #059862   ;
 }
 
 .Right-Menu .pfp:hover{
@@ -227,6 +227,14 @@ c'est facile comme ca */
 }
 .FooterContent .footer-center p a:hover{
   color:lightblue;
+}
+
+.emailLinkk{
+  color:white !important;
+  text-decoration:none;}
+
+.emailLinkk:hover{
+  color:lightblue !important;
 }
 
 

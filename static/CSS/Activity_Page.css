@@ -47,9 +47,11 @@
 }
 
 .ordersInfo{
+    border:1px solid black;
+    border-radius:25px;
+
     line-height: 1.5;
     background-color: rgb(228, 228, 228);
-    width:930px;
     margin:20px;
     padding:20px;
     height:180px;
@@ -311,13 +313,19 @@
 }
 .Activity_Page-Section1-header .Revenue{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
 
     background-color: #E4E4E4;
     width:300px;
     height:57px;
     margin:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+
+    border:1px solid black;
+    border-radius:10px;
 }
 .Activity_Page-Section1-header .NumbSignup{
     display: flex;
@@ -332,24 +340,16 @@
 .RevenueWrapper{
     display: flex;
     flex-direction:column;
-    justify-content: center;
-    align-items: center;
 }
-
-.NumbSignupWrapper{
+.alignCenterD{
+    margin:0;
+    padding:0;
     display: flex;
     flex-direction:column;
+    align-items:center;
     justify-content: center;
-    align-items: center;
 }
 
-.NumbOfOrdersWrapper{
-    display: flex;
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
-
-}
 
 /* Remove Offers */
 .RemoveUSER{
@@ -407,6 +407,9 @@
 }
 
 .ShowData{
+    border:1px solid black;
+    border-radius:25px;
+
     background-color: rgb(228, 228, 228);
     margin:20px;
     padding:20px;
@@ -415,6 +418,15 @@
 .Activity_Page-Section1-ShowUsers h3{
     margin-left:10px;
 }
+
+
+.emailLink{
+    color:black;text-decoration:none;
+}
+.emailLink:hover{
+    color:yellowgreen;
+}
+
 
 
 .clientInfoContainer a{

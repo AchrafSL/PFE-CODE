@@ -87,27 +87,40 @@
         <div class="Activity_Page-Section1-header">
             <!-- Revenue part -->
             <div class="RevenueWrapper">
-                <u><h3 style="margin:10px;"> Revenue </h3></u>
-                <div class="Revenue">
-                    <span style="color:green;"> {{ Revenue }} MAD </span>
+                <div class="Revenue"  >
+                    <img src="static\Images\icons8-revenue-64.png" width="50px" height="50px">
+                    <div>
+                        <h3 style="margin:10px;color:rgb(81, 73, 73);opacity:0.6;"> Revenue </h3>
+                        <span style="color:green;"> {{ Revenue }} MAD </span>
+                    </div>
+
                 </div>
             </div>
 
             <!-- Number of Orders -->
-            <div class="NumbOfOrdersWrapper">
-                <u><h3 style="margin:10px;"> Number Of Payed Orders </h3></u>
-                <div class="Revenue">
-                    <span style="color:green;"> {{ NumbOrders }} </span>
+            <div class="RevenueWrapper">
+                <div class="Revenue"  >
+                    <img src="static\Images\shopping-bag.png" width="50px" height="50px">
+                    <div class="alignCenterD">
+                        <h3 style="margin:10px;color:rgb(81, 73, 73);opacity:0.6;"> Orders :  <span style="color:green;"> {{ NumbOrders }}  </span></h3>
+              
+                    </div>
+
                 </div>
             </div>
 
             <!-- Number of signup Clients -->
-            <div class="NumbSignupWrapper">
-                <u><h3 style="margin:10px;">  Number of signed up Clients </h3></u>
-                <div class="NumbSignup">
-                    <span style="color:green;"> {{ NumbSignup }}</span>
+
+            <div class="RevenueWrapper ">
+                <div class="Revenue"  >
+                    <img src="static\Images\costumer.png" width="50px" height="50px">
+                    <div class="alignCenterD">
+                        <h3 style="margin:10px;color:rgb(81, 73, 73);opacity:0.6;"> Clients :  <span style="color:green;"> {{ NumbSignup }}</span></h3>
+                    </div>
+
                 </div>
             </div>
+
 
         </div>
 
@@ -237,14 +250,21 @@
             {% for admin in ListOfAdmins %}
             <div class="ShowData">
                 <b>ID:</b> {{ admin['idCli'] }}<br>
-                <b>Email:</b> {{ admin['Email'] }}<br>
+
+                <a class="emailLink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ admin['Email'] }}"><b>Email:</b> {{ admin['Email'] }}</a>
+
+                <br>
                 <b>First Name:</b> {{ admin['FirstName'] }}<br>
                 <b>Last Name:</b> {{ admin['LastName'] }}<br>
                 <b>Status:</b> {{ admin['status'] }}<br>
                 <b>Role:</b> {{ admin['role'] }}<br>
                 <b>Date Joined:</b> {{ admin['Date_Joined'] }}<br>
                 {% if admin['whatsapp'] != '' %}
-                <b>WhatsApp:</b> {{ admin['whatsapp'] }}<br>
+                <a class="emailLink" href="https://wa.me/{{ admin['whatsapp'] }}">
+                    <b>WhatsApp:</b> {{ admin['whatsapp'] }}<br>
+
+                </a>
+
                 {% endif %}
             </div>
             {% endfor %}
@@ -258,14 +278,20 @@
             {% for employee in ListOfEmployees %}
             <div class="ShowData">
                 <b>ID:</b> {{ employee['idCli'] }}<br>
-                <b>Email:</b> {{ employee['Email'] }}<br>
+                <a class="emailLink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ employee['Email'] }}"><b>Email:</b> {{ employee['Email'] }}</a>
+
+                <br>
                 <b>First Name:</b> {{ employee['FirstName'] }}<br>
                 <b>Last Name:</b> {{ employee['LastName'] }}<br>
                 <b>Status:</b> {{ employee['status'] }}<br>
                 <b>Role:</b> {{ employee['role'] }}<br>
                 <b>Date Joined:</b> {{ employee['Date_Joined'] }}<br>
                 {% if employee['whatsapp'] != '' %}
-                <b>WhatsApp:</b> {{ employee['whatsapp'] }}<br>
+
+                <a class="emailLink" href="https://wa.me/{{ employee['whatsapp']}}">
+                    <b>WhatsApp:</b> {{ employee['whatsapp'] }}<br>
+                </a>
+                
                 {% endif %}
             </div>
             {% endfor %}
@@ -280,14 +306,19 @@
             {% for client in ListOfClients %}
             <div class="ShowData">
                 <b>ID:</b> {{ client['idCli'] }}<br>
-                <b>Email:</b> {{ client['Email'] }}<br>
+                <a class="emailLink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ client['Email'] }}"><b>Email:</b> {{ client['Email'] }}</a>
+                <br>
                 <b>First Name:</b> {{ client['FirstName'] }}<br>
                 <b>Last Name:</b> {{ client['LastName'] }}<br>
                 <b>Status:</b> {{ client['status'] }}<br>
                 <b>Role:</b> {{ client['role'] }}<br>
                 <b>Date Joined:</b> {{ client['Date_Joined'] }}<br>
                 {% if client['whatsapp'] != '' %}
-                <b>WhatsApp:</b> {{ client['whatsapp'] }}<br>
+                <a class="emailLink" href="https://wa.me/{{ client['whatsapp'] }}">
+                    <b>WhatsApp:</b> {{ client['whatsapp'] }}<br>
+                </a>
+
+
                 {% endif %}
             </div>
             {% endfor %}
@@ -322,7 +353,14 @@
                     <div class="clientInfoContainer">
                         <h5> <b>Client Id : {{ order['idCli'] }}</b></h5>    
                         <h5> <b>Client FullName : {{ order['LastName'] }} {{ order['FirstName'] }}</b></h5>
-                        <h5 > <b>Email : {{ order['Email'] }}</b></h5>
+                        <h5 > 
+                        <a class="emailLink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ order['Email'] }}&amp;su=Talk%20about%20the%20order%20from%20our%20website%20(Damso_Stream)&amp;body=Hello,%20I'm%20here%20to%20talk%20about%20the%20order%20that%20you%20sent%20to%20our%20website%20(Damso_Stream)"> <b>Email : {{ order['Email'] }} 
+                        </b></a>
+                        </h5>
+
+
+
+
                         {% if order['WhatsApp'] != '' %}
                         <h5 > 
                             <!-- Set the msg to send -->
