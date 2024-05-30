@@ -4,11 +4,24 @@ function validateForm() {
     var firstname= document.forms["SignupForm"]["firstname"].value;
     var lastname = document.forms["SignupForm"]["lastname"].value;
     var whatsapp = document.forms["SignupForm"]["WhatsappNumber"].value;
+    var countryCode = document.forms["SignupForm"]["countryCode"].value;
 
     if (email == "" || password == "" || firstname == "" || lastname == "") {
+        document.getElementById("errorMsg").innerHTML = "Please fill in all fields. Your WhatsApp number is optional but we highly recommend providing it for better communication if you don't feel comfortable using email.";
         document.getElementById("errorMsg").style.display = "block";
         return false;
     }
+
+
+    if (whatsapp != "")
+        {
+          if (countryCode == -1)
+            {
+                document.getElementById("errorMsg").innerHTML = "Please select a country code";
+                document.getElementById("errorMsg").style.display = "block";
+                return false;
+            }
+        }
 
     // Test if the email is valid : MSG "Please enter a valid email address"
 

@@ -324,7 +324,14 @@
                         <h5> <b>Client FullName : {{ order['LastName'] }} {{ order['FirstName'] }}</b></h5>
                         <h5 > <b>Email : {{ order['Email'] }}</b></h5>
                         {% if order['WhatsApp'] != '' %}
-                        <h5 > <b>Whatsapp : {{ order['WhatsApp'] }}</b></h5>
+                        <h5 > 
+                            <!-- Set the msg to send -->
+                            {% set message = "" %}
+                   
+                            <a href="https://wa.me/{{ order['WhatsApp'] }}?text=Hello,%20I'm%20here%20to%20talk%20about%20the%20order%20that%20you%20sent%20to%20our%20website%20(Damso_Stream)">
+                                <b>Whatsapp : {{ order['WhatsApp'] }} </b>
+                            </a> 
+                        </h5>
                         {% endif %}
                     </div>
                     <div class="OperationOnOrder">

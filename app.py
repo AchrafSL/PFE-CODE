@@ -2,6 +2,8 @@ from flask import Flask, render_template,redirect,request,jsonify,session,url_fo
 import mysql.connector
 from flask_mail import Mail, Message
 from datetime import timedelta,datetime # no need to download the lib
+import phonenumbers
+
 
 # Mail ,Flask are the actual libraries
 # Gmail lets you send up to 500 emails per day using The Gmail SMTP server
@@ -383,6 +385,31 @@ def SendOrder():
 
 
 # Signup ---------------------------------------------------------------------------------
+
+def format_whatsapp_number(number, country_code):
+
+    # Check if the number already starts with a +
+    if number.startswith('+'):
+        # Parse the existing full number
+        parsed_number = phonenumbers.parse(number)
+        # Extract the national significant number (without country code)
+        national_number = phonenumbers.format_number(parsed_number, phonenumbers.PhoneNumberFormat.NATIONAL)
+        # Remove non-digit characters and leading zeros from the national number
+        national_number = ''.join(filter(str.isdigit, national_number)).lstrip('0')
+    else:
+        # If there's no +, assume it's just a national number and remove leading zeros
+        national_number = number.lstrip('0')
+
+    # Combine the new country code with the national number
+    full_number = f"+{country_code}{national_number}"
+    
+    parsed_number = phonenumbers.parse(full_number)
+    return phonenumbers.format_number(parsed_number, phonenumbers.PhoneNumberFormat.E164)
+
+
+
+
+
 @app.route('/Signup', methods=["GET","POST"])
 def Signup():
     return render_template("Signup.html")
@@ -429,6 +456,10 @@ def SignUpInput():
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
     whatsapp = request.form.get("WhatsappNumber")
+    countryCode = request.form.get("countryCode")
+
+    whatsapp = format_whatsapp_number(whatsapp,countryCode)
+
 
     #The email should be case insensitive :
     email = email.lower()
@@ -812,6 +843,12 @@ def UpdateInfo():
     whatsapp = request.form.get('whatsappNumber')
     email = request.form.get('email')
     email = email.lower()
+    
+    if (whatsapp != ""):
+        countryCode = request.form.get("CountryCode")
+        whatsapp = format_whatsapp_number(whatsapp, countryCode)
+
+    
 
     # if the email is changed verify the email :
     if(email != session["Email"]):
@@ -933,6 +970,7 @@ def UploadPFP():
 
 
 # Activity Page (Client Page, Employee Page, Admin Page) ---------------------------------------------
+
 @app.route("/Activity_Page", methods=["POST","GET"])
 def Activity_Page():
     if session["role"] == "client":
@@ -1043,7 +1081,7 @@ def Activity_Page():
                 'FirstName': order[5],
                 'LastName': order[6],
                 'Email': order[7],
-                'WhatsApp': order[8],
+                'WhatsApp':order[8] ,
                 'offers': []
             }
 

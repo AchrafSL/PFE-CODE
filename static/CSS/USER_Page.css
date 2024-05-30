@@ -149,7 +149,6 @@
 .USER_Page-Section1-top2{
 
     width:80%;
-    height:41.5%;
     margin-bottom: 20px;
     padding-top:10px;
     padding-bottom: 10px;;
@@ -166,6 +165,14 @@
     padding-top:3px;
     padding-bottom:3px;
 }
+
+#CountryCode{
+    width:98%;
+    margin-top:3px;
+    padding-top:3px;
+    padding-bottom:3px;
+}
+
 .top2-info .submitUpdate{
     cursor: pointer;
     width:98.5%;

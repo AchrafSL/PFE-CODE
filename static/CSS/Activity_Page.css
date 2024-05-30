@@ -416,6 +416,16 @@
     margin-left:10px;
 }
 
+
+.clientInfoContainer a{
+    text-decoration:none;
+    color:black;
+}
+.clientInfoContainer a:hover{
+    color:yellowgreen;
+}
+
+
 /* Wave svg from https://www.shapedivider.app/ */
 .wave {
     position: absolute;
