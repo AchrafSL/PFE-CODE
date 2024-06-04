@@ -156,12 +156,68 @@ def Product_Description():
     offer_data = {'productId': results[0][0], 'description': results[0][1],'image_Name':results[0][2]
                   ,'Offer_price':results[0][3] ,'name': results[0][4]}
                   
-    return render_template("Product_Description.html",offer = offer_data)
+
+    # Load comment data : (show the top 100 only)
+    sql = "SELECT idCli, comment_TEXT, Date_written,idComment FROM comment WHERE idOffer = %s ORDER BY Date_written DESC LIMIT 100;"
+    data = (id,)
+    mycursor.execute(sql,data)
+    results = mycursor.fetchall()
+
+    comments_data = []
+    for res in results:
+        sql = "SELECT LastName, FirstName,pfpName FROM user WHERE idCli = %s;"
+        user_data = (res[0],) 
+        mycursor.execute(sql, user_data)
+        Usr_Data = mycursor.fetchone()
+
+        comment_data = {
+            'idCli' : res[0],
+            'LastName': Usr_Data[0],
+            'FirstName': Usr_Data[1],
+            'comment': res[1],
+            'Date_written': res[2],
+            'idComment':res[3],
+            'pfpName':Usr_Data[2]
+        }
+
+        comments_data.append(comment_data)
+        
+    return render_template("Product_Description.html", offer=offer_data, comments=comments_data)
+
+
+#Comment section 
+@app.route("/submit_comment", methods=["POST"])
+def submit_comment():
+    productId = request.form.get("productId")
+    idCli = session["idCli"]
+    comment = request.form.get("comment")
+    date = datetime.now()
 
 
 
+    #Insert a comment :
+    sql = "INSERT INTO COMMENT (idOffer, idCli,comment_TEXT,Date_written ) VALUES (%s, %s, %s, %s);"
+    data = (productId,idCli,comment,date)
+    mycursor.execute(sql,data)
+    myconnection.commit()
 
 
+    return redirect(url_for("Product_Description",productId = productId))
+
+
+
+#Delete comment 
+@app.route('/DeleteComment', methods=["POST"])
+def DeleteComment():
+    productId = request.form.get("productId")
+    idComment = request.form.get("idComment")
+
+    sql = "DELETE FROM COMMENT WHERE idComment = %s"
+    data = (idComment,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+    return redirect(url_for("Product_Description",productId = productId))
 
 
 

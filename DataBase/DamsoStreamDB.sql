@@ -102,6 +102,29 @@ CREATE TABLE Subscription (
     FOREIGN KEY (idCli) REFERENCES USER(idCli)
 );
 
+-- Comment table :
+CREATE TABLE COMMENT (
+    idComment integer AUTO_INCREMENT,
+    idOffer integer NOT NULL,
+    idCli integer NOT NULL,
+    comment_TEXT VARCHAR(10000) NOT NULL, -- need to make the usr only write 10 000  char max
+    Date_written DATE, -- when inserting a comment
+	PRIMARY KEY(idComment),
+    FOREIGN KEY (idOffer) REFERENCES offers(idOffer),
+    FOREIGN KEY (idCli) REFERENCES user(idCli)
+); 
+
+-- Selection par :
+SELECT * FROM comment
+WHERE idOffer = id
+ORDER BY Date_witten DESC
+LIMIT 0,100;
+
+-- Insertion :
+INSERT INTO COMMENT (idOffer, idCli,comment_TEXT,Date_witten )
+VALUES (idOffer_V, idCli_V, commentaire_V, currentDate_V);
+
+
 
 -- email or idUSER to update role
 UPDATE USER SET role = 'admin' where idCli = 2

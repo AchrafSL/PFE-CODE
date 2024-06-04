@@ -107,6 +107,12 @@
     background-color:white;
     border-radius:10px;
 
+    display:flex;
+    flex-direction:column;
+    font-family: 'Montserrat', sans-serif;
+
+
+
 }
 
 .SubInfo{
@@ -143,7 +149,147 @@
     width:100%;
 }
 
+.pfpC{
+    border:1px solid black;
+    border-radius:10px;
+    cursor:pointer;
+    margin-right:20px;
+}
 
+.commentsWrapper{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+
+.WriteComment{
+    display:flex;
+    flex-direction:column;
+}
+
+.Write{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+
+}
+.Product_DescriptionWrapper-Section1-top2 h3{
+    font-family: "Audiowide", sans-serif;
+    margin:10px;
+
+}
+.WriteComment button{
+    margin-top:2px;
+    background-color:gray;
+    color:white;
+    padding-top:5px;
+    padding-bottom: 5px;
+    cursor:pointer;
+    outline:none;
+    border:1px solid black;
+}
+
+.WriteComment button:hover{
+    background-color:yellowgreen;
+}
+
+.loginRedirect {
+    color:gray;
+    opacity:0.6;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.loginRedirect:hover{
+    color:yellowgreen;
+}
+
+/* Comments CSS */
+
+
+.CommentSec{
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap; 
+
+    width:90%;
+    margin:20px;
+    padding:10px;
+    margin-top:30px;
+
+
+}
+
+.CommentInfo-left{
+    margin:0;
+    padding:0;
+
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    
+}
+
+
+.commentCenter{
+    margin:0;
+    padding:0;
+    margin-left:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    width:90%;
+
+}
+
+.ellipsis-container {
+    margin:0;
+    padding:0;
+    word-wrap: break-word; 
+    border:1px solid black;
+    padding:10px;
+    border-radius:10px;
+    background-color: rgb(238, 238, 238);
+
+}
+
+
+.CommentInfo{
+    margin:0;
+    padding:0;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width:99%;
+
+    margin-left:10px;
+    margin-top:-8px;
+
+}
+
+.CommentInfo-right{
+    margin-left:20px;
+    padding:5px;
+    background-color:red;
+    color:white;
+    border:1px solid black;
+    border-radius:10px;
+    outline:none;
+    cursor: pointer;
+}
+.CommentInfo-right:hover{
+    background-color:rgba(134, 0, 0, 0.957);
+
+}
 
 
 
