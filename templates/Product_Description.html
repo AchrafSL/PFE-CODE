@@ -30,15 +30,16 @@
                     <h5 style="color:green;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
                     <p><b>Description :</b> {{ offer['description'] }}</p>
                     {% if session['role'] != 'employee'%}
+                    {% if session["logged_in"]%}
+
                     <div class="BtnPo"> 
                         <hr style="border:1px solid gray;width:100%;margin-top:30px;">
                     <form action="/AddOfferToCart" name="addToCart" method="post">
                         <input type="hidden" value="{{ offer['productId'] }}" name="idOffer"> 
-                        {% if session["logged_in"]%}
                         <input class="AddToCartBtn" type="submit" value="add to cart">
-                        {% endif %}
                     </form>
                     </div>
+                    {% endif %}
 
                     {% endif %}
                 </div>

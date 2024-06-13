@@ -514,7 +514,8 @@ def SignUpInput():
     whatsapp = request.form.get("WhatsappNumber")
     countryCode = request.form.get("countryCode")
 
-    whatsapp = format_whatsapp_number(whatsapp,countryCode)
+    if whatsapp != '':
+        whatsapp = format_whatsapp_number(whatsapp,countryCode)
 
 
     #The email should be case insensitive :
