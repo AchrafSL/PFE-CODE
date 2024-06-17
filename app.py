@@ -6,7 +6,6 @@ import phonenumbers
 
 
 # Mail ,Flask are the actual libraries
-# Gmail lets you send up to 500 emails per day using The Gmail SMTP server
 
 #Upload files : (Source - flask Documentation:
 # https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/)
@@ -338,8 +337,15 @@ def Cart():
     mycursor.execute(sql,data)
     results = mycursor.fetchall()
     fullprice = results[0][0]
-
     session["fullprice"] = fullprice
+
+
+    #Insert full price in cart table :
+    sql = "UPDATE CART SET fullprice = %s where idCart = %s"
+    data = (fullprice,idCart,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
 
 
 
@@ -376,6 +382,14 @@ def RemoveOffer_Cart():
     data = (idCart,idOffer,)
     mycursor.execute(sql,data)
     myconnection.commit()
+
+    #Insert full price in cart table :
+    sql = "UPDATE CART SET fullprice = %s where idCart = null"
+    data = (idCart,)
+    mycursor.execute(sql,data)
+    myconnection.commit()
+
+
 
     return redirect("/Cart")
 
