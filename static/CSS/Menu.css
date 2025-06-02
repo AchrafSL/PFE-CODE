@@ -1,0 +1,288 @@
+.MenuWrapper * {
+  margin: 0;
+  padding: 0;
+}
+
+.MenuWrapper{
+  display:flex;
+  flex-direction: column;
+}
+
+/* Body CSS */
+html,body{
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+
+
+}
+/* End of Body CSS */
+
+/* Top nav CSS */
+.Menu {
+    position:fixed;
+    z-index:99999999;
+    width:100%;
+    height:50px;
+    background-color: #000000;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+.Menu a {
+    display: inline-block; /* in line-block pour que les elements respect le padding  */
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 18px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .Menu .logo{
+    cursor: pointer;
+  }
+
+.Right-Menu {
+   position: absolute;
+   top: 0;
+   right: 0;
+   cursor: pointer;
+
+}
+
+.Right-Menu .Signup{
+  position:relative;
+  background-color:#04AA6D!important;
+  border-radius:25px;
+  font-size: 16px;
+  line-height: 0.65;
+  z-index:5;
+  margin-right:-40px;
+}
+
+.Right-Menu .Login{
+  position:relative;
+  background-color:rgb(217, 238, 225);
+  color:black;
+  border-radius:25px;
+  font-size: 16px;
+  line-height: 0.65;
+  z-index:4;
+  padding-left:45px;
+  margin-right:10px;
+
+}
+
+.Right-Menu .pfp {
+  position: relative;
+  border: 2px solid rgba(0, 255, 13, 0.215);
+  border-radius: 25px;
+  margin-right: 6px;
+  margin-bottom: 5px;
+  vertical-align: middle;
+  background-image: center;
+  background-size: cover;
+}
+
+
+
+/* on utilise un pseudo-class (:hover) a la classe de plusieurs appel a la fonction cree en utilisant JS 
+c'est facile comme ca */
+
+.Menu a:hover{
+  background-color: #059862   ;
+}
+
+.Right-Menu .pfp:hover{
+  border: 2px solid #324E50;
+}
+
+
+/* End of Top nav CSS */
+
+
+/* extended html file css  */
+.content{
+  margin:0;
+  padding:0;
+  margin-top:15px
+
+
+}
+
+
+
+/* enf of extended html file css */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Footer CSS */
+
+.Footer {
+  text-align: center;
+
+}
+
+.FooterContent {
+  position:absolute;
+  background-color: #343a40;
+  color: white;
+  padding: 100px;
+  padding-bottom: 20px;
+  width: 100%;
+  z-index:-1;
+  text-align:left;
+}
+
+/* Footer-Left */
+
+.FooterContent .footer-left{
+  display:inline-block;
+  width:30%;
+  margin-left:-40px;
+}
+.FooterContent h3 { 
+  color:white;
+  font-family: "Sofia", sans-serif;
+}
+.FooterContent h3 span{
+  color:yellowgreen;
+} 
+.FooterContent .footer-left-links{
+  color:white;
+  margin: 20px 0px 12px;
+}
+
+.FooterContent .footer-left-links a{
+  color:white;
+  display:inline-block;
+  line-height: 2;
+  font-family: "Audiowide", sans-serif;
+  font-size:13px;
+  text-decoration: none; /* pour ne pas avoir le text souligne  */
+}
+.FooterContent .footer-left-links a:hover{
+  color:lightblue;
+}
+
+
+.FooterContent .footer-left-CopyRight{
+  color:rgb(149, 148, 148);
+}
+
+/* Footer-Left END */
+
+/* Footer-Center */
+.FooterContent .footer-center{
+  display:inline-block;
+  width:30%;
+  margin-left:30px;
+  margin-right:-30px;
+}
+
+.FooterContent .footer-center i{
+  background-color:#3c4854;
+  border-radius:50%; /* to make the background like a Circle */
+  color:white;
+  font-size:21px; /* the size of the icon */
+  width:38px; /* width of the background */
+  height:38px; /* height of the background */
+  text-align:center; /* position of the icon in background  */
+  line-height:42px; /* adjust the position from the top (spacing between the top of the background and the  icon */
+  margin:10px 0px; 
+
+}
+
+.FooterContent .footer-center p{
+  display:inline-block;
+  margin-left:10px;
+  font-family: "Audiowide", sans-serif;
+  vertical-align:middle; /* align the text with the icon */
+
+}
+.FooterContent .footer-center .footer-center-map{
+  margin-top:20px;
+}
+
+
+.FooterContent .footer-center p span{
+  display:block;
+  line-height:2;
+  font-family: "Sofia", sans-serif;
+}
+
+.FooterContent .footer-center p a{
+  color:yellowgreen;
+  text-decoration:none;
+}
+.FooterContent .footer-center p a:hover{
+  color:lightblue;
+}
+
+.emailLinkk{
+  color:white !important;
+  text-decoration:none;}
+
+.emailLinkk:hover{
+  color:lightblue !important;
+}
+
+
+/* Footer-Center END*/
+
+/* Footer-Right */
+
+.FooterContent .footer-right{
+  display:inline-block;
+  width:30%;
+}
+
+.FooterContent .footer-right-about{
+  color:rgb(149, 148, 148);
+  line-height:1.7;
+  margin-bottom:10px;
+}
+.FooterContent .footer-right-about span{
+  display:block;
+  color:white;
+  margin-bottom:10px;
+  font-family: "Audiowide", sans-serif;
+}
+
+.FooterContent .footer-right-media{
+  margin-top: 20px;
+}
+.FooterContent .footer-right-media a{ 
+  display:inline-block;
+  background-color:#3c4854;
+  border-radius:3px; /* to make the background like a Circle */
+  color:white;
+  font-size:21px; /* the size of the icon */
+  width:38px; /* width of the background */
+  height:38px; /* height of the background */
+  text-align:center; /* position of the icon in background  */
+  line-height:42px; /* adjust the position from the top (spacing between the top of the background and the  icon */
+  margin-right:3px;
+  margin-bottom:5px;
+}
+
+.FooterContent .footer-right-media a:hover{
+  background-color:lightblue;
+} 
+
+
+/* Footer-Right END */
+
+/* End of Footer CSS */
+
+

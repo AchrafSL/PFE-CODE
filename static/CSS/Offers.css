@@ -1,0 +1,156 @@
+
+/* FlexBox is used to position items easily */
+
+.OffersWrapperWrapper{
+
+}
+
+/* OffersWrapper-Section1 */
+.OffersWrapper-Section1{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center;
+
+    background-image: url('../images/Network-Image.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    color: black;
+    width:100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* OffersWrapper-Section1 END */
+
+/* OffersWrapper-Section1-top1 */
+.OffersWrapper-Section1-top1{
+    margin-top:20px;
+    width:90%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+.OfferWrapper{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    justify-content: flex-start;
+}
+
+.offers{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(228, 228, 228);
+    width:287px;
+    height:355px;
+    margin:20px;
+    padding:20px;
+    margin-top:30px;
+    margin-left:30px;
+
+    border:1px solid black;
+}
+
+.ProductPIC{
+    border:4px solid rgb(63, 63, 63);
+    border-radius: 25px;
+    margin-left:-2px;
+}
+.offers img{
+    cursor: pointer;
+}
+.offers h5{
+    word-wrap: break-word; /* Use word-wrap instead of overflow-wrap for better compatibility */
+    width: 100%; 
+    margin-left:5px;
+    margin-top:8px;
+    cursor: pointer;
+}   
+
+/* Search offers  */
+.SearchProduct {
+    margin:0;
+    padding:0;
+    width:93.5%;
+    margin:10px;
+    margin-top:30px;
+    margin-bottom: 10px;
+    margin-left:3.2%;
+
+
+
+
+}
+.SearchProduct input{
+    width:84.5%;
+    padding:10px;
+
+}
+.SearchProduct button{
+    width:15%;
+    padding:10px;
+    background-color: gray;
+    color:white;
+    cursor: pointer;
+
+}
+.SearchProduct button:hover{
+    background-color: yellowgreen;
+}
+
+
+/* OffersWrapper-Section1-top2 */
+.OffersWrapper-Section1-top2{
+
+    width:90%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    padding-bottom: 10px;;
+    background-color:white;
+    border-radius:10px;
+
+}
+
+.SubInfo{
+    background-color: rgb(228, 228, 228);
+    width:930px;
+    margin:20px;
+    padding:20px;
+    height:100px;
+}
+
+
+
+
+
+
+
+
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+.wave .shape-fill {
+    fill:black;
+    
+}
+
+/* End of svg css */
+

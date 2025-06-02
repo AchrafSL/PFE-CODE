@@ -1,0 +1,126 @@
+{% extends "Menu.html" %}
+{% block body %}
+<div class="HomeWrapper">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Home.css') }}">
+    <script language="javascript" src="static\JS\Home.js"></script> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Yellowtail&display=swap" rel="stylesheet">
+    <br>
+    <!-- Header -->
+    <div class="header" align="center" >
+        <div align="top">
+            <h1>Welcome to DAMSO Stream</h1>
+            <h3 >Your Digital Destination for Endless Entertainment and Productivity</h3>
+            <br>
+             <a href="{{ url_for('Offers') }}"> 
+                <button>
+                    Not Sure where to go ? Explore our offers here 
+                </button></a>
+            
+        </div>
+    </div>
+
+
+
+    <!-- Section -->
+    <div class="section1"  >
+        <div class="sec1Left">
+            <h2>Discover the World of Entertainment:</h2>
+            <ul>
+                <li>Netflix: Dive into a vast library of movies, TV shows, and documentaries.</li>
+                <li>Prime Video: Explore exclusive originals, blockbuster movies, and popular TV series.</li>
+                <li>Disney+: Experience the magic of Disney, Pixar, Marvel, Star Wars, and National Geographic.</li>
+                <li>Hulu: Stream hit TV shows, movies, and Hulu Originals.</li>
+                <li>HBO Max: Enjoy groundbreaking series, exclusive movies, and HBO classics.</li>
+            </ul>
+        </div>
+
+        <div class="sec1Right">
+           <a id="EntertainmentLink" href="Product_Description?productId=19">
+            <img id="EntertainmentImg" src="static\Images\product_pics\Snapchat+.jpg" width="180px" height="180px">
+            </a> 
+        </div>
+
+    </div>
+
+
+
+    <!-- Section -->
+    <div class="section2"  >
+        <div class="sec2Left">
+            <a id="ProductivityLink" href= "Product_Description?productId=33">
+            <img id="ProductivityImg" src="static\Images\product_pics\canva.jpg" width="180px" height="180px">
+            </a>
+        </div>
+
+        <div class="sec2Right">
+            <h2>Boost Your Productivity with Premium Tools:</h2>
+            <ul>
+                <li>Microsoft Office 365: Access Word, Excel, PowerPoint, and more for seamless productivity.</li>
+                <li>Adobe Creative Cloud: Unleash your creativity with Photoshop, Illustrator, Premiere Pro, and other powerful tools.</li>
+                <li>Google Workspace: Collaborate effortlessly with Docs, Sheets, Slides, and Drive.</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <!-- Section -->
+    <div class="section3"  >
+        <div class="sec3Left">
+            <h2>Why Choose DAMSO Stream?</h2>
+            <ul>
+                <li>Convenience: Access all your favorite services in one place.</li>
+                <li>Variety: Explore a diverse selection of entertainment and productivity tools.</li>
+                <li>Quality: Enjoy high-definition streaming and premium software solutions.</li>
+                <li>Affordability: Get the best value with flexible subscription options.</li>
+            </ul>
+        </div>
+
+        <div class="sec3Right">
+                <div class="box box2"><img src="static\Images\hand-gesture (1).png" width="195px" height="195px" ></div>
+                <div class="box box1"><img src="static\Images\Variety-icon.png" width="195px" height="195px" > </div>
+                <div class="box box3"><img src="static\Images\quality-control.png" width="195px" height="195px" > </div>
+                <div class="box box4"><img src="static\Images\money-bag.png" width="195px" height="195px" ></div>
+
+        </div>
+    </div>
+
+
+    <!-- Section -->
+    <div class="section4"  >
+        <h2>Start Your Ultimate Streaming Experience Today!</h2>
+        <form action="/Signup" method="POST">
+            <input type="submit" value="Sign Up">
+        </form>
+    </div>
+
+
+    <!-- Section -->
+    <div align="center" class="section5"  >
+        <h2>Customer Testimonials:</h2>
+        <p> <U> <B> SOON !!!!</B></U>  </p>
+    </div>
+    
+    <!-- Wave -->
+    <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill6"></path>
+        </svg>
+    </div> 
+    
+
+</div> <!-- End of Div HomeWrapper-->
+{% endblock %}

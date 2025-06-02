@@ -1,0 +1,213 @@
+
+/* FlexBox is used to position items easily */
+
+.CartWrapperWrapper{
+
+}
+
+/* CartWrapper-Section1 */
+.CartWrapper-Section1{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center;
+
+    background-image: url('../images/Network-Image.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    color: black;
+    width:100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* CartWrapper-Section1 END */
+
+/* CartWrapper-Section1-top1 */
+.CartWrapper-Section1-top1{
+    margin-top:20px;
+    width:90%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+.OfferWrapper{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.Cart{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    justify-content: space-evenly;
+
+    background-color: rgb(228, 228, 228);
+    width:90%;
+    height:100px;
+    margin:20px;
+    padding:20px;
+    margin-top:30px;
+
+    border:2px solid rgb(92, 89, 89);
+    border-radius:25px;
+}
+.offerdata-left{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    justify-content: space-evenly;
+    
+}
+
+
+
+.ProductPIC{
+    border:2px solid rgb(91, 89, 89);
+    border-radius:25px;
+    margin-left:-2px;
+}
+
+.Cart h5{
+    word-wrap: break-word; /* Use word-wrap instead of overflow-wrap for better compatibility */
+    width: 100%; 
+    margin-left:22px;
+}   
+.offerData{
+    margin-top:8px;
+    line-height: 1.5;
+}
+
+
+.RemoveFromCart{
+    margin-left: auto; 
+    margin-top:30px;
+    padding:10px;
+    background-color: rgb(190, 0, 0);
+    border-radius: 10px;
+    color:white;
+}
+
+.RemoveFromCart:hover{
+    background-color: rgb(113, 0, 0);
+}
+
+.SendOrderButton{
+    margin:20px;
+    background-color: rgb(0, 0, 0);
+    color:white;
+    border-radius:10px;
+    padding:10px;
+    margin-left:300px;
+    cursor:pointer;
+}
+
+.SendOrderButton:hover{
+    background-color:yellowgreen;
+
+}
+
+.sendOrder_Price{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    align-items:center; 
+}
+
+
+
+/* CartWrapper-Section1-top2 */
+.CartWrapper-Section1-top2{
+
+    width:90%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    padding-bottom: 10px;;
+    background-color:white;
+    border-radius:10px;
+
+}
+
+.SubInfo{
+    background-color: rgb(228, 228, 228);
+    width:930px;
+    margin:20px;
+    padding:20px;
+    height:100px;
+}
+
+
+
+/* Redirect to whatsapp */
+.imgContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top:30px;
+    margin-right:10px;
+    margin-bottom: 10px;
+}
+
+.imgContainer a{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none;
+
+    border: 2px solid #25D366;
+    border-radius: 25px;
+    padding:10px;
+    background-color: #25D366;
+    cursor: pointer;
+}
+.imgContainer h6{
+    margin-left:5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: small;
+    color:white;
+
+}
+
+
+/* from the internet  */
+.ellipsis-container {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+.wave .shape-fill {
+    fill:black;
+    
+}
+
+/* End of svg css */
+

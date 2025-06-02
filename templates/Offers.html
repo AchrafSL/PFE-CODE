@@ -1,0 +1,63 @@
+{% extends "Menu.html" %}
+{% block body %}
+<div class="OffersWrapper">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Offers.css') }}">
+    <script language="javascript" src="static\JS\Offers.js"></script> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+
+
+    <br>
+
+    <div class="OffersWrapper-Section1">
+        <div class="OffersWrapper-Section1-top1">
+            <h3 style="margin-left:10px;"><u><b>OFFERS:  <span style="color:green"> {{  OffersNumber }} </span></b></u></h3>
+            <form action="/Offers" name= "SearchProduct" id="SearchProduct" method="GET" class="SearchProduct">
+                {% if word is not none %}
+                <input type="search" id="search-input" name="product" placeholder="Search products..."  value="{{ word }}">
+                {% else %}
+                <input type="search" id="search-input" name="product" placeholder="Search products..." >
+                {% endif %}
+                <button type="submit">Search</button>
+            </form>
+
+
+            
+
+
+            <div class="OfferWrapper">
+                {% for i, offer in OfferData %}
+                <div class="offers">
+                    <form action="/Product_Description" name="Product_Description" method="GET">
+                        <img src="{{ url_for('static', filename='Images/product_pics/' + offer['image_Name']) }}"
+                            width="300px" height="300px" border="0" alt="ProductPIC"
+                            class="ProductPIC" onclick="redirectToProduct('Product_Description','{{ offer['idOffer'] }}')">
+
+                        <input type="hidden" name="productId" value="{{ offer['idOffer'] }}" id="productId">
+                        <h5 onclick="redirectToProduct('Product_Description','{{ offer['idOffer'] }}')">{{ offer['name'] }}</h5> 
+                        <h5 style="color:green;margin-top:10px;" onclick="redirectToProduct('Product_Description','{{ offer['idOffer'] }}')"><b>MAD </b>{{ offer['price'] }}</h5>
+
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- OffersWrapper-Section1-top1 END -->
+    
+       <!-- <div class="OffersWrapper-Section1-top2">
+
+        </div> --> 
+    </div>
+    
+
+
+
+    <!-- Wave -->
+    <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div> 
+
+</div> <!-- End of Div OffersWrapper -->
+{% endblock %}

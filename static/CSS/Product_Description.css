@@ -1,0 +1,317 @@
+
+/* FlexBox is used to position items easily */
+
+.Product_DescriptionWrapperWrapper{
+
+}
+
+/* Product_DescriptionWrapper-Section1 */
+.Product_DescriptionWrapper-Section1{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center;
+
+    background-image: url('../images/Network-Image.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    color: black;
+    width:100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Product_DescriptionWrapper-Section1 END */
+
+/* Product_DescriptionWrapper-Section1-top1 */
+.Product_DescriptionWrapper-Section1-top1{
+    margin-top:20px;
+    width:90%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+.OfferWrapper{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    justify-content: flex-start;
+}
+
+.Product_Description{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(228, 228, 228);
+
+    border:2px solid black;
+    border-radius:10px;
+
+    width:30%;
+    height:355px;
+    margin:20px;
+    padding:20px;
+    margin-top:30px;
+    margin-left:30px;
+}
+
+.ProductPIC{
+    border:2px solid rgb(86, 84, 84);
+    border-radius:25px;
+    margin-left:-2px;
+}
+.Product_Description img{
+    cursor: pointer;
+}
+.Product_Description h5{
+    word-wrap: break-word; /* Use word-wrap instead of overflow-wrap for better compatibility */
+    width: 100%; 
+    margin-left:22px;
+    cursor: pointer;
+}   
+
+.OfferData{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: rgb(228, 228, 228);
+    width:54.5%;
+    height:355px;
+    margin:20px;
+    padding:20px;
+    margin-top:30px;
+    margin-left:15px;
+    line-height:1.7;
+
+    border:2px solid black;
+    border-radius:10px;
+}
+
+.OfferData p{
+    word-wrap: break-word; 
+    width: 100%; 
+}
+
+
+/* Product_DescriptionWrapper-Section1-top2 */
+.Product_DescriptionWrapper-Section1-top2{
+
+    width:90%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    padding-bottom: 10px;;
+    background-color:white;
+    border-radius:10px;
+
+    display:flex;
+    flex-direction:column;
+    font-family: 'Montserrat', sans-serif;
+
+
+
+}
+
+.SubInfo{
+    background-color: rgb(228, 228, 228);
+    width:930px;
+    margin:20px;
+    padding:20px;
+    height:100px;
+}
+
+
+.AddToCartBtn{
+    margin-top:50px;
+    padding:10px;
+    background-color: gray;
+    color:white;
+    padding-left:20px;
+    padding-right:20px;
+
+    border:2px solid black;
+    border-radius:10px;
+    cursor:pointer;
+}
+.AddToCartBtn:hover{
+    background-color:yellowgreen;
+}
+.BtnPo{
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}
+
+.pfpC{
+    border:1px solid black;
+    border-radius:10px;
+    cursor:pointer;
+    margin-right:20px;
+}
+
+.commentsWrapper{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+
+.WriteComment{
+    display:flex;
+    flex-direction:column;
+}
+
+.Write{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+
+}
+.Product_DescriptionWrapper-Section1-top2 h3{
+    font-family: "Audiowide", sans-serif;
+    margin:10px;
+
+}
+.WriteComment button{
+    margin-top:2px;
+    background-color:gray;
+    color:white;
+    padding-top:5px;
+    padding-bottom: 5px;
+    cursor:pointer;
+    outline:none;
+    border:1px solid black;
+}
+
+.WriteComment button:hover{
+    background-color:yellowgreen;
+}
+
+.loginRedirect {
+    color:gray;
+    opacity:0.6;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.loginRedirect:hover{
+    color:yellowgreen;
+}
+
+/* Comments CSS */
+
+
+.CommentSec{
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap; 
+
+    width:90%;
+    margin:20px;
+    padding:10px;
+    margin-top:30px;
+
+
+}
+
+.CommentInfo-left{
+    margin:0;
+    padding:0;
+
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    
+}
+
+
+.commentCenter{
+    margin:0;
+    padding:0;
+    margin-left:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    width:90%;
+
+}
+
+.ellipsis-container {
+    margin:0;
+    padding:0;
+    word-wrap: break-word; 
+    border:1px solid black;
+    padding:10px;
+    border-radius:10px;
+    background-color: rgb(238, 238, 238);
+
+}
+
+
+.CommentInfo{
+    margin:0;
+    padding:0;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width:99%;
+
+    margin-left:10px;
+    margin-top:-8px;
+
+}
+
+.CommentInfo-right{
+    margin-left:20px;
+    padding:5px;
+    background-color:red;
+    color:white;
+    border:1px solid black;
+    border-radius:10px;
+    outline:none;
+    cursor: pointer;
+}
+.CommentInfo-right:hover{
+    background-color:rgba(134, 0, 0, 0.957);
+
+}
+
+
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+.wave .shape-fill {
+    fill:black;
+    
+}
+
+/* End of svg css */
+

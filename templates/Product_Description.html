@@ -1,0 +1,164 @@
+{% extends "Menu.html" %}
+{% block body %}
+<div class="Product_DescriptionWrapper">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Product_Description.css') }}">
+    <script language="javascript" src="static\JS\Product_Decription.js"></script> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    <br>
+
+    <div class="Product_DescriptionWrapper-Section1">
+
+
+
+        <div class="Product_DescriptionWrapper-Section1-top1">
+            <h3 style="margin-left:10px;"><u><b>Product_Description:</b></u></h3>
+            <div class="OfferWrapper">
+                <div class="Product_Description">
+                    <!-- Data : productId , description , image_Name , Offer_price , name -->
+                    <img src="{{ url_for('static', filename='Images/product_pics/' + offer['image_Name']) }}"
+                            width="350px" height="350px" border="0" alt="ProductPIC"
+                            class="ProductPIC">
+                </div>
+
+                <div class="OfferData">
+                    <u><h5><b>Product ID :</b> {{ offer['productId'] }}</h5></u>
+                    <h5 >{{ offer['name'] }}</h5> 
+                    <h5 style="color:green;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
+                    <p><b>Description :</b> {{ offer['description'] }}</p>
+                    {% if session['role'] != 'employee'%}
+                    {% if session["logged_in"]%}
+
+                    <div class="BtnPo"> 
+                        <hr style="border:1px solid gray;width:100%;margin-top:30px;">
+                    <form action="/AddOfferToCart" name="addToCart" method="post">
+                        <input type="hidden" value="{{ offer['productId'] }}" name="idOffer"> 
+                        <input class="AddToCartBtn" type="submit" value="add to cart">
+                    </form>
+                    </div>
+                    {% endif %}
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Product_DescriptionWrapper-Section1-top1 END -->
+    
+        <div class="Product_DescriptionWrapper-Section1-top2">
+            <h3 > Comment Section</h3>
+
+            <div class="commentsWrapper"> 
+
+                <div class="Write">
+                    {% if session["logged_in"] %}
+
+                    <img src="{{ url_for('static', filename='Images/Users_pfp/' + session['pfpName']) }}" 
+                    width="60px" height="60px"  alt="Usr_PIC"
+                      class="pfpC" onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')" >
+
+                    <form method="post" action="/submit_comment"  class="WriteComment">
+                        <textarea id="comment" name="comment" style="padding:5px;" placeholder="Write your comment here" rows="5" cols="130" maxlength="10000" required></textarea>
+                        <input type="hidden" name="productId" value="{{ offer['productId'] }}">
+                        <input type="hidden" name="idCli" value="{{ session['idCli'] }}">
+                        <button type="submit">Comment</button>
+                    </form> 
+    
+ 
+
+                    {% else %}
+
+                    <a href="{{ url_for('Login') }}" style="text-decoration:none;">  
+                     <h3 class="loginRedirect" style="font-family: 'Montserrat', sans-serif;"> Please login to comment</h3>
+                    </a>
+
+                    {% endif %}
+    
+                </div>
+
+                <hr style="margin-top:20px;margin-bottom:20px;border:1px solid gray;width:90%;"> 
+
+
+
+
+
+
+
+
+
+                    <!-- Show comments here -->
+                    {% for comment in comments %}
+                    <div class="CommentSec"  > 
+                        <!-- Full name and below it the comment -->
+                        <div class="CommentInfo-left" style="margin-right:100px;cursor:pointer;" >
+
+
+                            <!-- IMG -->
+                            <img src="{{ url_for('static', filename='Images/Users_pfp/' + comment['pfpName']) }}" 
+                            width="60px" height="60px"  alt="Usr_PIC"
+                            class="pfpC" > 
+
+
+
+                            <div class="commentCenter">
+                                <h5 class="ellipsis-container"> {{ comment['comment'] }} </h5>
+                            </div>
+                        </div>
+
+
+        
+                        <!-- on the side delete comment option (only for admins , and if 
+                            idCli of the comment == session['idCli'])-->
+
+                        <div class="CommentInfo" >
+                            <i style="margin-top:15px;margin-right:5px;" class="fas fa-pencil-alt" aria-hidden="true"></i>
+                            
+                            <h5 style="margin-top:15px"> <b>{{ comment['LastName'] }}</b></h5>
+                            <h5 style="margin-left:5px;margin-top:15px;"> <b>{{ comment['FirstName'] }} </b></h5>
+                            {% if comment['idCli'] == session['idCli'] or session['role'] == 'admin' %}
+
+                            <form  action="/DeleteComment" method="POST" class="DeleteComment" name="DeleteComment" onsubmit="return confirmCommentOperation()" >
+                                <input type="hidden" name="idComment" value="{{ comment['idComment'] }}">
+                                <input class="CommentInfo-right" type="submit" value="Delete Comment" style="margin-top:18px;">
+                                <input type="hidden" name="productId" value="{{ offer['productId'] }}">
+
+                            </form>
+                            {% endif %}
+
+                        </div>
+
+
+
+
+                    </div>
+        
+        
+                    
+                    {% endfor %}
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+    
+
+
+
+    <!-- Wave -->
+    <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div> 
+
+</div> <!-- End of Div Product_DescriptionWrapper -->
+{% endblock %}

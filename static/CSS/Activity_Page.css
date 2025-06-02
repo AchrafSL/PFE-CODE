@@ -1,0 +1,476 @@
+
+/* FlexBox is used to position items easily */
+
+.Activity_PageWrapper{
+
+}
+
+/* Activity_Page-Section1 */
+.Activity_Page-Section1{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center;
+
+    background-image: url('../images/Network-Image.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    color: black;
+    width:100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Activity_Page-Section1 END */
+
+
+
+/* Activity_Page-Section1-top1 */
+.Activity_Page-Section1-top1{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+    margin-top:10px;
+    width:80%;
+    margin-bottom: 20px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+    padding-bottom:10px;
+}
+.orderInfo{
+    background-color: rgb(228, 228, 228);
+    margin:20px;
+    margin-bottom:10px;
+    padding:20px;
+    height:100px;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:flex-start;
+
+
+    border:1px solid black;
+    border-radius:10px;
+}
+
+.ordersInfo{
+    border:1px solid black;
+    border-radius:25px;
+
+    line-height: 1.5;
+    background-color: rgb(228, 228, 228);
+    margin:20px;
+    padding:20px;
+
+    height:180px;
+}
+
+.clientinfo{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.OperationOnOrder input{
+    margin-top:18px;
+    background-color: gray;
+    color:white;
+    padding:10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.OperationOnOrder input:hover{
+    background-color: yellowgreen;
+}
+
+/* Activity_Page-Section1-top2 */
+.Activity_Page-Section1-top2{
+
+    width:80%;
+    margin-bottom: 10px;
+    padding-top:10px;
+    padding-bottom: 10px;;
+    background-color:white;
+    border-radius:10px;
+    
+
+}
+
+
+
+
+
+/* Activity_Page-Section1-top0 */
+.Activity_Page-Section1-top0{
+    margin-top:10px;
+    width:80%;
+    margin-bottom: 10px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+.ChangeRole input{
+    width: 32.5%;
+    padding:5px;
+    border:2px solid black;
+    border-radius: 5px;
+
+}
+.ChangeRole select{
+    width: 32.5%;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+.ChangeRoleButton{
+    background-color: gray;
+    color:white;
+}
+.ChangeRoleButton:hover{
+    background-color: yellowgreen;
+}
+
+
+/* Activity_Page-Section1-top0_1 */
+.Activity_Page-Section1-top0_1{
+    margin-top:10px;
+    width:80%;
+    margin-bottom: 10px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+
+
+
+
+/* Add offers */
+.addOffers{
+
+}
+
+.AddOffersForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    margin:10px;
+}
+
+.AddOffersForm input{
+    width:50%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.AddOffersForm TEXTAREA{
+    margin:5px;
+    width:51%;
+}
+.AddOfferSubmit{
+    background-color: gray;
+    color:white;
+}
+.AddOfferSubmit:hover{ background-color: yellowgreen;}
+
+
+
+
+/* Add offers END */
+
+
+
+
+
+/* Remove Offers */
+.RemoveOffers{
+
+    margin:10px;
+}
+.RemoveOffersForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+}
+.RemoveOffersForm input{
+    width:30%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.RemoveOfferButton{
+    background-color: gray;
+    color:white;
+}
+.RemoveOfferButton:hover{background-color: yellowgreen;}
+/* Remove Offers END */
+
+
+
+
+/* Modify Offers */
+.ModifyOffers{
+    margin:10px;
+}
+
+.ModifyOffersForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+}
+
+
+.ModifyOffersForm input{
+    width:30%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.ModifyOfferButton{
+    background-color: gray;
+    color:white;
+}
+.ModifyOfferButton:hover{background-color: yellowgreen;}
+
+/* offerToModifyForm */
+.offerToModifyForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    margin:10px;
+}
+
+.offerToModifyForm input{
+    width:50%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.offerToModifyForm TEXTAREA{
+    margin:5px;
+    width:51%;
+}
+.ModifyOfferSubmit{
+    background-color: gray;
+    color:white;
+}
+.ModifyOfferSubmit:hover{ background-color: yellowgreen;}
+
+
+/* Modify Offers END */
+
+/* Top 2 subscriptions (client page ) */
+.Subscription{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+    background-color: rgb(228, 228, 228);
+
+    margin:20px;
+    padding:20px;
+
+    border:1px solid black;
+    border-radius:10px;
+}
+
+.SubInfo{
+    line-height: 1.5;
+}
+
+.subs{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.subs  input{
+    background-color: gray;
+    color:white;
+    padding:10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.subs  input:hover{
+    background-color: yellowgreen;
+}
+
+
+/* Activity_Page-Section1-header */
+.Activity_Page-Section1-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top:20px;
+    width:80%;
+    margin-bottom: 10px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+.Activity_Page-Section1-header .Revenue{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    background-color: #E4E4E4;
+    width:300px;
+    height:57px;
+    margin:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+
+    border:1px solid black;
+    border-radius:10px;
+}
+.Activity_Page-Section1-header .NumbSignup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #E4E4E4;
+    width:300px;
+    height:57px;
+    margin:10px;
+}
+.RevenueWrapper{
+    display: flex;
+    flex-direction:column;
+}
+.alignCenterD{
+    margin:0;
+    padding:0;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+}
+
+
+/* Remove Offers */
+.RemoveUSER{
+
+    margin:10px;
+}
+.RemoveUSERForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+}
+.RemoveUSERForm input{
+    width:30%;
+    margin:5px;
+    padding:5px;
+    border:1px solid black;
+    border-radius: 5px;
+}
+
+.RemoveUSERButton{
+    background-color: gray;
+    color:white;
+}
+.RemoveUSERButton:hover{background-color: yellowgreen;}
+/* Remove Offers END */
+
+
+
+
+
+/* Activity_Page-Section1-ShowUsers */
+.Activity_Page-Section1-ShowUsers{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    margin-top:20px;
+    width:80%;
+    margin-bottom: 10px;
+    padding-top:10px;
+    background-color:white;
+    border-radius:10px;
+}
+.Activity_Page-Section1-ShowUsers input{
+    margin:10px;
+    width:10%;
+    height:50px;
+    color:white;
+    background-color: gray;
+    cursor: pointer;
+}
+.Activity_Page-Section1-ShowUsers input:hover{
+    background-color: yellowgreen;
+}
+
+.ShowData{
+    border:1px solid black;
+    border-radius:25px;
+
+    background-color: rgb(228, 228, 228);
+    margin:20px;
+    padding:20px;
+}
+
+.Activity_Page-Section1-ShowUsers h3{
+    margin-left:10px;
+}
+
+
+.emailLink{
+    color:black;text-decoration:none;
+}
+.emailLink:hover{
+    color:yellowgreen;
+}
+
+
+
+.clientInfoContainer a{
+    text-decoration:none;
+    color:black;
+}
+.clientInfoContainer a:hover{
+    color:yellowgreen;
+}
+
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+.wave .shape-fill {
+    fill:black;
+    
+}
+
+/* End of svg css */
+

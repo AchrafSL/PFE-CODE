@@ -1,0 +1,149 @@
+{% extends "Menu.html" %}
+{% block body %}
+<div class="LoginWrapper">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Login.css') }}">
+    <script language="javascript" src="static\JS\Login.js"></script> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <br>
+
+    <!-- Login-Section1 --> <!-- Display:inline-block for elements in this div but display:block
+    for the Login-section1 and other sections --> 
+    <div class="Login-Section1">
+        <div class="Login-Section1-left">
+            <img src="{{ url_for('static', filename='Images/logo.jpg') }}" 
+            width="70px" height="70px" border="0" alt="alternative text"
+            class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
+            
+            <h1>Log In and Choose Your Plan Now on Damso <span>Stream</span></h1>
+            <h3>And Gain the Following Features:</h3>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Purchase the offer that you want.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Add the offers you want to the cart and send your choices when you're ready.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Track the status of your chosen offers.</h5>
+            <h5><i class="fa-solid fa-circle-check" style="color: #07c304;"></i> Get exclusive updates and special promotions.</h5>
+            
+
+            
+        </div>
+
+        <div class="Login-Section1-right">
+            <a class="Link1" href="{{ url_for('home') }}"><i class="fa-solid fa-x"></i></a>
+            {% if reset_form == 1 %}
+            <!-- ResetPWD final form -->
+            <div class="reset_form">
+                <h1> Reset your password</h1>
+                <form action="/ResetPassword_Apply" name="reset_form" onsubmit="return validateResetPWDForm()" method="POST">
+                    <input type="hidden" value="{{email}}" name ="Email">
+                    <h5 class="msg0" style="margin-top:60px;">New password </h5>
+                    <input class = "pwd" type ="password"  name="Password">
+                    <h5 class="msg0"> Confirm new password</h5>
+                    <input class="pwd" type="password" name ="ConfirmPassword">
+                    <h6 id="errorMsg"> </h6>
+                    <input type="submit" value="Reset Password" class="ResetPassword" style="cursor:pointer;">
+                </form>
+
+            </div>
+            {% else %}
+
+
+
+            {% if x == 0 %}
+            <h1>Log In</h1>
+            <h5>Don't have an account? <a class="Link2" href="{{ url_for('Signup') }}">Sign up</a></h5>
+            <form ACTION ="/LoginInput" name = "LoginForm" class="LoginForm" method="POST" onsubmit ="return validateForm()">
+                <input type="text" autocomplet="off" autofocus  placeholder="Email" name="email" class="LoginInput">   
+                <input type="password" autocomplet="off" autofocus placeholder="Password" name="password" class="LoginInput">  
+                <h6 id="errorMsg"> Sorry,looks like that's the wrong email or password.</h6>
+                <input type="button" value="Forgot Password?" class="passwordForgot-input" onclick="passwordForgotActionChange()" style="cursor:pointer;">
+                <input type="submit" value="Login" class="Login-input" style="cursor:pointer;">  
+            </form>
+            {% else %}
+            {% if x == 1 %}
+            <!-- Reset PWD page -->
+            <h1> Reset your password </h1>
+            <br>
+            <h6> If the account exist, we will email you instructions to reset the password </h6>
+            <br><hr align="center"><br>
+                <!-- normal page -->
+                {% if Reset == 0 %}
+
+            <h2 style="margin-top:40px;margin-left:38px;">Email</h2>
+            <form action="/ResetPassword" name = "ResetPassword" class="ResetPasswordForm" method="POST" onsubmit="return ValidateResetPWD()">
+                <input type="text" placeholder="e-mail" autofocus autocomplete="off" class="ResetPasswordEmail" name="E_mail">
+                <h6 id="errorMsg"> Please enter a valid email address.</h6> 
+                <input type="button" value="Return to login" class="ReturnToLogin"  style="cursor:pointer;" onclick="ReturnToLoginActionChange('ResetPassword')">
+                <input type="submit" value="Reset Password" class="ResetPassword" style="cursor:pointer;">
+            </form>
+                {% else %}
+                    {% if Reset == 1 %}
+                    <!-- Email exist : -->
+                    <div class="VerifyPWD">
+                        <h6 class="msg0" id="msg0Email"> Please verify your email</h6>
+                        <div class="msg1">
+                            <p ><i class="fa-solid fa-circle-check" style="color: #07c304;"></i>
+                            We've sent an email to</p> 
+                            <p ><b> {{email}}</b> with instructions.</p>
+                        </div>
+                            
+                        <h6 class="msg2">If the email doesn't show up soon, check your spam folder. 
+                            We sent it from <b>DamsoStream.Login@gmail.com</b>.    </h6>
+                        <form action="/ResendLink" name = "sendLinkPWD" method="POST">
+                            <input type="hidden" value = "password" name = "ResendLink_Type">
+                            <input type="hidden" value="{{email}}" name ="EMAIL">
+                            {% if session["logged_in"] %}
+                            <input type="button" value="Return to Home" style="cursor:pointer;" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('sendLinkPWD')">
+
+                            {% else%}
+                            <input type="button" value="Return to login" style="cursor:pointer;" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLinkPWD')">
+                            {% endif %}
+                            <input type="submit" value="Resend Link" class="ResendLink" style="cursor:pointer;">
+                        </form>
+                    </div>
+
+                    {% endif %}
+                {% endif %}
+            <!-- End of Reset PWD page-->
+            {% else %}
+                <div class="VerifyPWD">
+                    <h6 class="msg0"> Please verify your email</h6>
+                    <div class="msg1">
+                        <p ><i class="fa-solid fa-circle-check" style="color: #07c304;"></i>
+                        We've sent an email to</p> 
+                        <p ><b> {{email}}</b> with instructions.</p>
+                    </div>
+                        
+                    <h6 class="msg2">If the email doesn't show up soon, check your spam folder. 
+                        We sent it from <b>DamsoStream.Login@gmail.com</b>.    </h6>
+                    <form action="/ResendLink" name = "sendLink" method="POST">
+                        <input type="hidden" value = "email" name = "ResendLink_Type">
+                        <input type="hidden" value="{{email}}" name ="EMAIL">
+                        {% if session["logged_in"] %}
+                        <input type="button" value="Return to Home" style="cursor:pointer;" class="ReturnToLoginSENDLINK" onclick="redirectToHomeAction('sendLink')">
+                        {% else %}
+                        <input type="button" value="Return to login"  style="cursor:pointer;" class="ReturnToLoginSENDLINK" onclick="ReturnToLoginActionChange('sendLink')">
+                        {% endif %}
+                        <input type="submit" value="Resend Link" class="ResendLink" style="cursor:pointer;">
+                    </form>
+                </div>
+            {% endif %}
+
+            {% endif %}
+
+            {% endif %}
+
+        </div>
+    </div>
+
+
+    <!-- Wave -->
+    <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div> 
+
+</div> <!-- End of Div LoginWrapper-->
+{% endblock %}

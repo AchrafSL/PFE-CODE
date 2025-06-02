@@ -1,0 +1,329 @@
+/* 
+Display:
+
+Block :   Example(div)
+        take full width if there is no width
+        add line break;
+        Respect padding , margin , width, height
+
+Inline :  Example(span)
+        Do not add line break;
+        Do not respect width,height
+        respect padding and margin but only in left + right ;
+
+Inline-Block : mix with Inline and Block
+        Respect padding , margin , width, height;
+        
+*/
+
+
+.HomeWrapper{
+
+}
+
+/* Header CSS */
+.header{
+    background-image:url('../images/Network-Image.jpg');
+    z-index: -1;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    padding:178px; 
+    color: white; 
+    opacity:95%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.header h1{
+    font-size: 50px;
+    font-weight: 700;
+    font-family: sans-serif;
+        font-family: "Audiowide", sans-serif;
+
+}
+
+.header h3{
+    color: rgb(172, 172, 172);
+    font-weight: 700;
+    margin-top: 30px !important;
+    font-size: 23px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.header a{
+    display:inline-block;
+    margin-top: 30px !important;
+    text-decoration: underline;
+    font-family: 'Montserrat', sans-serif;
+    color:white;
+}
+
+.header button{
+    border-radius: 5px;
+    color:black;
+    border:2px black solid;
+    padding:20px;
+    background-color: white;
+    cursor:pointer;
+    
+    font-family: 'Montserrat', sans-serif;
+
+}
+.header button:hover{background-color:gainsboro}
+/* End of header CSS */
+
+/* Sections CSS */ 
+
+h2{
+    font-family: "Audiowide", sans-serif;
+}
+li{
+    font-family: 'Montserrat', sans-serif;
+
+}
+/* Section 1 css */
+.section1{
+    background-color: #ffffff;
+    padding-top: 160px; 
+    padding-bottom: 80px;
+    color:black;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    line-height: 1.8;
+}
+
+.section1 .sec1Left{
+    padding-right:40px;
+}
+
+.section1 .sec1Left li{
+    color:rgb(101, 101, 101)
+}
+
+
+.section1 .sec1Right{
+    padding-left:40px;
+}
+.section1 .sec1Right img{
+    border: 4px green solid;
+}
+.section1 .sec1Right img:hover{
+    border-color: yellowgreen;
+}
+
+
+/* END OF Section 1 css */
+
+/* Section2 Css */
+.section2{
+    background-color:#F1F1F1;
+    padding-top: 120px; 
+    padding-bottom: 120px;
+    color:black;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.section2 .sec2Left{
+    padding-right:40px;
+}
+
+.section2 .sec2Left img{
+    border: 4px green solid;
+}
+.section2 .sec2Left img:hover{
+    border-color: yellowgreen;
+}
+
+
+.section2 .sec2Right{
+    padding-left:40px;
+}
+.section2 .sec2Right li{
+    line-height:3.2;
+
+    color:rgb(101, 101, 101)
+}
+
+
+/* End of Section 2 CSS */
+
+/* Section 3 CSS */
+
+.section3{
+    background-color:#FFFFFF;
+    padding-top: 120px; 
+    padding-bottom: 120px;
+    color:black;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.section3 .sec3Left{
+    margin-right:50px;
+    line-height: 2;
+}
+
+.section3 .sec3Right{
+    margin-left:50px;
+
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-template-rows: 200px 200px;
+    width: 400px;
+    height: 400px; 
+    border: 2px solid #000;
+}
+.box {
+    /* css for the element inside the box*/
+    border: 2px solid #000000;
+    background-color: white;
+
+}
+
+.box1:hover{
+    border: 2px solid yellowgreen
+}
+
+.box2:hover {
+    border: 2px solid yellowgreen
+
+}
+
+.box3:hover {
+    border: 2px solid yellowgreen
+
+}
+
+.box4:hover {
+    border: 2px solid yellowgreen
+
+}
+.section3 .sec3Right li {
+    color:rgb(101, 101, 101);
+}
+/* End of Section 3 CSS */
+
+
+/* Section 4 CSS */
+.section4{
+    background-color:#666666;
+    padding-top: 50px; 
+    padding-bottom: 50px;
+    color:rgb(218, 218, 218);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.section4 h2{
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.section4 input{
+    margin-top:20px;
+    padding:10px;
+    color:black;
+    padding-left:30px;
+    padding-right:30px;
+
+    opacity:80%;
+
+    background-color:white;
+    border:2px solid black;
+    border-radius:5px;
+
+    cursor:pointer;
+    font-family: "Yellowtail", cursive;
+    font-size:20px;
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+.section4 input:hover{
+    background-color:yellowgreen
+}
+
+/* End of Section 4 CSS */
+
+.section5{
+    background-color:#F1F1F1;
+    padding-top: 120px; 
+    padding-bottom: 120px;
+    color:black;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+.section5 h2{
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+/* End of sections CSS*/
+
+ul{
+    list-style-type:disc;
+        /* (none/disc/square/circle/decimal) */
+    list-style-position:inside;
+}   
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+
+
+.wave .shape-fill6 {
+    fill:#F1F1F1;
+}
+/* End of svg css */
+
+
+

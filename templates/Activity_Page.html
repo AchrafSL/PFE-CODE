@@ -1,0 +1,433 @@
+{% extends "Menu.html" %}
+{% block body %}
+<div class="Activity_PageWrapper">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Activity_Page.css') }}">
+    <script language="javascript" src="static\JS\Activity_Page.js"></script>  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+    <!-- JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <br>
+
+<!-- Client Page -->
+{% if session["role"] == "client" %}
+    <div class="Activity_Page-Section1">
+        <div class="Activity_Page-Section1-top1">
+            <h3 style="margin:10px;"> <u><b>My Orders :  <span style="color:green;"> {{ OrderNumber }} </span></b></u> </h3>
+            {% for order in ListOrders %}
+            <div class="orderInfo"> 
+                <h5> <b>Order Number : {{ order['idOrder'] }}</b></h5>
+                <h5> <b>Offers : (
+                    {% for offer in order['offers'] %}
+                    {{ offer }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                    )</b></h5>
+                <h5> <b>StatOfTreatment : ({{ order['StatOfTreatment'] }})</b></h5>
+                <h5> <b>PaymentStat : ({{ order['PaymentStat'] }})</b></h5>
+                <h5> <b>TotalPrice : {{ order['TotalPrice'] }}</b></h5>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Activity_Page-Section1-top1 END -->
+
+        <!-- Subscription part -->
+        <div class="Activity_Page-Section1-top2">
+            <h3 style="margin-left:10px;"> <u><b>My Subscriptions :  <span style="color:green;"> {{ ActiveSubNumber }} </span> </b></u> </h3>
+
+            {% for sub in ListOfSubs %}
+            <div class="Subscription" > 
+                <div class="SubInfo" style="margin:0px;padding:0px;">
+                    <h5> <b>Subscription Number : {{ sub['idSubscription'] }}</b></h5>
+                    <h5> <b>Offer : {{ sub['OfferName'] }} </b></h5>
+                    <h5> <b>SubscriptionStatus :{{sub['subscriptionStatus'] }}</b></h5>
+                    <h5> <b>startDate : {{sub['StartDate'] }}</b></h5>
+                    <h5> <b>endDate : {{sub['EndDate'] }} </b></h5>
+                </div>
+                {% if sub['subscriptionStatus'] == 'Inactive' %}
+                <div class="OperationOnSub" style="margin:0px;padding:0px;">
+                    <form style="margin:0px;padding:0px;" action="/DeleteSub" method="POST" class="subs" name="subs" onsubmit="return confirmSubOperation()" >
+
+                        <input type="hidden" name="idSub" value="{{ sub['idSubscription'] }}" id="idSub">
+                        <input type="hidden" name="idOffer" value="{{ sub['idOffer'] }}">
+                        <input type="button" value="Renew Subscription"  onclick="RedirectToRenewSub('subs',{{ sub['idSubscription'] }})" >
+                        <input type="submit" value="Delete Subscription" style="margin-top:18px;">
+                    </form>
+                </div> 
+                {% endif %}
+            </div>
+
+
+            
+            {% endfor %}
+
+
+
+
+
+        </div>
+
+    </div>
+{% endif %}
+<!-- END OF Client Page -->
+
+
+
+
+
+
+<!-- Employee and Admin Page -->
+{% if session["role"] == "employee" or session["role"] == "admin" %}
+    <div class="Activity_Page-Section1">
+        
+        <!-- admin special section -->
+        {% if session["role"] == "admin" %}
+
+        <!-- Dashboard part -->
+        <div class="Activity_Page-Section1-header">
+            <!-- Revenue part -->
+            <div class="RevenueWrapper">
+                <div class="Revenue"  >
+                    <img src="static\Images\icons8-revenue-64.png" width="50px" height="50px">
+                    <div>
+                        <h3 style="margin:10px;color:rgb(81, 73, 73);opacity:0.6;"> Revenue </h3>
+                        <span style="color:green;"> {{ Revenue }} MAD </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Number of Orders -->
+            <div class="RevenueWrapper">
+                <div class="Revenue"  >
+                    <img src="static\Images\shopping-bag.png" width="50px" height="50px">
+                    <div class="alignCenterD">
+                        <h3 style="margin:10px;color:rgb(81, 73, 73);opacity:0.6;"> Orders :  <span style="color:green;"> {{ NumbOrders }}  </span></h3>
+              
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Number of signup Clients -->
+
+            <div class="RevenueWrapper ">
+                <div class="Revenue"  >
+                    <img src="static\Images\costumer.png" width="50px" height="50px">
+                    <div class="alignCenterD">
+                        <h3 style="margin:10px;color:rgb(81, 73, 73);opacity:0.6;"> Clients :  <span style="color:green;"> {{ NumbSignup }}</span></h3>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="Activity_Page-Section1-top0">
+
+            <!-- Change USER ROLE -->
+            <u><h3 style="margin:10px;"> Change USER Role :</h3></u>
+            <div style="margin:10px;">
+                <h6 id="ErrorMSG" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;"> Please fill all fields </h6>
+
+                <form action="/ChangeRole" method="POST" name="ChangeRole" class="ChangeRole" onsubmit="return confirmRoleChange('ChangeRole')">
+                    <input type="text" placeholder=" Email / USER_ID " name="ChangeRoleInput">
+                    <!-- Change role to (Client/Employee/Admin) (Select input)-->
+                    <select class="Role" name="Role"  style="cursor:pointer;">
+                        <option  disabled selected> Please Select a role :</option>
+                        <option> client </option>
+                        <option> employee </option>
+                        <option> admin </option>
+                    </select>
+                    <input type="submit" value="ChangeRole" class="ChangeRoleButton"  style="cursor:pointer;">
+                </form>
+
+            </div>
+
+            <hr style="margin-left:5%;margin-top:20px;margin-bottom:20px;width:90%;border:1px solid black;">
+
+            <!-- Delete USER -->
+            <u><h3 style="margin:10px;"> Delete USER :</h3></u>
+            <h6 id="ErrorMSGDeletUSR" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;margin-left:19.8%;">  Please fill OrderID field </h6>
+            <div style="margin-left:10px;">
+
+                <div class="RemoveUSER">
+                    <form class="RemoveUSERForm" name="RemoveUSERForm" action="/RemoveUSER" method="POST" onsubmit="return ConfirmUSERRemoval()">
+                        <input type="text" placeholder="USER ID" name="UserID">
+                        <input type="submit" value="Remove USER" class="RemoveUSERButton"  style="cursor:pointer;">
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="Activity_Page-Section1-top0_1">
+
+
+
+            <h3 style="margin:10px;"> <u> Add offers : </u></h3>
+            <div class="addOffers">
+                <form class="AddOffersForm" name="AddOffersForm" action="/AddOffer"  method="POST" enctype=multipart/form-data onsubmit="return VerifyAddOffer('AddOffersForm')">
+                    <!-- Image name will be set automaticaly after uploading the img -->
+                    <input type="text" name="name" placeholder="Offer Name" > 
+                    <input type="text" name="Offer_price" placeholder="Offer Price" >
+                    <input type="text" name="duration" placeholder="Offer duration (IN DAYS)" > 
+                    <input type="file"  name="file" style="cursor:pointer;">
+                    <TEXTAREA rows="10" name="description" cols="60" placeholder="Offer Description"></TEXTAREA>
+                    <h6 id="ErrorMSG1" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;"> Please fill all fields </h6>
+                    <input type="submit" value="Add Offer" class="AddOfferSubmit"  style="cursor:pointer;">
+                </form>
+
+            </div>
+
+            <hr style="border:1px solid black;width:96%;margin-left:2.5%;margin-top:10px;margin-bottom:10px;">
+
+            <h3 style="margin:10px;"> <u> Remove Offers : </u></h3>
+            <h6 id="ErrorMSG2" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;margin-left:19.8%;">  Please fill OrderID field </h6>
+
+            <div class="RemoveOffers">
+                <form class="RemoveOffersForm" name="RemoveOfferForm" action="/RemoveOffer" method="POST" onsubmit="return ConfirmOfferRemoval()">
+                    <input type="text" placeholder="Offer ID" name="offerID">
+                    <input type="submit" value="Remove Offer" class="RemoveOfferButton"  style="cursor:pointer;">
+                </form>
+            </div>
+            
+            <hr style="border:1px solid black;width:96%;margin-left:2.5%;margin-top:10px;margin-bottom:10px;">
+
+
+            <div class="ModifyOffers">
+                <h3> <u> Modify Offers : </u></h3>
+                <h6 id="ErrorMSG3" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;margin-left:19%;"> Please fill OrderID field </h6>
+
+                <form class="ModifyOffersForm" name="ModifyOffersForm" onsubmit="return ConfirmOfferModification()" action="/get_OfferToModify_Data" method="POST"> 
+                    <input type="text" placeholder="Offer ID" name="offerID">
+                    <input type="submit" value="Modify Offer" class="ModifyOfferButton"  style="cursor:pointer;">
+                </form>
+
+                {% if offerToModify is not none %}
+                <hr style="border:1px solid black;width:80%;margin-left:10%;margin-top:20px;margin-bottom:20px;">
+                <form name="offerToModifyForm" class="offerToModifyForm" action="/modifyOffer" method="POST" enctype=multipart/form-data onsubmit="return VerifyOfferModifying('offerToModifyForm')">
+                    <!-- Image name will be set automaticaly after uploading the img -->
+                    <input type="text" name="name" placeholder="Offer Name" value="{{ offerToModify['name'] }}"> 
+                    <input type="text" name="Offer_price" placeholder="Offer Price" value="{{ offerToModify['Offer_price'] }}">
+                    <input type="text"  name="duration" placeholder="Offer duration (IN DAYS)" value="{{ offerToModify['duration'] }}"> 
+                    <input type="file"  name="file" id="file" style="cursor:pointer;">
+                    <textarea rows="10" name="description" cols="60" placeholder="Offer Description">{{ offerToModify['description'] }}</textarea>         
+                    <input type="hidden" name='offerID' value="{{ offerToModify['offerID'] }}">
+
+                    <h6 id="ErrorMSG4" style="display:none;color:red;font-size:11px;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:5px;"> Please fill all fields </h6>
+                    <input type="submit" value="Modify Offer" style="cursor:pointer;" class="ModifyOfferSubmit" >
+                </form>
+                {% endif %}
+            </div>
+            
+        </div>
+
+
+
+
+        {% endif %}
+
+
+        {% if session["role"] == "admin" %}
+     
+        <div class="Activity_Page-Section1-ShowUsers">
+            <!-- The button is only showed when the lists are empty or null or notDefined -->
+            {% if not ListOfClients and not ListOfEmployees and not ListOfAdmins %}
+            <form action="/showUsers" method="POST">
+                <input type="submit" value="Show USERS">
+            </form>
+            {% endif %}
+
+            {% if ListOfAdmins %}      
+            <u><b><h3>List of Admins :</h3></b></u>
+            {% endif %}
+
+            {% for admin in ListOfAdmins %}
+            <div class="ShowData">
+                <b>ID:</b> {{ admin['idCli'] }}<br>
+
+                <a class="emailLink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ admin['Email'] }}"><b>Email:</b> {{ admin['Email'] }}</a>
+
+                <br>
+                <b>First Name:</b> {{ admin['FirstName'] }}<br>
+                <b>Last Name:</b> {{ admin['LastName'] }}<br>
+                <b>Status:</b> {{ admin['status'] }}<br>
+                <b>Role:</b> {{ admin['role'] }}<br>
+                <b>Date Joined:</b> {{ admin['Date_Joined'] }}<br>
+                {% if admin['whatsapp'] != '' %}
+                <a class="emailLink" href="https://wa.me/{{ admin['whatsapp'] }}">
+                    <b>WhatsApp:</b> {{ admin['whatsapp'] }}<br>
+
+                </a>
+
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+
+            {% if ListOfEmployees%}  
+            <hr style="border:1px solid black;width:90%;margin-left:5%;margin-top:10px;margin-bottom:20px;">    
+            <u><b><h3>List of Employees :</h3></b></u>
+            {% endif %}
+
+            {% for employee in ListOfEmployees %}
+            <div class="ShowData">
+                <b>ID:</b> {{ employee['idCli'] }}<br>
+                <a class="emailLink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ employee['Email'] }}"><b>Email:</b> {{ employee['Email'] }}</a>
+
+                <br>
+                <b>First Name:</b> {{ employee['FirstName'] }}<br>
+                <b>Last Name:</b> {{ employee['LastName'] }}<br>
+                <b>Status:</b> {{ employee['status'] }}<br>
+                <b>Role:</b> {{ employee['role'] }}<br>
+                <b>Date Joined:</b> {{ employee['Date_Joined'] }}<br>
+                {% if employee['whatsapp'] != '' %}
+
+                <a class="emailLink" href="https://wa.me/{{ employee['whatsapp']}}">
+                    <b>WhatsApp:</b> {{ employee['whatsapp'] }}<br>
+                </a>
+                
+                {% endif %}
+            </div>
+            {% endfor %}
+
+
+
+            {% if ListOfClients  %}
+            <hr style="border:1px solid black;width:90%;margin-left:5%;margin-top:10px;margin-bottom:20px;">
+            <u><b><h3>List of Clients :</h3></b></u>
+            {% endif %}
+            
+            {% for client in ListOfClients %}
+            <div class="ShowData">
+                <b>ID:</b> {{ client['idCli'] }}<br>
+                <a class="emailLink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ client['Email'] }}"><b>Email:</b> {{ client['Email'] }}</a>
+                <br>
+                <b>First Name:</b> {{ client['FirstName'] }}<br>
+                <b>Last Name:</b> {{ client['LastName'] }}<br>
+                <b>Status:</b> {{ client['status'] }}<br>
+                <b>Role:</b> {{ client['role'] }}<br>
+                <b>Date Joined:</b> {{ client['Date_Joined'] }}<br>
+                {% if client['whatsapp'] != '' %}
+                <a class="emailLink" href="https://wa.me/{{ client['whatsapp'] }}">
+                    <b>WhatsApp:</b> {{ client['whatsapp'] }}<br>
+                </a>
+
+
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+
+
+
+
+
+
+
+
+        </div>
+        {% endif %}
+
+
+        <div class="Activity_Page-Section1-top1">
+            <h3 style="margin:10px;"> <u><b>Clients' Orders : <span style="color:green;"> {{ OrderNumber }} </span> </b></u>  </h3>
+            {% for order in ListOrders %}
+            <div class="ordersInfo"> 
+                <h5> <b>Order Number : {{ order['idOrder'] }}</b></h5>
+                <h5> <b>Offers : (
+                    {% for offer in order['offers'] %}
+                    {{ offer }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                    )</b></h5>
+                <h5> <b>StatOfTreatment : ({{ order['StatOfTreatment'] }})</b></h5>
+                <h5> <b>PaymentStat : ({{ order['PaymentStat'] }})</b></h5>
+                <h5 style="color:green"> <b>TotalPrice : {{ order['TotalPrice'] }}</b></h5>
+                <hr style="border: 1px solid #000;margin-top:5px;margin-bottom:5px;">    
+                <div class="clientinfo">
+                    <div class="clientInfoContainer">
+                        <h5> <b>Client Id : {{ order['idCli'] }}</b></h5>    
+                        <h5> <b>Client FullName : {{ order['LastName'] }} {{ order['FirstName'] }}</b></h5>
+                        <h5 > 
+                        <a class="emailLink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ order['Email'] }}&amp;su=Talk%20about%20the%20order%20from%20our%20website%20(Damso_Stream)&amp;body=Hello,%20I'm%20here%20to%20talk%20about%20the%20order%20that%20you%20sent%20to%20our%20website%20(Damso_Stream)"> <b>Email : {{ order['Email'] }} 
+                        </b></a>
+                        </h5>
+
+
+
+
+                        {% if order['WhatsApp'] != '' %}
+                        <h5 > 
+                            <!-- Set the msg to send -->
+                            {% set message = "" %}
+                   
+                            <a href="https://wa.me/{{ order['WhatsApp'] }}?text=Hello,%20I'm%20here%20to%20talk%20about%20the%20order%20that%20you%20sent%20to%20our%20website%20(Damso_Stream)">
+                                <b>Whatsapp : {{ order['WhatsApp'] }} </b>
+                            </a> 
+                        </h5>
+                        {% endif %}
+                    </div>
+                    <div class="OperationOnOrder">
+                        <form action="/Treated" method="POST" name="status" onsubmit="return confirmTreatStatus()" >
+                            <input type="hidden" name="idOrder" value="{{ order['idOrder'] }}" id="idOrder">
+                            <input type="hidden" name="idCli" value = "{{ order['idCli'] }}" id="idCli">
+                            <!-- Payed page will add the offers to the subscription table -->
+                            <!-- and Change order status to payed -->
+                            <input type="button" value="Change to Payed Status" class="payed"  onclick="RedirectToPayed('status',{{ order['idOrder'] }})">
+                            <!-- Treated will only change the status of the order to treated -->
+                            <input type="submit" value="Change to treated status" class="treated">
+                        </form>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            {% endfor %}
+
+
+
+
+
+
+        </div>
+        <!-- Activity_Page-Section1-top1 END -->
+
+
+     <!--   <div class="Activity_Page-Section1-top2">
+            
+        </div> --> 
+
+    </div>
+{% endif %}
+<!-- END OF Employee And Admin Page -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Wave -->
+    <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div> 
+
+</div> <!-- End of Div Activity_PageWrapper-->
+{% endblock %}

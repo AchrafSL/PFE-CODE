@@ -1,0 +1,130 @@
+/* 
+Display:
+
+Block :   Example(div)
+        take full width if there is no width
+        add line break;
+        Respect padding , margin , width, height
+
+Inline :  Example(span)
+        Do not add line break;
+        Do not respect width,height
+        respect padding and margin but only in left + right ;
+
+Inline-Block : mix with Inline and Block
+        Respect padding , margin , width, height;
+        
+*/
+
+.AboutUSWrapper{
+
+}
+
+/* Header CSS */
+.header{
+    background-image:url('../images/Network-Image.jpg');
+    z-index: -1;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    padding:220px; 
+    color: white; 
+    opacity:95%;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.header h1{
+    width:50%;
+    font-size: 50px;
+    font-weight: 700;
+    font-family: sans-serif;
+}
+
+/* End of header CSS */
+
+/* Sections CSS */ 
+.section1{
+    background-color:#ffffff;
+    padding-top: 200px;
+    padding-bottom:150px; 
+    padding-left:100px;
+    padding-right:100px;
+    color:rgb(0, 0, 0);
+    font-family: 'Montserrat', sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center; /* align les items pour l'axe x */
+
+}
+
+.section1 hr{
+    margin-top:80px;
+    margin-bottom:80px;
+    border:1px solid rgb(173, 172, 172);
+    width:100%;
+
+}
+
+.section1 h4{
+    color:gray;
+    opacity:0.6;
+}
+
+
+/* section 2 */
+.section2{
+    background-color:#dbdbdb;
+    padding: 80px; 
+    color:rgb(0, 0, 0);
+    font-family: 'Montserrat', sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center; /* align les items pour l'axe x */
+}
+.section2 h1{
+    margin-bottom:20px;
+}
+.section2 h4{
+    color:gray;
+    opacity:0.6;
+}
+
+
+/* End of sections CSS*/
+
+ul{
+    list-style-type:disc;
+        /* (none/disc/square/circle/decimal) */
+    list-style-position:inside;
+}   
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+
+
+.wave .shape-fill6 {
+    fill:#dbdbdb;
+}
+/* End of svg css */
+
+
+

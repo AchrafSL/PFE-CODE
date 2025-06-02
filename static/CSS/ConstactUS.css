@@ -1,0 +1,202 @@
+/* 
+Display:
+
+Block :   Example(div)
+        take full width if there is no width
+        add line break;
+        Respect padding , margin , width, height
+
+Inline :  Example(span)
+        Do not add line break;
+        Do not respect width,height
+        respect padding and margin but only in left + right ;
+
+Inline-Block : mix with Inline and Block
+        Respect padding , margin , width, height;
+        
+*/
+
+
+.ConstactUSWrapper{
+
+}
+
+/* Header CSS */
+.header{
+    background-image:url('../images/Network-Image.jpg');
+    z-index: -1;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    padding:220px; 
+    color: white; 
+    opacity:95%;
+    
+
+}
+
+.header h1{
+    width:50%;
+    font-size: 50px;
+    font-weight: 700;
+    font-family: sans-serif;
+}
+
+/* End of header CSS */
+
+/* Sections CSS */ 
+.section1{
+    font-family: 'Montserrat', sans-serif;
+    background-color:white;
+    padding-top:200px;
+    padding-bottom: 80px;
+    color:black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.NameEmail{
+    margin:0;
+    padding:0;
+    margin-top:40px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.field1{
+    margin:0;
+    padding:0;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.field1 input{
+    margin-top:5px;
+    opacity: 0.6;
+    padding: 5px;
+    border:1px solid rgb(171, 171, 171);
+    outline: none;
+}
+
+.field1 input:focus{
+    border:1.2px solid black;
+}
+
+
+.msgC{
+    margin:0;
+    padding:0;
+
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.leftmsgC textarea{
+    margin-top:5px;
+    opacity: 0.6;
+    padding:5px;
+    outline: none;
+    border:1px solid rgb(171, 171, 171);
+
+}
+
+.leftmsgC textarea:focus{
+    border:1.2px solid black;
+}
+
+.leftmsgC{
+    margin:0;
+    padding:0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.subForm{
+    margin-top:10px;
+    background-color: black;
+    color:white;
+    padding:5px;
+    width:100%;
+    cursor: pointer;
+}
+.subForm:hover{background-color: rgba(0, 0, 0, 0.838); }
+
+.AllInfoF{
+    margin:0;
+    padding:0;
+    width:1000px;
+    margin-top:30px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+.InfoF{
+    margin:0;
+    padding:0;
+    line-height: 1.8;
+}
+
+#errorMsg{
+    margin:0;
+    padding:0;
+
+    background-color: white;
+    display:none;
+    color:red;
+    margin-top:8px;
+    margin-bottom:8px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+
+/* End of sections CSS*/
+
+ul{
+    list-style-type:disc;
+        /* (none/disc/square/circle/decimal) */
+    list-style-position:inside;
+}   
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+/* Wave svg from https://www.shapedivider.app/ */
+.wave {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(190% + 1.3px);
+    height: 138px;
+}
+
+
+
+.wave .shape-fill6 {
+    fill:white; 
+}
+/* End of svg css */
+
+
+

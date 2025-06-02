@@ -1,0 +1,8 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+
+# Ignore specific directories and files
+.venv/
+certs/
+.env
+__pycache__/

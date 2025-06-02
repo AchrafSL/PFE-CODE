@@ -1,0 +1,119 @@
+{% extends "Menu.html" %}
+{% block body %}
+<div class="ConstactUSWrapper">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/ConstactUS.css') }}">
+    <script language="javascript" src="static\JS\ContactUS.js"></script> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+
+
+    <br>
+    <!-- Header -->
+    <div class="header" align="center" >
+        <div >
+            <h1>Contact Us</h1>
+        </div>
+    </div>
+
+
+
+    <!-- Section -->
+    <div align="center" class="section1"  >
+        <h1 style="    font-size: 44px;
+        line-height: 62px;
+        font-weight: 400;">Get in touch</h1>
+        <div style="margin-top:10px;color:#8F8F91;    font-size: 20px;
+        line-height: 34px;
+        font-weight: 400;    opacity: 0.6;"> Hey there, fill out this form</div>
+        <div class="ContactUSForm">
+            <form name="ContactUSForm" Action="/ConstactUSFormEmailSend" method="POST" onsubmit="return ConstactUSFormVerif()">
+                <div class="NameEmail">
+                    <div class="field1">
+                        <label>Name</label>
+                        {% if not session["logged_in"] %}
+                        <input style="width: 280px; font-size: 14px" name="ContactUSName" type="text" placeholder="Enter your name">
+                        {% else %}
+                        <input value="{{session['FirstName'] }} {{ session['LastName'] }}" style="width: 280px; font-size: 14px" name="ContactUSName" type="text" placeholder="Enter your name">
+                        {% endif %}
+                    </div>
+                    <div class="field1">
+                        <label>Email</label>
+                        {% if not session["logged_in"] %}
+                        <input style="width: 280px; font-size: 14px" name="ContactUSEmail"  type="text" placeholder="Enter your email">
+
+                        {% else %}
+                        <input value="{{session['Email'] }}" style="width: 280px; font-size: 14px" name="ContactUSEmail"  type="text" placeholder="Enter your email">
+
+                        {% endif %}
+
+                    </div>
+                </div>
+
+               
+                <div class="msgC">
+                    <div class="leftmsgC">
+                        <label>Message</label>
+                        <textarea  name="ContactUSMSG" cols="80" rows="10" placeholder="Enter your message"></textarea>
+                    </div>
+                </div>
+                <h6 id="errorMsg">Please fill in all fields. </h6>
+
+                <input class="subForm" type="submit" value="SUBMIT">
+
+              
+
+            </form>
+        </div>
+
+
+
+        <!-- Google Map -->
+        <div style="margin-top:100px;"> 
+            <iframe style="border:2px solid black;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15688.258198758213!2d-6.605309151240369!3d34.24726725519287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda759f000000001%3A0xb0f2670fb7c990f7!2sIbn%20Tofail%20University!5e0!3m2!1sen!2sma!4v1716744307521!5m2!1sen!2sma" width="1000" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <h2 style=" 
+        line-height: 62px;
+        font-weight: 400; margin-top:130px;">Main Contacts </h2>
+
+
+        <div class="AllInfoF">
+            <div class="InfoF">
+                <h4> Support </h4>
+                <h4> +212 852-852299 </h4>
+                <h4 style="color:#8F8F91;opacity:0.6;"> Mon - Fri, 9am - 5pm </h4>
+            </div>
+
+            <div  class="InfoF">
+                <h4> Marketing </h4>
+                <h4> +212 123-456552 </h4>
+                <h4 style="color:#8F8F91;opacity:0.6;"> Mon - Fri, 9am - 5pm </h4>
+            </div>
+
+            <div  class="InfoF">
+                <h4> Hotline </h4> <!-- To talk about any subject -->
+                <h4> +212 345-345299 </h4>
+                <h4 style="color:#8F8F91;opacity:0.6;"> Mon - Fri, 9am - 5pm </h4>
+            </div>
+
+            <div class="InfoF">
+                <h4> Email </h4>
+                <h4 style="color:#8F8F91;opacity:0.6;"> DamsoStream@gmail.com</h4>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+    <!-- Wave -->
+    <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill6"></path>
+        </svg>
+    </div> 
+
+
+</div> <!-- End of Div HomeWrapper-->
+{% endblock %}

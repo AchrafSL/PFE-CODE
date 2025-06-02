@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DamsoStream</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Menu.css') }}">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <!-- <link type="text/css" rel="stylesheet" href="C:\Users\achra\OneDrive\Desktop\PFE\PFE-CODE\static\Menu.css">
+    --><script language="javascript" src="static\JS\Menu.js"></script>
+    <!-- "Audiowide" + "Sofia" + "Montserrat" from Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+
+
+
+
+</head>
+<body bgcolor="white" background="#" text = "black" Vlink = "purple" Link = "blue">
+<div class="MenuWrapper"> 
+    <!-- Menu template -->
+    <!-- Partie Fix -->
+
+    <!-- Top Nav -->
+    <div class="Menu" >
+       <!-- <img src ="C:\Users\achra\OneDrive\Desktop\PFE\PFE-CODE\static\logo.jpg" 
+        width = 44px height = 44px border = 2 alt = "alternative text"
+           align = "left" class="logo">
+       --> 
+       <img src="{{ url_for('static', filename='Images/logo.jpg') }} " 
+       width="44px" height="43px" border="2" alt="alternative text"
+       align="left" class="logo" onclick="redirectToHome('{{ url_for('home') }}')">
+        <!--         <a  href="{{ url_for('home') }}" >Home</a>  -->
+        <a href="{{ url_for('Offers') }}" >Offers</a> 
+        <a href="{{ url_for('ContactUS') }}">Contact-US</a> 
+        <a href="{{ url_for('AboutUS') }}">About-US</a> 
+
+        <span class="Right-Menu">   
+            {% if session['role'] != 'employee' %}
+            <a href="{{ url_for('Cart') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</a>  
+            {% endif %}       
+        <!-- Il faut faire des recherche sur font awesome 
+        because of it we can add icon easily -->  
+                    
+        {% if session["logged_in"] %}
+
+        <a onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')"> 
+            Welcome,{{ session["FirstName"] }}! </a> 
+
+        <!-- there is defaults img witch is User_Icon and the usr can change the img in the 
+        dashboard -->
+
+        <!-- change the img used in the img if usr have uploaded one -->
+        {% if session["pfpName"] ==  'user583abc_1649114257.png' %}
+        <img src="{{ url_for('static', filename='Images/User_Icon.png') }}" 
+        width="40px" height="40px" border="1" alt="alternative text"
+           align="top" class="pfp" onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')"> 
+        {% else %}
+        <img src="{{ url_for('static', filename='Images/Users_pfp/' + session['pfpName']) }}" 
+        width="40px" height="40px" border="1" alt="alternative text"
+           align="top" class="pfp" onclick="GoToUSR_Page('{{ url_for('USER_Page') }}')"> 
+        {% endif %}
+
+        
+        {% else %}
+        <a class="Signup" href="{{ url_for('Signup') }}">Sign Up</a>
+        <a class="Login" href="{{ url_for('Login') }}">Log in</a>        
+        {% endif %}
+        </span>
+
+    </div> 
+
+
+<!-- Partie qui change -->
+<!-- Content -->
+<br>
+<div class="content">
+{% block body %}
+<!-- imported from other html files -->
+{% endblock %}
+</div>
+
+    <!-- Footer -->
+    <div class="Footer" align="center"  style="overflow-x: hidden;"> 
+        <!-- Footer Content -->
+        <div class="FooterContent">
+            <!-- Footer left -->
+            <div class="footer-left">
+                <h3> DAMSO <span> Stream </span></h3>
+                <p class="footer-left-links">
+                    <a href="{{ url_for('home') }}">Home</a>
+                    |
+                    <a href="{{ url_for('Offers') }}">Offers</a>
+                    |
+                    <a href="{{ url_for('ContactUS') }}">Contact-US</a>
+                    |
+                    <a href="{{ url_for('AboutUS') }}">About-US</a>
+                </p>
+                <p class="footer-left-CopyRight">CopyRight &copy; <script> document.write(new Date().getFullYear()); </script> DAMSO Stream. All rights reserved.</p>
+            </div>
+            <!-- Footer left END -->
+
+            <!-- Footer Center -->
+            <div class="footer-center">
+                <div >
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p class="footer-center-map">Morocco
+                     <span>Kenitra</span></p>
+                </div>
+
+                <div>
+                    <i class="fa fa-phone"></i>
+                        <p class="footer-center-phone"><a class="emailLinkk" href="https://wa.me/212706236299">
+                            +212 123-123299</a>
+                    </p>
+                </div>
+
+                <div>
+                    <i class="fa fa-envelope"></i>
+                    <p class="footer-center-envelope"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=DamsoStream@gmail.com&su=Contacting%20Demande&body=Hello,%20I%27m%20a%20client%20from%20Dmaso%20Stream%20and%20I%20wanted%20to%20reach%20out%20to%20you."> DamsoStream@gmail.com</a></p>
+
+                </div>
+            </div>
+            <!-- Footer Center END -->
+
+            <!-- Footer right -->
+            <div class="footer-right">
+                <div class="footer-right-about">
+                    <span> About-US</span>
+                    <p>
+                        <b>DAMSO Stream </b> is an Android, Windows and iOS mobile application offering many types of digital services such as Netflix, prime video, Disney+, Microsoft office 365 etc.<br><br>
+                        DAMSO Stream is basically the name of an entrepreneurial initiative which was created more than a year ago and has already reaped enormous profits,
+                    </p>
+                </div>
+                <div class="footer-right-media">
+                    <a href="#"> <i class="fab fa-facebook"></i></i></a>
+                    <a href="#"> <i class="fab fa-instagram"></i></a>
+                    <a href="#"> <i class="fab fa-linkedin"></i></a>
+                    <a href="#"> <i class="fab fa-twitter"></i></a>
+                    <a href="#"> <i class="fab fa-youtube"></i></a>
+
+                </div>
+
+            </div>
+            <!-- Footer right END -->
+
+
+            
+        </div>
+    </div>
+
+
+
+
+
+</div> <!-- End of Div MenuWrapper-->
+
+
+</body>
+</html>

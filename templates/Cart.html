@@ -1,0 +1,92 @@
+{% extends "Menu.html" %}
+{% block body %}
+<div class="CartWrapper">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Cart.css') }}">
+    <script language="javascript" src="static\JS\Cart.js"></script> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
+
+
+    <br>
+
+    <div class="CartWrapper-Section1">
+        <div class="CartWrapper-Section1-top1">
+            <h3 style="margin-left:10px;"><u><b>Cart:</b></u></h3>
+            
+            <div class="OfferWrapper">
+                <div class="sendOrder_Price">
+                    <h1 style="margin-right:300px"><b>FULL PRICE : <span style="color:green">
+                        {% if session['fullprice'] != None %} {{ session["fullprice"] }} {% else%} 0 {% endif %}MAD </span></b></h1>
+                    <!-- Send Order form -->
+                    <form action="/SendOrder" method="POST">
+                        <input type="submit" value="Send Order" class="SendOrderButton">
+                    </form>
+                </div>
+
+                {% for offer in OFFERData %}
+                <div class="Cart">
+
+                    
+                    <img src="{{ url_for('static', filename='Images/product_pics/' + offer['image_Name']) }}"
+                    width="100" height="100px" border="0" alt="ProductPIC"
+                    class="ProductPIC"  style="cursor:pointer;" onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')">
+
+
+                <div class="offerdata-left" style="margin-right:100px;cursor:pointer;" >
+
+                    <div class="offerData" >
+
+                        <u><h5 style="cursor:pointer;"  onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')"><b>Product ID :</b> {{ offer['idOffer'] }}</h5></u>
+                        <h5 style="cursor:pointer;"  onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')">{{ offer['name'] }}</h5> 
+                        <h5 onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')" style="color:green;cursor:pointer;"><b>MAD </b>{{ offer['Offer_price'] }}</h5>
+                    </div>
+                    <p onclick="redirectToProduct('/Product_Description?productId=','{{ offer['idOffer'] }}')" style="text-overflow: ellipsis;margin-left:22px;word-wrap:wrap;width:300px;margin-top:8px;margin-right:200px;cursor:pointer;" class="ellipsis-container"><b>Description :</b> {{offer['description'] }}</p>
+                </div>
+
+                <div class="offerdata-right">
+                    <!-- remove offer from cart  -->
+                    <form action="/RemoveOffer_Cart" method="POST">
+                        <input type="hidden" name="offerId" value="{{ offer['idOffer'] }}">
+                        <input type="submit" value="Remove offer from cart" class="RemoveFromCart" style="cursor:pointer"> 
+                    </form>
+                </div>
+
+
+                    
+
+                    
+
+                       
+                </div>
+                {% endfor %}
+
+
+            </div>
+            <div class="imgContainer">
+                <a href="https://wa.me/212706236299?text=Hello%2C%20I%27m%20here%20to%20talk%20about%20the%20offers%20that%20I%20saw%20on%20the%20website">
+                    <img src="static\Images\whatsapp-icon.png" width="30px" height="30px" class="whatsappImg">
+                    <h6> Chat on whatsapp</h6>
+                </a>
+
+            </div>
+            
+        </div>
+        <!-- CartWrapper-Section1-top1 END -->
+    
+      <!--  <div class="CartWrapper-Section1-top2">
+
+        </div> --> 
+    </div>
+    
+
+
+
+    <!-- Wave -->
+    <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div> 
+
+</div> <!-- End of Div CartWrapper -->
+{% endblock %}
