@@ -90,7 +90,6 @@ myconnection = mysql.connector.connect(
     passwd=os.getenv("DB_PASSWORD"),
     database=os.getenv("DB_NAME"),
     port=int(os.getenv("DB_PORT")),
-    ssl_ca=os.getenv("DB_SSL_CA")
 )
 mycursor = myconnection.cursor()
 # TO PREVENT SQL INJECTION WHEN THE QUERY VALUES ARE PROVIDED BY THE user :
